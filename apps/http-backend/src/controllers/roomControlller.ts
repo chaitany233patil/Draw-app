@@ -1,0 +1,29 @@
+import { Request, Response } from "express";
+import { prisma } from "@repo/db";
+
+export const createRoom = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  const { slug } = req.params;
+  try {
+    const room = await prisma.room.create({
+      data: {
+        userId,
+        //@ts-ignore
+        slug,
+      },
+    });
+    if (!room) {
+      res.status(400).json({
+        message: "Unexpected Error Occured!",
+      });
+    }
+
+    res.json({
+      roomId: room.id,
+    });
+  } catch (err) {
+    res.status(400).json({
+      message: "Somthing Went Wrong!",
+    });
+  }
+};

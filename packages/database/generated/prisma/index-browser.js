@@ -127,6 +127,19 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password'
 };
 
+exports.Prisma.RoomScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  userId: 'userId'
+};
+
+exports.Prisma.ChatsScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  userId: 'userId',
+  RoomId: 'RoomId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -139,7 +152,9 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Room: 'Room',
+  Chats: 'Chats'
 };
 
 /**

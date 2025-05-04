@@ -9,8 +9,27 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   email     String   @unique
   username  String   @unique
   password  String
+  Room      Room[]
+  Chats     Chats[]
+}
+
+model Room {
+  id        Int     @id     @default(autoincrement())
+  slug      String  @unique
+  userId    String
+  Admin     User    @relation(fields: [userId], references: [id])
+  Chats     Chats[]
+}
+
+model Chats {
+  id        Int     @id     @default(autoincrement())
+  message   String
+  userId    String
+  RoomId    Int
+  User      User    @relation(fields: [userId], references: [id])
+  Room      Room    @relation(fields: [RoomId], references: [id])
 }
