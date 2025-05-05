@@ -22,6 +22,7 @@ export const Auth = async (req: Request, res: Response, next: NextFunction) => {
       res.status(400).json({
         message: "User Not Found!",
       });
+      return;
     }
 
     req.userId = user?.id;

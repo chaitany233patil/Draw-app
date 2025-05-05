@@ -8,8 +8,8 @@
     "dev": "tsc -b && node ./dist/index.js"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
-    "@repo/common-backend": "workspace:*"
+    "@repo/common-backend": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +17,10 @@
   "description": "",
   "dependencies": {
     "@repo/db": "workspace:*",
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2"
   }
