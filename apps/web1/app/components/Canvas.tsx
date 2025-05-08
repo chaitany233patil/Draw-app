@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { WS_BAKCEND } from "../config";
 import { initDraw } from "./initDraw";
+import { useState } from "react";
 
 interface Props {
   canvasRef: React.RefObject<HTMLCanvasElement | null>;
@@ -9,13 +10,14 @@ interface Props {
 
 export function Canvas({ canvasRef, roomId }: Props) {
   const socket = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState<boolean>(false);
 
   useEffect(() => {
     const ws = new WebSocket(WS_BAKCEND);
 
     ws.onopen = () => {
       socket.current = ws;
-
+      setIsConnected(true);
       ws.send(
         JSON.stringify({
           type: "join_room",
@@ -44,9 +46,9 @@ export function Canvas({ canvasRef, roomId }: Props) {
       ws.close();
       console.log("WebSocket closed");
     };
-  }, [canvasRef, roomId]);
+  }, [canvasRef, roomId, isConnected]);
 
-  if (socket.current) {
+  if (!isConnected) {
     return (
       <div>
         <div>Connecting to the web socket.....</div>
