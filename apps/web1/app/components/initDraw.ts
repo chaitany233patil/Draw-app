@@ -77,7 +77,6 @@ function clearCanvas(
   existingShapes: Shape[]
 ) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  console.log("print");
   existingShapes.map((shape) => {
     ctx.strokeRect(shape.startX, shape.startY, shape.width, shape.height);
   });

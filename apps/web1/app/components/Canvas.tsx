@@ -14,7 +14,6 @@ export function Canvas({ canvasRef, roomId }: Props) {
     const ws = new WebSocket(WS_BAKCEND);
 
     ws.onopen = () => {
-      console.log("WebSocket connected");
       socket.current = ws;
 
       ws.send(
@@ -39,7 +38,6 @@ export function Canvas({ canvasRef, roomId }: Props) {
     ws.onmessage = (msg) => {
       console.log("🔄 Received: inside canvas", msg.data);
       // Optionally: add code to draw received shapes here
-      
     };
 
     return () => {
@@ -47,6 +45,14 @@ export function Canvas({ canvasRef, roomId }: Props) {
       console.log("WebSocket closed");
     };
   }, [canvasRef, roomId]);
+
+  if (socket.current) {
+    return (
+      <div>
+        <div>Connecting to the web socket.....</div>
+      </div>
+    );
+  }
 
   return (
     <div>
