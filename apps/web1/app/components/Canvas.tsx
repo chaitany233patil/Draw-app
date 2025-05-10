@@ -1,22 +1,26 @@
-import React, { useEffect, useRef } from "react";
+// /components/Canvas.tsx
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { WS_BAKCEND } from "../config";
-import { initDraw } from "./initDraw";
-import { useState } from "react";
+import { CanvasManager } from "../lib/canvas/CanvasManager";
+import { Circle, Pencil, RectangleHorizontal } from "lucide-react";
+import { Tool } from "./Tool";
 
 interface Props {
-  canvasRef: React.RefObject<HTMLCanvasElement | null>;
+  canvasRef: React.RefObject<HTMLCanvasElement>;
   roomId: string;
 }
 
 export function Canvas({ canvasRef, roomId }: Props) {
-  const socket = useRef<WebSocket | null>(null);
-  const [isConnected, setIsConnected] = useState<boolean>(false);
+  const socketRef = useRef<WebSocket | null>(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [isSelected, setIsSelected] = useState("rect");
 
   useEffect(() => {
     const ws = new WebSocket(WS_BAKCEND);
-
     ws.onopen = () => {
-      socket.current = ws;
+      socketRef.current = ws;
       setIsConnected(true);
       ws.send(
         JSON.stringify({
@@ -28,18 +32,9 @@ export function Canvas({ canvasRef, roomId }: Props) {
       if (canvasRef.current) {
         const ctx = canvasRef.current.getContext("2d");
         if (ctx) {
-          initDraw(ctx, canvasRef.current, ws, roomId);
+          new CanvasManager(ctx, canvasRef.current, ws, roomId);
         }
       }
-    };
-
-    ws.onerror = (err) => {
-      console.error("WebSocket error:", err);
-    };
-
-    ws.onmessage = (msg) => {
-      console.log("🔄 Received: inside canvas", msg.data);
-      // Optionally: add code to draw received shapes here
     };
 
     return () => {
@@ -48,17 +43,38 @@ export function Canvas({ canvasRef, roomId }: Props) {
     };
   }, [canvasRef, roomId, isConnected]);
 
-  if (!isConnected) {
-    return (
-      <div>
-        <div>Connecting to the web socket.....</div>
-      </div>
-    );
-  }
+  if (!isConnected) return <div>Connecting to WebSocket...</div>;
 
   return (
     <div>
-      <canvas className="bg-black" ref={canvasRef} height={600} width={1300} />
+      <div>
+        <canvas
+          className="bg-black"
+          ref={canvasRef}
+          height={window.innerHeight}
+          width={window.innerWidth}
+        />
+      </div>
+      <div className="absolute top-0 flex flex-col gap-2">
+        <Tool
+          selected={isSelected == "rect"}
+          onClick={() => setIsSelected("rect")}
+        >
+          <RectangleHorizontal />
+        </Tool>
+        <Tool
+          selected={isSelected == "pencil"}
+          onClick={() => setIsSelected("pencil")}
+        >
+          <Pencil />
+        </Tool>
+        <Tool
+          selected={isSelected == "circle"}
+          onClick={() => setIsSelected("circle")}
+        >
+          <Circle />
+        </Tool>
+      </div>
     </div>
   );
 }

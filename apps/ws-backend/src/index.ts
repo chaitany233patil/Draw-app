@@ -42,7 +42,7 @@ wss.on("connection", (socket, req) => {
 
         if (parseData.type == "chat") {
           users.forEach((x) => {
-            if (x.roomId.includes(parseData.roomId)) {
+            if (x.roomId.includes(parseData.roomId) && x.ws != socket) {
               x.ws.send(
                 JSON.stringify({
                   type: "chat",
