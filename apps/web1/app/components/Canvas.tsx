@@ -16,6 +16,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("rect");
+  const game = useRef<CanvasManager | null>(null);
 
   useEffect(() => {
     const ws = new WebSocket(WS_BAKCEND);
@@ -32,7 +33,9 @@ export function Canvas({ canvasRef, roomId }: Props) {
       if (canvasRef.current) {
         const ctx = canvasRef.current.getContext("2d");
         if (ctx) {
-          new CanvasManager(ctx, canvasRef.current, ws, roomId);
+          const Game = new CanvasManager(ctx, canvasRef.current, ws, roomId);
+          Game.changeTool(isSelected);
+          game.current = Game;
         }
       }
     };
@@ -42,6 +45,10 @@ export function Canvas({ canvasRef, roomId }: Props) {
       console.log("WebSocket closed");
     };
   }, [canvasRef, roomId, isConnected]);
+
+  if (game.current) {
+    game.current.changeTool(isSelected);
+  }
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
 

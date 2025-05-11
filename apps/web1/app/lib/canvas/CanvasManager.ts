@@ -9,11 +9,15 @@ export class CanvasManager {
   private ws: WebSocket;
   private roomId: string;
   private shapes: Shape[] = [];
+  private selectedTool: string = "rect";
   private isDrawing = false;
   private startX = 0;
   private startY = 0;
   private width = 0;
   private height = 0;
+  private centerX = 0;
+  private centerY = 0;
+  private radius = 0;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -55,27 +59,67 @@ export class CanvasManager {
 
   private handleMouseUp = () => {
     this.isDrawing = false;
-    const shape: Shape = {
-      type: "rect",
-      startX: this.startX,
-      startY: this.startY,
-      width: this.width,
-      height: this.height,
-    };
-    this.shapes.push(shape);
-    this.sendShape(shape);
+    if (this.selectedTool == "rect") {
+      const shape: Shape = {
+        type: "rect",
+        startX: this.startX,
+        startY: this.startY,
+        width: this.width,
+        height: this.height,
+      };
+      this.shapes.push(shape);
+      this.sendShape(shape);
+    }
+
+    if (this.selectedTool == "circle") {
+      const shape: Shape = {
+        type: "circle",
+        centerX: this.centerX,
+        centerY: this.centerY,
+        radius: this.radius,
+      };
+      this.shapes.push(shape);
+      this.sendShape(shape);
+    }
   };
 
   private handleMouseMove = (e: MouseEvent) => {
     if (!this.isDrawing) return;
 
-    const rect = this.canvas.getBoundingClientRect();
-    this.width = e.clientX - rect.left - this.startX;
-    this.height = e.clientY - rect.top - this.startY;
+    if (this.selectedTool == "rect") {
+      const rect = this.canvas.getBoundingClientRect();
+      this.width = e.clientX - rect.left - this.startX;
+      this.height = e.clientY - rect.top - this.startY;
 
-    this.clearCanvas();
-    this.drawAllShapes();
-    this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
+      this.clearCanvas();
+      this.drawAllShapes();
+      this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
+      console.log("rectange");
+    }
+
+    if (this.selectedTool == "circle") {
+      const rect = this.canvas.getBoundingClientRect();
+      const currentX = e.clientX - rect.left;
+      const currentY = e.clientY - rect.top;
+
+      const dx = currentX - this.startX;
+      const dy = currentY - this.startY;
+
+      // Get the smallest side to ensure it's a perfect circle
+      const diameter = Math.min(Math.abs(dx), Math.abs(dy));
+      this.radius = diameter / 2;
+
+      // Calculate center of the circle
+      this.centerX = this.startX + (dx < 0 ? -this.radius : this.radius);
+      this.centerY = this.startY + (dy < 0 ? -this.radius : this.radius);
+
+      this.clearCanvas();
+      this.drawAllShapes();
+
+      this.ctx.beginPath();
+      this.ctx.arc(this.centerX, this.centerY, this.radius, 0, 2 * Math.PI);
+      this.ctx.stroke();
+    }
   };
 
   private handleSocketMessage = (msg: MessageEvent) => {
@@ -94,12 +138,26 @@ export class CanvasManager {
 
   private drawAllShapes() {
     for (const shape of this.shapes) {
-      this.ctx.strokeRect(
-        shape.startX,
-        shape.startY,
-        shape.width,
-        shape.height
-      );
+      if (shape.type == "rect") {
+        this.ctx.strokeRect(
+          shape.startX,
+          shape.startY,
+          shape.width,
+          shape.height
+        );
+      }
+
+      if (shape.type == "circle") {
+        this.ctx.beginPath();
+        this.ctx.arc(
+          shape.centerX,
+          shape.centerY,
+          shape.radius,
+          0,
+          2 * Math.PI
+        );
+        this.ctx.stroke();
+      }
     }
   }
 
@@ -118,5 +176,9 @@ export class CanvasManager {
         message: JSON.stringify(shape),
       })
     );
+  }
+
+  changeTool(tool: string) {
+    this.selectedTool = tool;
   }
 }

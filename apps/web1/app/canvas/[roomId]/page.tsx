@@ -7,7 +7,6 @@ import { useRef } from "react";
 export default function RoomCanvas() {
   const { roomId } = useParams<{ roomId: string }>();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  console.log("hello");
 
   return <Canvas canvasRef={canvasRef} roomId={roomId} />;
 }
