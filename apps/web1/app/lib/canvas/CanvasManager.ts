@@ -50,11 +50,48 @@ export class CanvasManager {
     this.canvas.addEventListener("mousemove", this.handleMouseMove);
   }
 
-  private handleMouseDown = (e: MouseEvent) => {
+  private handleMouseDown = async (e: MouseEvent) => {
     const rect = this.canvas.getBoundingClientRect();
     this.startX = e.clientX - rect.left;
     this.startY = e.clientY - rect.top;
     this.isDrawing = true;
+
+    if (this.selectedTool == "text") {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "type here..";
+      input.style.color = "gray";
+      input.style.position = "absolute";
+      input.style.left = `${this.startX}px`;
+      input.style.top = `${this.startY - 12}px`;
+
+      document.body.appendChild(input);
+      setTimeout(() => {
+        input.focus();
+      });
+
+      const textHandler = (event: KeyboardEvent) => {
+        if (event.key == "Enter") {
+          this.ctx.fillStyle = "white";
+          this.ctx.font = "16px Arial";
+          const text = input.value;
+          this.ctx.fillText(text, this.startX, this.startY);
+          this.isDrawing = false;
+          input.removeEventListener("keydown", textHandler);
+          document.body.removeChild(input);
+          const shape: Shape = {
+            type: "text",
+            startX: this.startX,
+            startY: this.startY,
+            text,
+          };
+          this.shapes.push(shape);
+          this.sendShape(shape);
+        }
+      };
+
+      input.addEventListener("keydown", textHandler);
+    }
   };
 
   private handleMouseUp = () => {
@@ -81,6 +118,19 @@ export class CanvasManager {
       this.shapes.push(shape);
       this.sendShape(shape);
     }
+
+    if (this.selectedTool == "line") {
+      const shape: Shape = {
+        type: "line",
+        startX: this.startX,
+        startY: this.startY,
+        width: this.width,
+        height: this.height,
+      };
+
+      this.shapes.push(shape);
+      this.sendShape(shape);
+    }
   };
 
   private handleMouseMove = (e: MouseEvent) => {
@@ -94,7 +144,17 @@ export class CanvasManager {
       this.clearCanvas();
       this.drawAllShapes();
       this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
-      console.log("rectange");
+    }
+
+    if (this.selectedTool == "line") {
+      this.width = e.clientX;
+      this.height = e.clientY;
+      this.ctx.beginPath();
+      this.clearCanvas();
+      this.drawAllShapes();
+      this.ctx.moveTo(this.startX, this.startY);
+      this.ctx.lineTo(this.width, this.height);
+      this.ctx.stroke();
     }
 
     if (this.selectedTool == "circle") {
@@ -145,6 +205,19 @@ export class CanvasManager {
           shape.width,
           shape.height
         );
+      }
+
+      if (shape.type == "text") {
+        this.ctx.fillStyle = "white";
+        this.ctx.font = "16px Arial";
+        this.ctx.fillText(shape.text, shape.startX, shape.startY);
+      }
+
+      if (shape.type == "line") {
+        this.ctx.beginPath();
+        this.ctx.moveTo(shape.startX, shape.startY);
+        this.ctx.lineTo(shape.width, shape.height);
+        this.ctx.stroke();
       }
 
       if (shape.type == "circle") {

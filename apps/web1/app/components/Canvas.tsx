@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { WS_BAKCEND } from "../config";
 import { CanvasManager } from "../lib/canvas/CanvasManager";
-import { Circle, Pencil, RectangleHorizontal } from "lucide-react";
+import { Circle, LetterText, PenLine, RectangleHorizontal } from "lucide-react";
 import { Tool } from "./Tool";
 
 interface Props {
@@ -70,16 +70,22 @@ export function Canvas({ canvasRef, roomId }: Props) {
           <RectangleHorizontal />
         </Tool>
         <Tool
-          selected={isSelected == "pencil"}
-          onClick={() => setIsSelected("pencil")}
+          selected={isSelected == "line"}
+          onClick={() => setIsSelected("line")}
         >
-          <Pencil />
+          <PenLine />
         </Tool>
         <Tool
           selected={isSelected == "circle"}
           onClick={() => setIsSelected("circle")}
         >
           <Circle />
+        </Tool>
+        <Tool
+          selected={isSelected == "text"}
+          onClick={() => setIsSelected("text")}
+        >
+          <LetterText />
         </Tool>
       </div>
     </div>
