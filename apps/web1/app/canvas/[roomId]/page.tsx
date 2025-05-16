@@ -8,5 +8,10 @@ export default function RoomCanvas() {
   const { roomId } = useParams<{ roomId: string }>();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  return <Canvas canvasRef={canvasRef} roomId={roomId} />;
+  return (
+    <Canvas
+      canvasRef={canvasRef as React.RefObject<HTMLCanvasElement>}
+      roomId={roomId}
+    />
+  );
 }

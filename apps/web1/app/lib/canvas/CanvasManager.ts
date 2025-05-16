@@ -62,6 +62,7 @@ export class CanvasManager {
       input.placeholder = "type here..";
       input.style.color = "gray";
       input.style.position = "absolute";
+      input.style.outline = "none";
       input.style.left = `${this.startX}px`;
       input.style.top = `${this.startY - 12}px`;
 
