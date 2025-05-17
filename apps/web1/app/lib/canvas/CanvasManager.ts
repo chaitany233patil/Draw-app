@@ -1,4 +1,3 @@
-// /lib/canvas/CanvasManager.ts
 import axios from "axios";
 import { HTTP_BACKEND } from "../../config";
 import { Shape } from "./Types";
@@ -18,6 +17,7 @@ export class CanvasManager {
   private centerX = 0;
   private centerY = 0;
   private radius = 0;
+  private textBox: HTMLInputElement | undefined;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -48,9 +48,10 @@ export class CanvasManager {
     this.canvas.addEventListener("mousedown", this.handleMouseDown);
     this.canvas.addEventListener("mouseup", this.handleMouseUp);
     this.canvas.addEventListener("mousemove", this.handleMouseMove);
+    this.canvas.addEventListener("dblclick", this.textHandler);
   }
 
-  private handleMouseDown = async (e: MouseEvent) => {
+  private textHandler = async (e: MouseEvent) => {
     const rect = this.canvas.getBoundingClientRect();
     this.startX = e.clientX - rect.left;
     this.startY = e.clientY - rect.top;
@@ -58,6 +59,7 @@ export class CanvasManager {
 
     if (this.selectedTool == "text") {
       const input = document.createElement("input");
+      this.textBox = input;
       input.type = "text";
       input.placeholder = "type here..";
       input.style.color = "gray";
@@ -93,6 +95,16 @@ export class CanvasManager {
 
       input.addEventListener("keydown", textHandler);
     }
+  };
+
+  private handleMouseDown = async (e: MouseEvent) => {
+    const rect = this.canvas.getBoundingClientRect();
+    this.startX = e.clientX - rect.left;
+    this.startY = e.clientY - rect.top;
+    if (this.textBox) {
+      this.textBox.remove();
+    }
+    this.isDrawing = true;
   };
 
   private handleMouseUp = () => {
