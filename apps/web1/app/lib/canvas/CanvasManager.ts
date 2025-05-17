@@ -18,6 +18,8 @@ export class CanvasManager {
   private centerY = 0;
   private radius = 0;
   private textBox: HTMLInputElement | undefined;
+  private textStartX: number = 0;
+  private textStartY: number = 0;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -65,6 +67,8 @@ export class CanvasManager {
       input.style.color = "gray";
       input.style.position = "absolute";
       input.style.outline = "none";
+      this.textStartX = this.startX;
+      this.textStartY = this.startY;
       input.style.left = `${this.startX}px`;
       input.style.top = `${this.startY - 12}px`;
 
@@ -73,27 +77,27 @@ export class CanvasManager {
         input.focus();
       });
 
-      const textHandler = (event: KeyboardEvent) => {
-        if (event.key == "Enter") {
-          this.ctx.fillStyle = "white";
-          this.ctx.font = "16px Arial";
-          const text = input.value;
-          this.ctx.fillText(text, this.startX, this.startY);
-          this.isDrawing = false;
-          input.removeEventListener("keydown", textHandler);
-          document.body.removeChild(input);
-          const shape: Shape = {
-            type: "text",
-            startX: this.startX,
-            startY: this.startY,
-            text,
-          };
-          this.shapes.push(shape);
-          this.sendShape(shape);
+      const textHandler = () => {
+        this.canvas.removeEventListener("mousedown", textHandler);
+        this.ctx.fillStyle = "white";
+        this.ctx.font = "18px Arial";
+        const text = input.value;
+        this.ctx.fillText(text, this.textStartX, this.textStartY);
+        this.isDrawing = false;
+        if (this.textBox) {
+          this.textBox.remove();
         }
+        const shape: Shape = {
+          type: "text",
+          startX: this.textStartX,
+          startY: this.textStartY,
+          text,
+        };
+        this.shapes.push(shape);
+        this.sendShape(shape);
       };
 
-      input.addEventListener("keydown", textHandler);
+      this.canvas.addEventListener("mousedown", textHandler);
     }
   };
 
