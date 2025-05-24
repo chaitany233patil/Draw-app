@@ -12,7 +12,7 @@ export const Tool = ({
   return (
     <div
       onClick={onClick}
-      className={`border-1 border-gray-400 p-3 rounded-full  cursor-pointer ${selected ? "text-red-400" : "text-white"}`}
+      className={`p-2 cursor-pointer hover:border-1 border-gray-400 ${selected ? "text-red-400" : "text-white"}`}
     >
       {children}
     </div>

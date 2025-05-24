@@ -54,7 +54,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
   return (
     <div>
-      <div>
+      <div className="h-screen w-screen">
         <canvas
           className="bg-black"
           ref={canvasRef}
@@ -62,30 +62,30 @@ export function Canvas({ canvasRef, roomId }: Props) {
           width={window.innerWidth}
         />
       </div>
-      <div className="absolute top-0 flex flex-col gap-2">
+      <div className="absolute top-3 left-[42%] flex gap-2 bg-gray-600 px-4 rounded-xl">
         <Tool
           selected={isSelected == "rect"}
           onClick={() => setIsSelected("rect")}
         >
-          <RectangleHorizontal />
+          <RectangleHorizontal width={25} />
         </Tool>
         <Tool
           selected={isSelected == "line"}
           onClick={() => setIsSelected("line")}
         >
-          <PenLine />
+          <PenLine width={20} />
         </Tool>
         <Tool
           selected={isSelected == "circle"}
           onClick={() => setIsSelected("circle")}
         >
-          <Circle />
+          <Circle width={20} />
         </Tool>
         <Tool
           selected={isSelected == "text"}
           onClick={() => setIsSelected("text")}
         >
-          <LetterText />
+          <LetterText width={20} />
         </Tool>
       </div>
     </div>
