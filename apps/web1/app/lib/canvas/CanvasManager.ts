@@ -65,6 +65,7 @@ export class CanvasManager {
       input.type = "text";
       input.placeholder = "type here..";
       input.style.color = "gray";
+      input.style.fontSize = "22px";
       input.style.position = "absolute";
       input.style.outline = "none";
       this.textStartX = this.startX;
@@ -79,8 +80,8 @@ export class CanvasManager {
 
       const textHandler = () => {
         this.canvas.removeEventListener("mousedown", textHandler);
-        this.ctx.fillStyle = "white";
-        this.ctx.font = "18px Arial";
+        this.ctx.fillStyle = "gray";
+        this.ctx.font = "22px Arial";
         const text = input.value;
         this.ctx.fillText(text, this.textStartX, this.textStartY);
         this.isDrawing = false;
@@ -225,8 +226,8 @@ export class CanvasManager {
       }
 
       if (shape.type == "text") {
-        this.ctx.fillStyle = "white";
-        this.ctx.font = "16px Arial";
+        this.ctx.fillStyle = "gray";
+        this.ctx.font = "22px Arial";
         this.ctx.fillText(shape.text, shape.startX, shape.startY);
       }
 

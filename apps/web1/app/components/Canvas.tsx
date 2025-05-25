@@ -18,6 +18,9 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const [isSelected, setIsSelected] = useState("rect");
   const game = useRef<CanvasManager | null>(null);
 
+  let canvasHeight;
+  let canvasWidth;
+
   useEffect(() => {
     const ws = new WebSocket(WS_BAKCEND);
     ws.onopen = () => {
@@ -52,17 +55,23 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
 
+  // function toVirtualX(xReal: number): number {
+  //   return (xReal + this.#offsetX) * this.#scale;
+  // }
+
+  // function toVirtualY(yReal: number): number {
+  //   return (yReal + this.#offsetY) * this.#scale;
+  // }
+
   return (
     <div>
-      <div className="h-screen w-screen">
-        <canvas
-          className="bg-black"
-          ref={canvasRef}
-          height={window.innerHeight}
-          width={window.innerWidth}
-        />
-      </div>
-      <div className="absolute top-3 left-[42%] flex gap-2 bg-gray-600 px-4 rounded-xl">
+      <canvas
+        className="bg-black"
+        ref={canvasRef}
+        height={canvasHeight || window.innerHeight}
+        width={canvasWidth || window.innerWidth}
+      />
+      <div className="absolute top-3 left-[44%] flex gap-2 bg-gray-600 px-4 rounded-xl">
         <Tool
           selected={isSelected == "rect"}
           onClick={() => setIsSelected("rect")}
