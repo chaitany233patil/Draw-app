@@ -8,7 +8,7 @@ export class CanvasManager {
   private ws: WebSocket;
   private roomId: string;
   private shapes: Shape[] = [];
-  private selectedTool: string = "rect";
+  private selectedTool: string = "cursor";
   private isDrawing = false;
   private startX = 0;
   private startY = 0;

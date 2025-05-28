@@ -4,7 +4,13 @@
 import { useEffect, useRef, useState } from "react";
 import { WS_BAKCEND } from "../config";
 import { CanvasManager } from "../lib/canvas/CanvasManager";
-import { Circle, LetterText, PenLine, RectangleHorizontal } from "lucide-react";
+import {
+  Circle,
+  LetterText,
+  PenLine,
+  RectangleHorizontal,
+  MousePointer,
+} from "lucide-react";
 import { Tool } from "./Tool";
 
 interface Props {
@@ -15,7 +21,7 @@ interface Props {
 export function Canvas({ canvasRef, roomId }: Props) {
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
-  const [isSelected, setIsSelected] = useState("rect");
+  const [isSelected, setIsSelected] = useState("cursor");
   const game = useRef<CanvasManager | null>(null);
 
   let canvasHeight;
@@ -72,6 +78,12 @@ export function Canvas({ canvasRef, roomId }: Props) {
         width={canvasWidth || window.innerWidth}
       />
       <div className="absolute top-3 left-[44%] flex gap-2 bg-gray-600 px-4 rounded-xl">
+        <Tool
+          selected={isSelected == "cursor"}
+          onClick={() => setIsSelected("cursor")}
+        >
+          <MousePointer width={20} />
+        </Tool>
         <Tool
           selected={isSelected == "rect"}
           onClick={() => setIsSelected("rect")}
