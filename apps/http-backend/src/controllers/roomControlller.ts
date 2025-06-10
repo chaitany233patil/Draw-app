@@ -45,3 +45,24 @@ export const allShapes = async (req: Request, res: Response) => {
     shapes,
   });
 };
+
+export const getRoom = async (req: Request, res: Response) => {
+  const { roomId } = req.params;
+
+  const roomStatus = await prisma.room.findFirst({
+    where: {
+      id: Number(roomId),
+    },
+  });
+
+  if (roomStatus) {
+    res.json({
+      status: true,
+    });
+    return;
+  }
+
+  res.json({
+    status: false,
+  });
+};

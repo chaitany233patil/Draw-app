@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { WS_BAKCEND } from "../config";
 import { CanvasManager } from "../lib/canvas/CanvasManager";
 import {
   Circle,
@@ -12,6 +11,7 @@ import {
   MousePointer,
 } from "lucide-react";
 import { Tool } from "./Tool";
+import { WS_BAKCEND } from "../config";
 
 interface Props {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -28,31 +28,43 @@ export function Canvas({ canvasRef, roomId }: Props) {
   let canvasWidth;
 
   useEffect(() => {
-    const ws = new WebSocket(WS_BAKCEND);
-    ws.onopen = () => {
-      socketRef.current = ws;
-      setIsConnected(true);
-      ws.send(
-        JSON.stringify({
-          type: "join_room",
-          roomId,
-        })
-      );
+    const roomExist = async () => {
+      try {
+        const ws = new WebSocket(WS_BAKCEND);
+        console.log("hello2");
+        ws.onopen = () => {
+          socketRef.current = ws;
+          setIsConnected(true);
+          ws.send(
+            JSON.stringify({
+              type: "join_room",
+              roomId,
+            })
+          );
 
-      if (canvasRef.current) {
-        const ctx = canvasRef.current.getContext("2d");
-        if (ctx) {
-          const Game = new CanvasManager(ctx, canvasRef.current, ws, roomId);
-          Game.changeTool(isSelected);
-          game.current = Game;
-        }
+          if (canvasRef.current) {
+            const ctx = canvasRef.current.getContext("2d");
+            if (ctx) {
+              const Game = new CanvasManager(
+                ctx,
+                canvasRef.current,
+                ws,
+                roomId
+              );
+              Game.changeTool(isSelected);
+              game.current = Game;
+            }
+          }
+        };
+        return () => {
+          ws.close();
+          console.log("WebSocket closed");
+        };
+      } catch (err) {
+        console.log("Error Occured", err);
       }
     };
-
-    return () => {
-      ws.close();
-      console.log("WebSocket closed");
-    };
+    roomExist();
   }, [canvasRef, roomId, isConnected]);
 
   if (game.current) {
@@ -60,14 +72,6 @@ export function Canvas({ canvasRef, roomId }: Props) {
   }
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
-
-  // function toVirtualX(xReal: number): number {
-  //   return (xReal + this.#offsetX) * this.#scale;
-  // }
-
-  // function toVirtualY(yReal: number): number {
-  //   return (yReal + this.#offsetY) * this.#scale;
-  // }
 
   return (
     <div>
@@ -77,36 +81,36 @@ export function Canvas({ canvasRef, roomId }: Props) {
         height={canvasHeight || window.innerHeight}
         width={canvasWidth || window.innerWidth}
       />
-      <div className="absolute top-3 left-[44%] flex gap-2 bg-gray-600 px-4 rounded-xl">
+      <div className="absolute top-[30%] ml-2 flex flex-col bg-gray-600/50 p-1 rounded-xl">
         <Tool
           selected={isSelected == "cursor"}
           onClick={() => setIsSelected("cursor")}
         >
-          <MousePointer width={20} />
+          <MousePointer width={15} />
         </Tool>
         <Tool
           selected={isSelected == "rect"}
           onClick={() => setIsSelected("rect")}
         >
-          <RectangleHorizontal width={25} />
+          <RectangleHorizontal width={15} />
         </Tool>
         <Tool
           selected={isSelected == "line"}
           onClick={() => setIsSelected("line")}
         >
-          <PenLine width={20} />
+          <PenLine width={15} />
         </Tool>
         <Tool
           selected={isSelected == "circle"}
           onClick={() => setIsSelected("circle")}
         >
-          <Circle width={20} />
+          <Circle width={15} />
         </Tool>
         <Tool
           selected={isSelected == "text"}
           onClick={() => setIsSelected("text")}
         >
-          <LetterText width={20} />
+          <LetterText width={15} />
         </Tool>
       </div>
     </div>
