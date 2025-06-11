@@ -10,6 +10,6 @@ router.post("/signin", signin);
 
 router.post("/room/:slug", Auth, createRoom);
 router.get("/room/:roomId", allShapes);
-router.get("/verify/:roomId", getRoom);
+router.get("/verify/:roomId", getRoom); 
 
 export default router;
