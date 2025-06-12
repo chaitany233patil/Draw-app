@@ -31,7 +31,6 @@ export function Canvas({ canvasRef, roomId }: Props) {
     const roomExist = async () => {
       try {
         const ws = new WebSocket(WS_BAKCEND);
-        console.log("hello2");
         ws.onopen = () => {
           socketRef.current = ws;
           setIsConnected(true);

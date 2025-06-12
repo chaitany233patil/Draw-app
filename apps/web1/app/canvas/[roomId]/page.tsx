@@ -14,7 +14,6 @@ export default function RoomCanvas() {
     const getRoomStatus = async () => {
       const response = await fetch(HTTP_BACKEND + `/api/v1/verify/${roomId}`);
       const res = await response.json();
-      console.log(res);
       if (!res.status) {
         setRoomStatus(false);
       }
