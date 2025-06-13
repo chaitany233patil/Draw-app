@@ -21,6 +21,48 @@ export class CanvasManager {
   private textStartX: number = 0;
   private textStartY: number = 0;
 
+  // Zoom in out settings
+  private scale: number = 1;
+  private translateX: number = 0;
+  private translateY: number = 0;
+
+  private isPanning: boolean = false;
+  private panStartX: number = 0;
+  private panStartY: number = 0;
+
+  private handlePanStart = (e: MouseEvent) => {
+    if (this.selectedTool === "Pan") {
+      this.isPanning = true;
+      this.panStartX = e.clientX - this.translateX;
+      this.panStartY = e.clientY - this.translateY;
+    }
+  };
+
+  private handlePanMove = (e: MouseEvent) => {
+    if (this.isPanning) {
+      this.translateX = e.clientX - this.panStartX;
+      this.translateY = e.clientY - this.panStartY;
+      this.redraw();
+    }
+  };
+
+  private handlePanEnd = () => {
+    this.isPanning = false;
+  };
+
+  private handleWheel = (e: WheelEvent) => {
+    if (this.selectedTool == "Pan") {
+      e.preventDefault();
+
+      const scaleAmount = -e.deltaY * 0.001;
+      const newScale = this.scale * (1 + scaleAmount);
+
+      this.scale = Math.min(Math.max(newScale, 0.2), 5);
+
+      this.redraw();
+    }
+  };
+
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
@@ -51,6 +93,11 @@ export class CanvasManager {
     this.canvas.addEventListener("mouseup", this.handleMouseUp);
     this.canvas.addEventListener("mousemove", this.handleMouseMove);
     this.canvas.addEventListener("dblclick", this.textHandler);
+
+    this.canvas.addEventListener("mousedown", this.handlePanStart);
+    this.canvas.addEventListener("mousemove", this.handlePanMove);
+    this.canvas.addEventListener("mouseup", this.handlePanEnd);
+    this.canvas.addEventListener("wheel", this.handleWheel, { passive: false });
   }
 
   private textHandler = async (e: MouseEvent) => {
@@ -211,10 +258,19 @@ export class CanvasManager {
   };
 
   private clearCanvas() {
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   private drawAllShapes() {
+    this.ctx.setTransform(
+      this.scale,
+      0,
+      0,
+      this.scale,
+      this.translateX,
+      this.translateY
+    );
     for (const shape of this.shapes) {
       if (shape.type == "rect") {
         this.ctx.strokeRect(
@@ -267,6 +323,22 @@ export class CanvasManager {
         message: JSON.stringify(shape),
       })
     );
+  }
+
+  zoomIn() {
+    this.scale *= 1.1;
+    this.redraw();
+  }
+
+  zoomOut() {
+    this.scale /= 1.1;
+    this.redraw();
+  }
+
+  //redraw
+  private redraw() {
+    this.clearCanvas();
+    this.drawAllShapes();
   }
 
   changeTool(tool: string) {

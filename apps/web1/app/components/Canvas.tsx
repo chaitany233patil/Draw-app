@@ -9,6 +9,7 @@ import {
   PenLine,
   RectangleHorizontal,
   MousePointer,
+  Hand,
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BAKCEND } from "../config";
@@ -23,9 +24,6 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("cursor");
   const game = useRef<CanvasManager | null>(null);
-
-  let canvasHeight;
-  let canvasWidth;
 
   useEffect(() => {
     const roomExist = async () => {
@@ -77,8 +75,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
       <canvas
         className="bg-black"
         ref={canvasRef}
-        height={canvasHeight || window.innerHeight}
-        width={canvasWidth || window.innerWidth}
+        height={window.innerHeight}
+        width={window.innerWidth}
       />
       <div className="absolute top-[30%] ml-2 flex flex-col bg-gray-600/50 p-1 rounded-xl">
         <Tool
@@ -86,6 +84,12 @@ export function Canvas({ canvasRef, roomId }: Props) {
           onClick={() => setIsSelected("cursor")}
         >
           <MousePointer width={15} />
+        </Tool>
+        <Tool
+          selected={isSelected == "Pan"}
+          onClick={() => setIsSelected("Pan")}
+        >
+          <Hand width={15} />
         </Tool>
         <Tool
           selected={isSelected == "rect"}
@@ -111,6 +115,21 @@ export function Canvas({ canvasRef, roomId }: Props) {
         >
           <LetterText width={15} />
         </Tool>
+      </div>
+      <div className="absolute bottom-5 text-white flex gap-3 ms-2">
+        <button
+          className="bg-gray-600/70 w-8 h-8 rounded-full"
+          onClick={() => game.current?.zoomIn()}
+        >
+          +
+        </button>
+
+        <button
+          className="bg-gray-600/70 w-8 h-8 rounded-full"
+          onClick={() => game.current?.zoomOut()}
+        >
+          -
+        </button>
       </div>
     </div>
   );
