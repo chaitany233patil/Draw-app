@@ -115,8 +115,8 @@ export class CanvasManager {
       input.style.fontSize = "22px";
       input.style.position = "absolute";
       input.style.outline = "none";
-      this.textStartX = this.startX;
-      this.textStartY = this.startY;
+      this.textStartX = (this.startX - this.translateX) / this.scale;
+      this.textStartY = (this.startY - this.translateY) / this.scale;
       input.style.left = `${this.startX}px`;
       input.style.top = `${this.startY - 12}px`;
 
@@ -151,8 +151,13 @@ export class CanvasManager {
 
   private handleMouseDown = async (e: MouseEvent) => {
     const rect = this.canvas.getBoundingClientRect();
-    this.startX = e.clientX - rect.left;
-    this.startY = e.clientY - rect.top;
+
+    const canvasX = (e.clientX - rect.left - this.translateX) / this.scale;
+    const canvasY = (e.clientY - rect.top - this.translateY) / this.scale;
+
+    this.startX = canvasX;
+    this.startY = canvasY;
+
     if (this.textBox) {
       this.textBox.remove();
     }
@@ -203,8 +208,11 @@ export class CanvasManager {
 
     if (this.selectedTool == "rect") {
       const rect = this.canvas.getBoundingClientRect();
-      this.width = e.clientX - rect.left - this.startX;
-      this.height = e.clientY - rect.top - this.startY;
+
+      const canvasX = (e.clientX - rect.left - this.translateX) / this.scale;
+      const canvasY = (e.clientY - rect.top - this.translateY) / this.scale;
+      this.width = canvasX - this.startX;
+      this.height = canvasY - this.startY;
 
       this.clearCanvas();
       this.drawAllShapes();
@@ -212,8 +220,8 @@ export class CanvasManager {
     }
 
     if (this.selectedTool == "line") {
-      this.width = e.clientX;
-      this.height = e.clientY;
+      this.width = (e.clientX - this.translateX) / this.scale;
+      this.height = (e.clientY - this.translateY) / this.scale;
       this.ctx.beginPath();
       this.clearCanvas();
       this.drawAllShapes();
@@ -223,9 +231,9 @@ export class CanvasManager {
     }
 
     if (this.selectedTool == "circle") {
-      const rect = this.canvas.getBoundingClientRect();
-      const currentX = e.clientX - rect.left;
-      const currentY = e.clientY - rect.top;
+      const cirl = this.canvas.getBoundingClientRect();
+      const currentX = (e.clientX - cirl.left - this.translateX) / this.scale;
+      const currentY = (e.clientY - cirl.top - this.translateY) / this.scale;
 
       const dx = currentX - this.startX;
       const dy = currentY - this.startY;
@@ -343,5 +351,17 @@ export class CanvasManager {
 
   changeTool(tool: string) {
     this.selectedTool = tool;
+
+    if (this.selectedTool == "cursor") {
+      this.canvas.style.cursor = "default";
+    }
+
+    if (this.selectedTool != "Pan") {
+      this.canvas.style.cursor = "crosshair";
+    }
+
+    if (this.selectedTool == "Pan") {
+      this.canvas.style.cursor = "grabbing";
+    }
   }
 }
