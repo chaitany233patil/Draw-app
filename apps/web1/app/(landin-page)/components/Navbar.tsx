@@ -1,8 +1,8 @@
 export default function Navbar() {
   return (
     <div className="flex items-center justify-center">
-      <div className="w-[1200px] flex justify-between p-4">
-        <div className="text-white">DrawSync</div>
+      <div className="min-w-[1300px] flex justify-between p-8">
+        <div className="text-white text-xl">DrawSync</div>
         <div className="text-white flex gap-10">
           <div>About</div>
           <div>Features</div>
