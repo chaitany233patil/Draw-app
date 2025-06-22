@@ -1,6 +1,6 @@
 export default function Features() {
   return (
-    <div className="relative flex flex-col items-center justify-center px-10 mt-20">
+    <div className="relative flex flex-col items-center justify-center px-10 mt-25">
       <div className="flex items-center justify-center gap-2">
         <span className="relative flex items-center justify-center size-4">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
@@ -12,8 +12,8 @@ export default function Features() {
         Our collaborative whiteboard is packed with features designed to enhance
         your team&apos;s productivity and creativity.
       </div>
-      <div className="flex flex-wrap justify-center h-50 max-w-250 gap-15 mb-20">
-        <div className="bg-blue-400/40 backdrop-blur-[80px] h-full flex-1 flex flex-col gap-2 items-center justify-center p-6 rounded-3xl">
+      <div className="flex flex-wrap justify-center  max-w-250 gap-15 mb-20">
+        <div className="bg-blue-400/40 backdrop-blur-[80px] flex-1 flex flex-col gap-2 items-center justify-center p-6 rounded-3xl">
           <div className="text-[24px] leading-7 text-center ">
             Real-Time Collaboration
           </div>
@@ -22,7 +22,7 @@ export default function Features() {
             See changes instantly and keep everyone on the same page.
           </p>
         </div>
-        <div className="bg-blue-400/40 backdrop-blur-[80px] h-full flex-1 flex flex-col gap-2 items-center justify-center p-6 rounded-3xl">
+        <div className="bg-blue-400/40 backdrop-blur-[80px] flex-1 flex flex-col gap-2 items-center justify-center p-6 rounded-3xl">
           <div className="text-[24px] leading-7 text-center">
             Versatile Drawing <br /> Tools
           </div>
