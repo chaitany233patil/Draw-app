@@ -27,9 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black overflow-x-hidden`}
       >
         <BgBlur />
+        <div className="absolute z-[-10] top-[300px] right-0 w-[200px] h-[1000px] rounded-full rotate-[40deg] bg-radial from-blue-800 to-black opacity-30 blur-lg "></div>
         <Navbar />
         {children}
       </body>
