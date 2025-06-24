@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./(landin-page)/components/Navbar";
-import BgBlur from "./(landin-page)/components/BgBlue";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white overflow-x-hidden`}
       >
-        <BgBlur />
-        <div className="absolute z-[-10] top-[300px] right-0 w-[200px] h-[1000px] rounded-full rotate-[40deg] bg-radial from-blue-800 to-black opacity-30 blur-lg "></div>
-        <Navbar />
         {children}
       </body>
     </html>

@@ -1,21 +1,24 @@
 import { MousePointer2 } from "lucide-react";
+import Link from "next/Link";
 
 export default function Hero() {
   return (
-    <div className="min-w-[1300px] flex justify-between px-8 py-4">
+    <div className="w-full flex justify-between px-15 py-4">
       <div className="flex-1">
-        <div className="text-6xl max-w-130 leading-17">
+        <div className="text-6xl leading-17 pr-20 text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-300">
           Unleash Your Team’s Creativity with Our Collaborative Whiteboard
         </div>
-        <div className="mt-7 max-w-130 text-[19px] text-stone-400">
+        <div className="mt-5 max-w-120 text-[16px] text-stone-400">
           Transform brainstorming with our powerful online whiteboard —
           collaborate live, visualize ideas, and bring projects to life.
         </div>
-        <button className="mt-10 bg-blue-600 hover:bg-blue-800 cursor-pointer px-3 py-2 rounded-full ring-1 border-white">
-          Get Started
-        </button>
+        <Link href="http://localhost:3000/canvas/2">
+          <button className="mt-7 bg-blue-600 hover:bg-blue-700 transition text-white font-medium px-6 py-2 rounded-full shadow-lg">
+            Get Started
+          </button>
+        </Link>
       </div>
-      <div className="relative flex-1">
+      <div className="relative flex-1 hidden md:block">
         <div className="absolute top-20 left-[-30px] animate-wiggle animate-[wiggle_2s_ease-in-out_infinite] ">
           <div className="absolute top-[-35px] left-[15px] bg-purple-500 inline text-sm py-1 px-2 rounded-full border-1 border-white">
             John

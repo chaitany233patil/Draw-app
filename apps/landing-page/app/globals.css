@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(8px, 8px);
+  }
+}
