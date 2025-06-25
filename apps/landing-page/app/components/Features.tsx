@@ -20,7 +20,7 @@ export default function Features() {
       </div>
 
       {/* Feature Cards */}
-      <div className="flex flex-wrap justify-center gap-10 max-w-6xl mb-20">
+      <div className="flex flex-wrap justify-center gap-12 max-w-6xl mb-20">
         {/* Feature Card */}
         <FeatureCard
           icon={<Users2 className="w-10 h-10 text-sky-400 mb-4" />}
