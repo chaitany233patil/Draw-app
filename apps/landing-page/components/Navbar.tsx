@@ -1,48 +1,55 @@
 "use client";
 
+import clsx from "clsx";
 import { PencilRuler } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 const NavItems = [
   {
     name: "home",
-    href: "/home",
+    href: "/",
   },
   {
-    name: "About",
-    href: "/about",
+    name: "About Us",
+    href: "#",
   },
   {
-    name: "Features",
-    href: "/features",
+    name: "Pricing",
+    href: "#",
+  },
+  {
+    name: "Contact Us",
+    href: "#",
   },
 ];
 
 export default function Navbar() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const isActive = (href: string) => pathname === href;
-
   return (
     <div className="bg-black/50 flex justify-center">
-      <div className="fixed top-0 left-0 right-0 z-50 bg-black/50 max-w-7xl mx-auto flex justify-between items-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        exit={{ opacity: 1, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 100,
+          damping: 8,
+          duration: 0.5,
+        }}
+        className="fixed top-6 left-8 right-8 z-50 bg-white/10 max-w-7xl mx-auto flex justify-between items-center p-4 px-10 rounded-lg backdrop-blur-sm border border-white/10"
+      >
         <div className="text-white text-xl flex items-center justify-center gap-2">
-          <PencilRuler className="w-8 h-8 p-1 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm shadow-lg shadow-blue-600/40" />
+          <PencilRuler className="w-8 h-8 p-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm shadow-lg shadow-blue-600/40" />
           <span className="text-2xl font-medium">DrawSync</span>
         </div>
         <div className="text-white flex gap-10">
           {NavItems.map((item) => (
-            <div
-              key={item.name}
-              onClick={() => router.push(item.href)}
-              className={`cursor-pointer ${isActive(item.href) ? "underline underline-offset-5 decoration-blue-600" : "text-white"} `}
-            >
+            <div key={item.name} className={clsx("")}>
               {item.name}
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
