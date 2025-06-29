@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: "DrawSync",
   description:
     "DrawSync is a collaborative whiteboard for teams to brainstorm and collaborate.",
+  icons: {
+    icon: "/fevicon.png",
+  },
 };
 
 export default function RootLayout({

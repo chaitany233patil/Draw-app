@@ -5,6 +5,27 @@ import { JSX } from "react";
 import { motion } from "framer-motion";
 
 export default function Features() {
+  const features = [
+    {
+      icon: <Users2 className="w-10 h-10 text-sky-400 mb-4" />,
+      title: "Real-Time Collaboration",
+      description:
+        "Work together with your team in real-time, no matter where they are. See changes instantly and keep everyone on the same page.",
+    },
+    {
+      icon: <PencilRuler className="w-10 h-10 text-violet-400 mb-4" />,
+      title: "Versatile Drawing Tools",
+      description:
+        "Choose from a wide range of drawing tools, shapes, and templates to express your ideas visually and effectively.",
+    },
+    {
+      icon: <Layers3 className="w-10 h-10 text-emerald-400 mb-4" />,
+      title: "Seamless Integration",
+      description:
+        "Integrate with your favorite productivity tools to streamline your workflow and keep all your work in one place.",
+    },
+  ];
+
   return (
     <div className="min-h-screen flex">
       <div className="max-w-7xl m-auto">
@@ -29,22 +50,24 @@ export default function Features() {
 
         {/* Feature Cards */}
         <div className="flex flex-wrap justify-center gap-12 max-w-6xl mb-20">
-          {/* Feature Card */}
-          <FeatureCard
-            icon={<Users2 className="w-10 h-10 text-sky-400 mb-4" />}
-            title="Real-Time Collaboration"
-            description="Work together with your team in real-time, no matter where they are. See changes instantly and keep everyone on the same page."
-          />
-          <FeatureCard
-            icon={<PencilRuler className="w-10 h-10 text-violet-400 mb-4" />}
-            title="Versatile Drawing Tools"
-            description="Choose from a wide range of drawing tools, shapes, and templates to express your ideas visually and effectively."
-          />
-          <FeatureCard
-            icon={<Layers3 className="w-10 h-10 text-emerald-400 mb-4" />}
-            title="Seamless Integration"
-            description="Integrate with your favorite productivity tools to streamline your workflow and keep all your work in one place."
-          />
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", delay: index * 0.1, duration: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="cursor-pointer"
+            >
+              <FeatureCard
+                key={feature.title}
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+              />
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
