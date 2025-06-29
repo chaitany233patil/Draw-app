@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const NavItems = [
   {
-    name: "home",
+    name: "Home",
     href: "/",
   },
   {
@@ -36,7 +36,7 @@ export default function Navbar() {
           damping: 8,
           duration: 0.5,
         }}
-        className="fixed top-6 left-8 right-8 z-50 bg-white/10 max-w-7xl mx-auto flex justify-between items-center p-4 px-10 rounded-lg backdrop-blur-sm border border-white/10"
+        className="fixed top-6 left-8 right-8 md:left-15 md:right-15 z-50 bg-white/10 max-w-7xl mx-auto flex justify-between items-center p-4 px-10 rounded-lg backdrop-blur-sm border border-white/10"
       >
         <div className="text-white text-xl flex items-center justify-center gap-2">
           <PencilRuler className="w-8 h-8 p-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm shadow-lg shadow-blue-600/40" />
