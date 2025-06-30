@@ -3,6 +3,9 @@
 import clsx from "clsx";
 import { PencilRuler } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { useState } from "react";
+import Button from "./ui/Button";
 
 const NavItems = [
   {
@@ -10,7 +13,7 @@ const NavItems = [
     href: "/",
   },
   {
-    name: "About Us",
+    name: "About",
     href: "#about",
   },
   {
@@ -18,12 +21,14 @@ const NavItems = [
     href: "#features",
   },
   {
-    name: "Pricing",
-    href: "#pricing",
+    name: "FAQ",
+    href: "#faq",
   },
 ];
 
 export default function Navbar() {
+  const [currentTab, setCurrentTab] = useState<string>("/");
+
   return (
     <div className="bg-black/50 flex justify-center">
       <motion.div
@@ -42,18 +47,27 @@ export default function Navbar() {
           <PencilRuler className="w-8 h-8 p-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm shadow-lg shadow-blue-600/40" />
           <span className="text-2xl font-medium">DrawSync</span>
         </div>
-        <div className="text-white flex gap-10">
+        <div className="text-white flex gap-10 items-center">
           {NavItems.map((item) => (
-            <button
-              key={item.name}
-              className={clsx("cursor-pointer")}
-              onClick={() => {
-                window.location.href = item.href;
-              }}
-            >
-              {item.name}
-            </button>
+            <div key={item.name}>
+              <Link
+                href={item.href}
+                className={clsx("cursor-pointer", "text-white")}
+                onClick={() => setCurrentTab(item.href)}
+              >
+                {item.name}
+              </Link>
+              {currentTab === item.href && (
+                <motion.div
+                  className="h-[2px] rounded-full w-full bg-gradient-to-r from-blue-400 to-blue-700"
+                  layoutId="underline"
+                />
+              )}
+            </div>
           ))}
+          <div className="flex items-center">
+            <Button variant="secondary">Login</Button>
+          </div>
         </div>
       </motion.div>
     </div>

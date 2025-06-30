@@ -1,8 +1,10 @@
 import clsx from "clsx";
 
 const variants = {
-  primary: "bg-blue-600 text-white",
-  secondary: "bg-gray-600 text-white",
+  primary:
+    "bg-blue-600 text-white hover:bg-blue-700 hover:text-white px-4 py-2 rounded-lg",
+  secondary:
+    "bg-gray-600 text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-lg",
 };
 
 export default function Button({
@@ -15,15 +17,6 @@ export default function Button({
   className?: string;
 }) {
   return (
-    <button
-      className={clsx(
-        variants[variant],
-        "px-4 py-2 rounded-lg",
-        "hover:bg-blue-700 hover:text-white",
-        className
-      )}
-    >
-      {children}
-    </button>
+    <button className={clsx(variants[variant], className)}>{children}</button>
   );
 }

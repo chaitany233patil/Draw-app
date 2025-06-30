@@ -42,6 +42,7 @@ export default function Features() {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", delay: 0.1, duration: 0.5 }}
+          viewport={{ once: true }}
           className="text-gray-300 mb-10 text-xl max-w-2xl leading-8 mx-auto text-center"
         >
           Our collaborative whiteboard is packed with features designed to
@@ -58,6 +59,7 @@ export default function Features() {
               transition={{ type: "spring", delay: index * 0.1, duration: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              viewport={{ once: true }}
               className="cursor-pointer"
             >
               <FeatureCard

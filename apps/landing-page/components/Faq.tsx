@@ -2,7 +2,7 @@ import FaqQuestion from "@/components/ui/FaqQuestion";
 
 export default function Faq() {
   return (
-    <div className="min-h-screen flex pt-20" id="faq">
+    <div className="min-h-screen flex pb-20 pt-28" id="faq">
       <div className="max-w-7xl m-auto">
         <div className="flex items-center justify-center gap-2 mb-8">
           <span className="relative flex items-center justify-center size-4">
