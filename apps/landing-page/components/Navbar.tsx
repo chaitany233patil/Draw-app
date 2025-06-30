@@ -11,15 +11,15 @@ const NavItems = [
   },
   {
     name: "About Us",
-    href: "#",
+    href: "#about",
+  },
+  {
+    name: "Features",
+    href: "#features",
   },
   {
     name: "Pricing",
-    href: "#",
-  },
-  {
-    name: "Contact Us",
-    href: "#",
+    href: "#pricing",
   },
 ];
 
@@ -44,9 +44,15 @@ export default function Navbar() {
         </div>
         <div className="text-white flex gap-10">
           {NavItems.map((item) => (
-            <div key={item.name} className={clsx("")}>
+            <button
+              key={item.name}
+              className={clsx("cursor-pointer")}
+              onClick={() => {
+                window.location.href = item.href;
+              }}
+            >
               {item.name}
-            </div>
+            </button>
           ))}
         </div>
       </motion.div>

@@ -27,7 +27,7 @@ export default function Features() {
   ];
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex pt-20" id="features">
       <div className="max-w-7xl m-auto">
         <div className="flex items-center justify-center gap-2 mb-8">
           <span className="relative flex items-center justify-center size-4">
