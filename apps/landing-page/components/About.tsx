@@ -49,7 +49,7 @@ export default function About() {
             className=""
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
           >
             <div className="relative w-full h-full ring-10 ring-blue-500/40 rounded-xl overflow-hidden">
