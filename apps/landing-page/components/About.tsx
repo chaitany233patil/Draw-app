@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Video } from "./Video";
 
 export default function About() {
   return (
@@ -39,14 +40,9 @@ export default function About() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <video
-              src="/drawsync-demo.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="rounded-xl shadow-lg border border-white/10 h-full w-full"
-            />
+            <div className="relative w-full h-full ring-10 ring-blue-500/40 rounded-xl overflow-hidden">
+              <Video />
+            </div>
             {/* You can use an image fallback like below: */}
             {/* <img src="/drawsync-preview.png" alt="DrawSync demo" className="rounded-xl shadow-lg border border-white/10 w-full max-w-md" /> */}
           </motion.div>
