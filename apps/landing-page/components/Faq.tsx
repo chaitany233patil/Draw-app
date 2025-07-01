@@ -1,4 +1,7 @@
+"use client";
+
 import FaqQuestion from "@/components/ui/FaqQuestion";
+import { motion } from "framer-motion";
 
 export default function Faq() {
   return (
@@ -12,10 +15,17 @@ export default function Faq() {
           <h2 className="text-2xl text-white font-semibold">FAQ</h2>
         </div>
 
-        <p className="text-gray-300 mb-8 text-center text-xl mx-auto">
+        <motion.p
+          className="text-gray-300 mb-8 text-center text-xl mx-auto"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
           Find answers to the most common questions about our collaborative
           whiteboard experience.
-        </p>
+          <motion.span className="text-blue-500">.</motion.span>
+        </motion.p>
 
         <div className="flex flex-col gap-4 w-full mx-auto">
           <FaqQuestion
