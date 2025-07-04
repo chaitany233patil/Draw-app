@@ -7,7 +7,7 @@ export default function About() {
   return (
     <div id="about" className="min-h-screen flex">
       <div className="max-w-6xl m-auto">
-        <div className="grid grid-cols-2 gap-24">
+        <div className="grid grid-cols-2 gap-24 items-center">
           {/* Left: Text Content */}
           <div>
             <motion.h2
@@ -52,7 +52,7 @@ export default function About() {
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <div className="relative w-full h-full ring-10 ring-blue-500/40 rounded-xl overflow-hidden">
+            <div className="relative w-full ring-10 ring-blue-500/40 rounded-xl overflow-hidden">
               <Video />
             </div>
             {/* You can use an image fallback like below: */}

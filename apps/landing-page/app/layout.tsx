@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({
         {/* <div className="absolute z-[-10] top-[300px] right-0 w-[200px] h-[1000px] rounded-full rotate-[40deg] bg-radial from-blue-800 to-black opacity-30 blur-lg "></div> */}
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
