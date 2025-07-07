@@ -41,18 +41,21 @@ export default function Navbar() {
           damping: 8,
           duration: 0.5,
         }}
-        className="fixed top-6 left-8 right-8 md:left-15 md:right-15 z-50 bg-white/10 max-w-7xl mx-auto flex justify-between items-center p-4 px-10 rounded-lg backdrop-blur-sm border border-white/10"
+        className="fixed top-4 left-2 right-2 sm:top-6 sm:left-8 sm:right-8 md:left-15 md:right-15 z-50 bg-white/10 max-w-7xl mx-auto flex justify-between items-center p-4 sm:px-6 md:px-8 lg:px-10 rounded-lg backdrop-blur-sm border border-white/10"
       >
         <div className="text-white text-xl flex items-center justify-center gap-2">
-          <PencilRuler className="w-8 h-8 p-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm shadow-lg shadow-blue-600/40" />
-          <span className="text-2xl font-medium">DrawSync</span>
+          <PencilRuler className="w-6 h-6 sm:w-8 sm:h-8 p-2 bg-gradient-to-r from-blue-600 to-blue-800 rounded-sm shadow-lg shadow-blue-600/40" />
+          <span className="text-xl sm:text-2xl font-medium">DrawSync</span>
         </div>
-        <div className="text-white flex gap-10 items-center">
+        <div className="text-white flex gap-10 items-center ">
           {NavItems.map((item) => (
             <div key={item.name}>
               <Link
                 href={item.href}
-                className={clsx("cursor-pointer", "text-white")}
+                className={clsx(
+                  "cursor-pointer hidden lg:block",
+                  "text-white hover:text-blue-500 transition-colors duration-300"
+                )}
                 onClick={() => setCurrentTab(item.href)}
               >
                 {item.name}
@@ -65,7 +68,7 @@ export default function Navbar() {
               )}
             </div>
           ))}
-          <div className="flex items-center">
+          <div className="items-center hidden sm:block">
             <Button variant="secondary">Login</Button>
           </div>
         </div>
