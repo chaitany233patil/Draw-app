@@ -6,8 +6,15 @@ import { Video } from "./Video";
 export default function About() {
   return (
     <div id="about" className="min-h-screen flex">
-      <div className="max-w-6xl m-auto">
-        <div className="grid grid-cols-2 gap-24 items-center">
+      <div className="max-w-6xl m-auto px-10 xl:px-0 flex flex-col items-center justify-center">
+        <h2 className="text-2xl text-white font-semibold flex items-center gap-2 mb-10">
+          <span className="relative flex items-center justify-center size-4">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
+            <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
+          </span>
+          <span>Contact Us</span>
+        </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center text-center lg:text-left">
           {/* Left: Text Content */}
           <div>
             <motion.h2

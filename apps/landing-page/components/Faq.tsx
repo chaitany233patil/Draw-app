@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export default function Faq() {
   return (
     <div className="min-h-screen flex pb-20 pt-28" id="faq">
-      <div className="max-w-7xl m-auto">
+      <div className="max-w-7xl m-auto px-8">
         <div className="flex items-center justify-center gap-2 mb-8">
           <span className="relative flex items-center justify-center size-4">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>

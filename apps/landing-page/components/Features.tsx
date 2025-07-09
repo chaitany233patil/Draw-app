@@ -28,7 +28,7 @@ export default function Features() {
 
   return (
     <div className="min-h-screen flex pt-20" id="features">
-      <div className="max-w-7xl m-auto">
+      <div className="max-w-7xl m-auto px-10 xl:px-0">
         <div className="flex items-center justify-center gap-2 mb-8">
           <span className="relative flex items-center justify-center size-4">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
@@ -86,7 +86,7 @@ function FeatureCard({
   description: string;
 }) {
   return (
-    <div className="bg-white/10 hover:bg-white/20 backdrop-blur-[80px] hover:shadow-lg transition-all duration-300 w-80 p-6 rounded-3xl flex flex-col items-center text-center">
+    <div className="bg-white/10 hover:bg-white/20 backdrop-blur-[80px] hover:shadow-lg transition-all duration-300 max-w-80 p-6 rounded-3xl flex flex-col items-center text-center">
       {icon}
       <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
       <p className="text-sm text-stone-300 leading-relaxed">{description}</p>
