@@ -4,7 +4,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen flex pb-20 pt-28 mb-20">
       <div className="relative max-w-7xl m-auto flex flex-col items-center justify-center py-40 px-10 overflow-hidden">
-        <div className="absolute top-[-200px]  z-[-10] w-200 h-150 rounded-full bg-radial from-blue-800 to-black opacity-60 blur-lg "></div>
+        <div className="absolute top-[-270px]  z-[-10] w-250 h-150 rounded-full bg-radial from-blue-800 to-black opacity-60 blur-lg "></div>
         <h2 className="text-2xl text-white font-semibold flex items-center gap-2 mb-4">
           <span className="relative flex items-center justify-center size-4">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>

@@ -320,7 +320,7 @@ export class CanvasManager {
     const response = await axios.get(
       `${HTTP_BACKEND}/api/v1/room/${this.roomId}`
     );
-    return response.data.shapes || [];
+    return response.data.shapes || [];  
   }
 
   private sendShape(shape: Shape) {
