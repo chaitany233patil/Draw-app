@@ -33,7 +33,7 @@ export default function FaqQuestion({ Q, A }: { Q: string; A: string }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <div className="px-6 pb-5 text-stone-300 text-sm leading-relaxed will-change-[height,opacity]">
+            <div className="px-6 pb-5 text-stone-300 text-sm leading-relaxed will-change-[height,opacity] max-w-4xl">
               {A}
             </div>
           </motion.div>
