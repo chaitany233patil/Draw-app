@@ -24,10 +24,9 @@ export default function Faq() {
         >
           Find answers to the most common questions about our collaborative
           whiteboard experience.
-          <motion.span className="text-blue-500">.</motion.span>
         </motion.p>
 
-        <div className="flex flex-col gap-4 w-full mx-auto">
+        <div className="flex flex-col gap-4 w-full mx-auto ">
           <FaqQuestion
             Q="What is a collaborative whiteboard?"
             A="A collaborative whiteboard is a digital workspace that allows multiple users to brainstorm, visualize ideas, and work together in real-time, regardless of their location."

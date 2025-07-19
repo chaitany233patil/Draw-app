@@ -1,7 +1,7 @@
 import { WebSocketServer, WebSocket } from "ws";
 import jwt, { decode, JwtPayload } from "jsonwebtoken";
 import { JWT_SECRETE } from "../node_modules/@repo/common-backend/src/config";
-import { prisma } from "@repo/db";
+// import { prisma } from "@repo/db";
 
 const wss = new WebSocketServer({ port: 8080 });
 
@@ -51,13 +51,13 @@ wss.on("connection", (socket, req) => {
               );
             }
           });
-          await prisma.chats.create({
-            data: {
-              RoomId: Number(parseData.roomId),
-              message: parseData.message,
-              userId,
-            },
-          });
+          // await prisma.chats.create({
+          //   data: {
+          //     RoomId: Number(parseData.roomId),
+          //     message: parseData.message,
+          //     userId,
+          //   },
+          // });
         }
 
         if (parseData.type == "leave_room") {

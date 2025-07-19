@@ -42,7 +42,7 @@ export default function RootLayout({
       >
         <div className="absolute h-screen w-full overflow-hidden">
           hellol
-          <div className="absolute z-[-10] top-[-380px] left-10 w-[300px] h-[1000px] rounded-full rotate-[-35deg] bg-radial from-blue-800 to-black opacity-30 blur-lg "></div>
+          <div className="absolute z-[-10] top-[-380px] left-10 w-[300px] h-[1000px] rounded-full rotate-[-35deg] bg-radial from-blue-800 to-black opacity-40 blur-lg "></div>
         </div>
         <Navbar />
         {children}

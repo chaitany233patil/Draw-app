@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import Button from "./ui/Button";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../auth/firebase";
+import GoogleLogo from "./icons/googlelogo";
 
 const NavItems = [
   {
@@ -29,6 +32,17 @@ const NavItems = [
 export default function Navbar() {
   const [currentTab, setCurrentTab] = useState<string>("/");
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("User Info:", user);
+      window.location.href = "http://localhost:3001";
+    } catch (error) {
+      console.error("Google Sign-In Error", error);
+    }
+  };
+
   return (
     <div className="flex justify-center">
       <motion.div
@@ -50,13 +64,13 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Navigation Items */}
-        <div className="text-white gap-10 items-center hidden lg:flex">
+        <div className="text-white sm:gap-10 items-center flex">
           {NavItems.map((item) => (
             <div key={item.name}>
               <Link
                 href={item.href}
                 className={clsx(
-                  "cursor-pointer text-white hover:text-blue-500 transition-colors duration-300"
+                  "cursor-pointer text-white hover:text-blue-500 transition-colors duration-300 hidden lg:flex"
                 )}
                 onClick={() => setCurrentTab(item.href)}
               >
@@ -71,7 +85,14 @@ export default function Navbar() {
             </div>
           ))}
           <div className="items-center">
-            <Button variant="secondary">Login</Button>
+            <Button
+              onClick={handleGoogleLogin}
+              variant="secondary"
+              icon={<GoogleLogo />}
+              className="cursor-pointer"
+            >
+              Login
+            </Button>
           </div>
         </div>
       </motion.div>
