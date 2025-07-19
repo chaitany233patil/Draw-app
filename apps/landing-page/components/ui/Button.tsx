@@ -2,8 +2,7 @@ import clsx from "clsx";
 import { ReactNode } from "react";
 
 const variants = {
-  primary:
-    "bg-blue-600 text-white hover:bg-blue-700 hover:text-white px-4 py-2 rounded-lg",
+  primary: "bg-blue-600 text-white hover:text-white px-4 py-2 rounded-lg",
   secondary:
     "bg-gray-600 text-black hover:bg-gray-200 bg-white px-3 py-2 rounded-lg flex items-center gap-2 justify-center",
 };
