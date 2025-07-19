@@ -12,7 +12,7 @@ export default function About() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
             <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
           </span>
-          <span>Contact Us</span>
+          <span className="text-lg sm:text-xl">About Us</span>
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center text-center lg:text-left">
           {/* Left: Text Content */}
@@ -27,7 +27,7 @@ export default function About() {
               About <span className="text-blue-500">DrawSync</span>
             </motion.h2>
             <motion.p
-              className="text-gray-300 text-xl mb-6 leading-8"
+              className="text-gray-300 text-lg sm:text-xl mb-6 leading-6 sm:leading-8"
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
@@ -39,7 +39,7 @@ export default function About() {
               remotely, we make it simple, intuitive, and fast.
             </motion.p>
             <motion.p
-              className="text-gray-400 text-md mb-6 leading-7"
+              className="text-gray-400 text-md mb-6 leading-5 sm:leading-7"
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}

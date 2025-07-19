@@ -54,9 +54,15 @@ importers:
       '@types/firebase':
         specifier: ^3.2.3
         version: 3.2.3
+      '@types/jsonwebtoken':
+        specifier: ^9.0.9
+        version: 9.0.9
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      dotenv:
+        specifier: ^17.2.0
+        version: 17.2.0
       firebase:
         specifier: ^12.0.0
         version: 12.0.0
@@ -97,6 +103,70 @@ importers:
       eslint-config-next:
         specifier: 15.3.4
         version: 15.3.4(eslint@9.25.0(jiti@2.4.2))(typescript@5.8.2)
+      tailwindcss:
+        specifier: ^4
+        version: 4.1.5
+      typescript:
+        specifier: ^5
+        version: 5.8.2
+
+  apps/web:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@types/axios':
+        specifier: ^0.14.4
+        version: 0.14.4
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
+      firebase:
+        specifier: ^12.0.0
+        version: 12.0.0
+      framer-motion:
+        specifier: ^12.18.1
+        version: 12.18.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
+      lucide-react:
+        specifier: ^0.509.0
+        version: 0.509.0(react@19.1.0)
+      next:
+        specifier: 15.3.1
+        version: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next-auth:
+        specifier: ^4.24.11
+        version: 4.24.11(next@15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.1.0(react@19.1.0)
+    devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3
+        version: 3.3.1
+      '@tailwindcss/postcss':
+        specifier: ^4
+        version: 4.1.5
+      '@types/node':
+        specifier: ^20
+        version: 20.17.32
+      '@types/react':
+        specifier: ^19
+        version: 19.1.0
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.1.1(@types/react@19.1.0)
+      eslint:
+        specifier: ^9
+        version: 9.25.0(jiti@2.4.2)
+      eslint-config-next:
+        specifier: 15.3.1
+        version: 15.3.1(eslint@9.25.0(jiti@2.4.2))(typescript@5.8.2)
       tailwindcss:
         specifier: ^4
         version: 4.1.5
@@ -1784,6 +1854,10 @@ packages:
 
   dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+
+  dotenv@17.2.0:
+    resolution: {integrity: sha512-Q4sgBT60gzd0BB0lSyYD3xM4YxrXA9y4uBDof1JNYGzOXrQdQ6yX+7XIAqoFOGQFOTK1D3Hts5OllpxMDZFONQ==}
     engines: {node: '>=12'}
 
   dunder-proto@1.0.1:
@@ -5168,6 +5242,8 @@ snapshots:
       no-case: 2.3.2
 
   dotenv@16.0.3: {}
+
+  dotenv@17.2.0: {}
 
   dunder-proto@1.0.1:
     dependencies:

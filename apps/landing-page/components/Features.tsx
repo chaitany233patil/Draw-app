@@ -34,7 +34,9 @@ export default function Features() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
             <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
           </span>
-          <div className="text-2xl font-semibold text-white">Features</div>
+          <div className="font-semibold text-white text-lg sm:text-xl">
+            Features
+          </div>
         </div>
 
         {/* Section Subtitle */}
@@ -43,7 +45,7 @@ export default function Features() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", delay: 0.1, duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-gray-300 mb-10 text-xl max-w-2xl leading-8 mx-auto text-center"
+          className="text-gray-300 mb-10 text-lg sm:text-xl max-w-2xl leading-6 sm:leading-8 mx-auto text-center"
         >
           Our collaborative whiteboard is packed with features designed to
           enhance your team&apos;s productivity and creativity.

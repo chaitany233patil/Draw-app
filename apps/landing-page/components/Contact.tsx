@@ -10,9 +10,9 @@ export default function Contact() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
             <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
           </span>
-          <span>Contact Us</span>
+          <span className="text-lg sm:text-xl">Contact Us</span>
         </h2>
-        <p className="text-gray-300 text-center text-xl mx-auto mb-8 max-w-3xl">
+        <p className="text-gray-300 text-center text-lg sm:text-xl mx-auto mb-8 max-w-3xl">
           We&apos;re always looking for new opportunities to collaborate and
           grow. If you have any questions or would like to get in touch, please
           use the button below.

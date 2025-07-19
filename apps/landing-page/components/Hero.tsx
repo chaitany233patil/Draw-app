@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="min-h-screen text-white flex">
-      <div className="max-w-7xl md:pt-22 px-4 m-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
-          <div className="px-4 pt-10 lg:pt-0 flex flex-col items-center lg:items-start">
+    <div className="min-h-screen text-white flex items-center">
+      <div className="max-w-6xl md:mt-18 mx-auto">
+        <div className="px-2 grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
+          <div className=" pt-10 lg:pt-0 flex flex-col items-center lg:items-start">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               exit={{ opacity: 1, y: 0 }}
@@ -18,7 +18,7 @@ export default function Home() {
                 damping: 10,
                 duration: 0.5,
               }}
-              className="text-4xl md:text-6xl font-[550] mb-4 sm:leading-[60px] md:leading-[70px] text-center lg:text-left"
+              className="text-4xl md:text-6xl font-[550] mb-4 sm:leading-[60px] md:leading-[65px] text-center lg:text-left"
             >
               Unleash Your Team’s Creativity with Our{" "}
               <span className="bg-gradient-to-r from-blue-800 via-blue-400 to-blue-800 bg-clip-text text-transparent">
@@ -35,7 +35,7 @@ export default function Home() {
                 duration: 0.5,
                 delay: 0.1,
               }}
-              className="text-lg text-gray-300 mb-4 text-center leading-6 lg:text-left lg:leading-8"
+              className="text-lg text-gray-300 mb-4 text-center leading-6 lg:text-left lg:leading-6"
             >
               Transform brainstorming with our powerful online whiteboard <br />
               — collaborate live, visualize ideas, and bring projects to life.

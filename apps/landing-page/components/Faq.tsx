@@ -12,11 +12,11 @@ export default function Faq() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
             <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
           </span>
-          <h2 className="text-2xl text-white font-semibold">FAQ</h2>
+          <h2 className=" text-white font-semibold text-lg sm:text-xl">FAQ</h2>
         </div>
 
         <motion.p
-          className="text-gray-300 mb-8 text-center text-xl mx-auto"
+          className="text-gray-300 mb-8 text-center text-lg sm:text-xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
