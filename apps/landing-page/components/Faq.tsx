@@ -108,7 +108,7 @@ export default function Faq() {
           </div>
 
           {/* Main heading */}
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-[45px] font-bold mb-6">
             <span className="text-white">Frequently Asked </span>
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
               Questions

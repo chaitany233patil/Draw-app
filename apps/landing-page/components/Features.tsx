@@ -39,13 +39,17 @@ export default function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-3 mb-6"
+            className="flex items-center justify-center gap-3 mb-4"
           >
-            <span className="relative flex items-center justify-center size-4">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
-            </span>
-            <h2 className="text-2xl font-bold text-white">Features</h2>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500"></span>
+              </span>
+              <span className="text-blue-300 text-sm font-medium">
+                Features
+              </span>
+            </div>
           </motion.div>
 
           <motion.h1
@@ -53,7 +57,7 @@ export default function Features() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-[45px] font-bold text-white mb-6 leading-tight max-w-3xl mx-auto"
           >
             Packed with Features to{" "}
             <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-emerald-400 bg-clip-text text-transparent">
@@ -183,16 +187,6 @@ function FeatureCard({
         <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
           {description}
         </p>
-
-        {/* Subtle accent line */}
-        <motion.div
-          className={`
-            absolute bottom-0 left-8 right-8 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300
-            ${color === "sky" ? "bg-gradient-to-r from-transparent via-sky-400 to-transparent" : ""}
-            ${color === "violet" ? "bg-gradient-to-r from-transparent via-violet-400 to-transparent" : ""}
-            ${color === "emerald" ? "bg-gradient-to-r from-transparent via-emerald-400 to-transparent" : ""}
-          `}
-        />
       </div>
     </div>
   );

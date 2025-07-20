@@ -19,7 +19,7 @@ export default function Home() {
                 damping: 10,
                 duration: 0.5,
               }}
-              className="text-3xl sm:text-5xl md:text-[55px] font-bold mb-4 sm:leading-[60px] md:leading-[70px] text-center lg:text-left tracking-tight"
+              className="text-3xl sm:text-5xl md:text-[50px] font-bold mb-4 sm:leading-[60px] md:leading-[65px] text-center lg:text-left tracking-tight"
             >
               Unleash Your Team&apos;s Creativity with Our{" "}
               <span className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent animate-pulse">
@@ -39,8 +39,8 @@ export default function Home() {
               className="text-lg text-neutral-200 font-light mb-6 text-center leading-7 lg:text-left lg:leading-7 max-w-xl"
             >
               Transform brainstorming with our powerful online whiteboard{" "}
-              <br className="hidden sm:block" />— collaborate live, visualize
-              ideas, and bring projects to life.
+              <br className="hidden sm:block" />
+              collaborate live, visualize ideas, and bring projects to life.
             </motion.div>
 
             {/* Feature highlights */}

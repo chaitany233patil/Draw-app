@@ -64,7 +64,7 @@ export default function About() {
           {/* Text Content */}
           <div className="relative">
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 tracking-tight"
+              className="text-4xl md:text-5xl lg:text-[45px] font-bold leading-tight mb-6 tracking-tight"
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
@@ -89,10 +89,10 @@ export default function About() {
               transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
               viewport={{ once: true }}
             >
-              DrawSync is your team&apos;s digital canvas — designed for
-              seamless real-time collaboration. Whether you&apos;re
-              brainstorming ideas, mapping processes, or building flows,
-              it&apos;s all possible in one intuitive space.
+              DrawSync is your team&apos;s digital canvas designed for seamless
+              real-time collaboration. Whether you&apos;re brainstorming ideas,
+              mapping processes, or building flows, it&apos;s all possible in
+              one intuitive space.
             </motion.p>
 
             <motion.p
