@@ -31,7 +31,7 @@ export const createRoom = async (req: Request, res: Response) => {
 export const allShapes = async (req: Request, res: Response) => {
   const { roomId } = req.params;
 
-  const allShapes = await prisma.chats.findMany({
+  const allShapes = await prisma.shapes.findMany({
     where: {
       RoomId: Number(roomId),
     },

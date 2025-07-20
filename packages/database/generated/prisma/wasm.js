@@ -133,7 +133,7 @@ exports.Prisma.RoomScalarFieldEnum = {
   userId: 'userId'
 };
 
-exports.Prisma.ChatsScalarFieldEnum = {
+exports.Prisma.ShapesScalarFieldEnum = {
   id: 'id',
   message: 'message',
   userId: 'userId',
@@ -154,7 +154,7 @@ exports.Prisma.QueryMode = {
 exports.Prisma.ModelName = {
   User: 'User',
   Room: 'Room',
-  Chats: 'Chats'
+  Shapes: 'Shapes'
 };
 
 /**

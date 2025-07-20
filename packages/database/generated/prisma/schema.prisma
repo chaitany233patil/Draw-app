@@ -9,23 +9,23 @@ generator client {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  username String  @unique
+  id       String   @id @default(uuid())
+  email    String   @unique
+  username String   @unique
   password String
   Room     Room[]
-  Chats    Chats[]
+  Chats    Shapes[]
 }
 
 model Room {
-  id     Int     @id @default(autoincrement())
-  slug   String  @unique
+  id     Int      @id @default(autoincrement())
+  slug   String   @unique
   userId String
-  Admin  User    @relation(fields: [userId], references: [id])
-  Chats  Chats[]
+  Admin  User     @relation(fields: [userId], references: [id])
+  Chats  Shapes[]
 }
 
-model Chats {
+model Shapes {
   id      Int    @id @default(autoincrement())
   message String
   userId  String

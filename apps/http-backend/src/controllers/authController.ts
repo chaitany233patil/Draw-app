@@ -5,7 +5,9 @@ import { JWT_SECRETE } from "../../node_modules/@repo/common-backend/dist/config
 
 export const signup = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     const { email, password, username } = req.body;
+    console.log(email, password, username);
     await prisma.user.create({
       data: {
         email,
@@ -15,16 +17,14 @@ export const signup = async (req: Request, res: Response) => {
     });
 
     res.json({
+      success: true,
       message: "signup Successfully!",
-      user: {
-        email,
-        username,
-        password,
-      },
     });
     return;
   } catch (err) {
+    console.log("ERRO :", err);
     res.status(400).json({
+      success: false,
       message: "Incorrect Input!",
     });
   }
@@ -42,6 +42,7 @@ export const signin = async (req: Request, res: Response) => {
 
     if (!user) {
       res.json({
+        success: false,
         message: "User Not Found!",
       });
       return;
@@ -50,6 +51,7 @@ export const signin = async (req: Request, res: Response) => {
     const token = jwt.sign({ userid: user.id }, JWT_SECRETE);
 
     res.json({
+      success: true,
       message: "signin Successfully!",
       token,
     });

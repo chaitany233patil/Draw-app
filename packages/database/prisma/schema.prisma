@@ -14,7 +14,7 @@ model User {
   username  String   @unique
   password  String
   Room      Room[]
-  Chats     Chats[]
+  Chats     Shapes[]
 }
 
 model Room {
@@ -22,10 +22,10 @@ model Room {
   slug      String  @unique
   userId    String
   Admin     User    @relation(fields: [userId], references: [id])
-  Chats     Chats[]
+  Chats     Shapes[]
 }
 
-model Chats {
+model Shapes {
   id        Int     @id     @default(autoincrement())
   message   String
   userId    String
