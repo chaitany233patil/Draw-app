@@ -40,7 +40,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black overflow-x-hidden`}
       >
-        <div className="absolute h-screen w-full overflow-hidden">
+        <div className="absolute h-screen w-full overflow-hidden z-[-9]">
           <div className="absolute z-[-10] top-[-380px] left-22 w-[300px] h-[1000px] rounded-full rotate-[-35deg] bg-radial from-blue-800 to-black opacity-40 blur-lg "></div>
         </div>
         <Navbar />
