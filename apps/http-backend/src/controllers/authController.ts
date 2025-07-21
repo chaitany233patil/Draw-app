@@ -7,7 +7,6 @@ import admin from "../utils/firebase";
 export const signup = async (req: Request, res: Response) => {
   try {
     const { email, password, username } = req.body;
-    console.log(email, password, username);
     await prisma.user.create({
       data: {
         email,
@@ -35,7 +34,6 @@ export const signin = async (req: Request, res: Response) => {
     const { tokenID } = req.body;
     if (tokenID) {
       const decoded = await admin.auth().verifyIdToken(tokenID);
-      console.log(decoded);
       const { uid } = decoded;
 
       const token = jwt.sign({ userid: uid }, JWT_SECRETE);
@@ -76,7 +74,6 @@ export const signin = async (req: Request, res: Response) => {
 export const verify = async (req: Request, res: Response) => {
   try {
     const { token } = req.body;
-    console.log(token);
     if (!token) {
       res.status(400).json({
         message: "Inavlid Credentials!",

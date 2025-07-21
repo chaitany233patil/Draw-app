@@ -317,10 +317,10 @@ export class CanvasManager {
   }
 
   private async fetchShapes(): Promise<Shape[]> {
-    const response = await axios.get(
-      `${HTTP_BACKEND}/api/v1/room/${this.roomId}`
-    );
-    return response.data.shapes || [];  
+    // const response = await axios.get(
+    //   `${HTTP_BACKEND}/api/v1/room/${this.roomId}`
+    // );
+    return [];
   }
 
   private sendShape(shape: Shape) {

@@ -78,45 +78,47 @@ export function Canvas({ canvasRef, roomId }: Props) {
         height={window.innerHeight}
         width={window.innerWidth}
       />
-      <div className="absolute top-[30%] ml-2 flex flex-col bg-gray-600/50 p-1 rounded-xl">
-        <Tool
-          selected={isSelected == "cursor"}
-          onClick={() => setIsSelected("cursor")}
-        >
-          <MousePointer width={15} />
-        </Tool>
-        <Tool
-          selected={isSelected == "Pan"}
-          onClick={() => setIsSelected("Pan")}
-        >
-          <Hand width={15} />
-        </Tool>
-        <Tool
-          selected={isSelected == "rect"}
-          onClick={() => setIsSelected("rect")}
-        >
-          <RectangleHorizontal width={15} />
-        </Tool>
-        <Tool
-          selected={isSelected == "line"}
-          onClick={() => setIsSelected("line")}
-        >
-          <PenLine width={15} />
-        </Tool>
-        <Tool
-          selected={isSelected == "circle"}
-          onClick={() => setIsSelected("circle")}
-        >
-          <Circle width={15} />
-        </Tool>
-        <Tool
-          selected={isSelected == "text"}
-          onClick={() => setIsSelected("text")}
-        >
-          <LetterText width={15} />
-        </Tool>
+      <div className="absolute top-0 flex w-full ">
+        <div className="mx-auto flex gap-2 bg-gray-600/50 px-2 rounded-xl mt-2">
+          <Tool
+            selected={isSelected == "cursor"}
+            onClick={() => setIsSelected("cursor")}
+          >
+            <MousePointer width={15} />
+          </Tool>
+          <Tool
+            selected={isSelected == "Pan"}
+            onClick={() => setIsSelected("Pan")}
+          >
+            <Hand width={15} />
+          </Tool>
+          <Tool
+            selected={isSelected == "rect"}
+            onClick={() => setIsSelected("rect")}
+          >
+            <RectangleHorizontal width={15} />
+          </Tool>
+          <Tool
+            selected={isSelected == "line"}
+            onClick={() => setIsSelected("line")}
+          >
+            <PenLine width={15} />
+          </Tool>
+          <Tool
+            selected={isSelected == "circle"}
+            onClick={() => setIsSelected("circle")}
+          >
+            <Circle width={15} />
+          </Tool>
+          <Tool
+            selected={isSelected == "text"}
+            onClick={() => setIsSelected("text")}
+          >
+            <LetterText width={15} />
+          </Tool>
+        </div>
       </div>
-      <div className="absolute bottom-5 text-white flex gap-3 ms-2">
+      <div className="absolute bottom-5 right-10 text-white flex gap-3 ms-2">
         <button
           className="bg-gray-600/70 w-8 h-8 rounded-full"
           onClick={() => game.current?.zoomIn()}

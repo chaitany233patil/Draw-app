@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function Main() {
+  const router = useRouter();
   const [rooms, setRooms] = useState([
-    { id: "room_001", name: "Design Brainstorm", createdAt: "2025-07-20" },
-    { id: "room_002", name: "Project Planning", createdAt: "2025-07-19" },
+    { id: "room_001", name: "Default_01" },
+    { id: "room_002", name: "Default_02" },
   ]);
 
-  const [roomName, setRoomName] = useState("");
-  const [joinRoomId, setJoinRoomId] = useState("");
-  const [createModal, setCreateModal] = useState(false);
-  const [joinModal, setJoinModal] = useState(false);
+  const [roomName, setRoomName] = useState<string>("");
+  const [joinRoomId, setJoinRoomId] = useState<string>("");
+  const [createModal, setCreateModal] = useState<boolean>(false);
+  const [joinModal, setJoinModal] = useState<boolean>(false);
   const [shareModal, setShareModal] = useState({
     isOpen: false,
     roomId: "",
@@ -19,7 +21,7 @@ export function Main() {
   });
 
   // Create a new room
-  const createRoom = () => {
+  const createRoom = async () => {
     if (!roomName.trim()) {
       alert("Please enter a room name");
       return;
@@ -28,7 +30,6 @@ export function Main() {
     const newRoom = {
       id: "room_" + Date.now().toString(36),
       name: roomName.trim(),
-      createdAt: new Date().toISOString().split("T")[0],
     };
 
     setRooms((prev) => [newRoom, ...prev]);
@@ -38,29 +39,28 @@ export function Main() {
   };
 
   // Join an existing room
-  const joinRoom = () => {
+  const joinRoom = (roomId: string) => {
     if (!joinRoomId.trim()) {
       alert("Please enter a room ID");
       return;
     }
-
-    alert(`Joining room: ${joinRoomId}`);
+    router.push(`/canvas/${roomId}`);
     setJoinRoomId("");
     setJoinModal(false);
   };
 
   // Enter a room
-  const enterRoom = (roomId) => {
-    alert(`Entering room: ${roomId}`);
+  const enterRoom = (roomId: string) => {
+    router.push(`/canvas/${roomId}`);
   };
 
   // Share a room
-  const shareRoom = (roomId, roomName) => {
+  const shareRoom = (roomId: string, roomName: string) => {
     setShareModal({ isOpen: true, roomId, roomName });
   };
 
   // Delete a room
-  const deleteRoom = (roomId) => {
+  const deleteRoom = (roomId: string) => {
     if (window.confirm("Are you sure you want to delete this room?")) {
       setRooms((prev) => prev.filter((room) => room.id !== roomId));
     }
@@ -75,7 +75,10 @@ export function Main() {
   };
 
   // Handle key press events
-  const handleKeyPress = (e, action) => {
+  const handleKeyPress = (
+    e: KeyboardEvent<HTMLInputElement>,
+    action: { (): Promise<void>; (roomId: string): void; (): void }
+  ) => {
     if (e.key === "Enter") {
       action();
     }
@@ -104,10 +107,12 @@ export function Main() {
             Create Room
           </button>
           <button
-            onClick={() => setJoinModal(true)}
+            onClick={() => {
+              setJoinModal(true);
+            }}
             className="bg-white/10 border border-white/20 text-white py-4 px-8 rounded-xl font-semibold hover:bg-white/20 hover:border-white/30 transform hover:scale-[1.02] transition-all duration-200"
           >
-            Join Room
+            Join Room OR Create Room
           </button>
         </div>
 
@@ -253,7 +258,7 @@ export function Main() {
                 />
               </div>
               <button
-                onClick={joinRoom}
+                onClick={() => joinRoom(joinRoomId)}
                 className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transform hover:scale-[1.02] transition-all duration-200 hover:shadow-lg hover:shadow-blue-500/25"
               >
                 Join Room
