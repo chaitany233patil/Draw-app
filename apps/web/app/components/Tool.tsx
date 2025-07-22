@@ -1,18 +1,20 @@
-import { ReactNode } from "react";
+import React from "react";
 
 export const Tool = ({
   children,
   selected,
   onClick,
+  // icon,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   selected: boolean;
   onClick: () => void;
+  // icon?: LucideIcon;
 }) => {
   return (
     <div
       onClick={onClick}
-      className={`p-2 cursor-pointer hover:border-1 border-gray-400 ${selected ? "text-red-400" : "text-white"}`}
+      className={`px-2 py-1 cursor-pointer hover:bg-gray-500/20 rounded-lg ${selected ? "bg-[#4F4D8C]" : "text-white"}`}
     >
       {children}
     </div>

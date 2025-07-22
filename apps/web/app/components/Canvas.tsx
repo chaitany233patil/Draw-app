@@ -1,7 +1,7 @@
 // /components/Canvas.tsx
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { CanvasManager } from "../lib/canvas/CanvasManager";
 import {
   Circle,
@@ -20,6 +20,15 @@ interface Props {
 }
 
 export function Canvas({ canvasRef, roomId }: Props) {
+  const DrawTools = [
+    { selctedTool: "cursor", icon: MousePointer },
+    { selctedTool: "circle", icon: Circle },
+    { selctedTool: "Pan", icon: Hand },
+    { selctedTool: "rect", icon: RectangleHorizontal },
+    { selctedTool: "line", icon: PenLine },
+    { selctedTool: "text", icon: LetterText },
+  ];
+
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("cursor");
@@ -73,49 +82,22 @@ export function Canvas({ canvasRef, roomId }: Props) {
   return (
     <div>
       <canvas
-        className="bg-black"
+        className="bg-neutral-900"
         ref={canvasRef}
         height={window.innerHeight}
         width={window.innerWidth}
       />
       <div className="absolute top-0 flex w-full ">
-        <div className="mx-auto flex gap-2 bg-gray-600/50 px-2 rounded-xl mt-2">
-          <Tool
-            selected={isSelected == "cursor"}
-            onClick={() => setIsSelected("cursor")}
-          >
-            <MousePointer width={15} />
-          </Tool>
-          <Tool
-            selected={isSelected == "Pan"}
-            onClick={() => setIsSelected("Pan")}
-          >
-            <Hand width={15} />
-          </Tool>
-          <Tool
-            selected={isSelected == "rect"}
-            onClick={() => setIsSelected("rect")}
-          >
-            <RectangleHorizontal width={15} />
-          </Tool>
-          <Tool
-            selected={isSelected == "line"}
-            onClick={() => setIsSelected("line")}
-          >
-            <PenLine width={15} />
-          </Tool>
-          <Tool
-            selected={isSelected == "circle"}
-            onClick={() => setIsSelected("circle")}
-          >
-            <Circle width={15} />
-          </Tool>
-          <Tool
-            selected={isSelected == "text"}
-            onClick={() => setIsSelected("text")}
-          >
-            <LetterText width={15} />
-          </Tool>
+        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl mt-2 p-1.5">
+          {DrawTools.map((tool) => (
+            <Tool
+              key={tool.selctedTool}
+              selected={isSelected == tool.selctedTool}
+              onClick={() => setIsSelected(tool.selctedTool)}
+            >
+              <tool.icon height={18} width={14} className="h-5 w-5" />
+            </Tool>
+          ))}
         </div>
       </div>
       <div className="absolute bottom-5 right-10 text-white flex gap-3 ms-2">
