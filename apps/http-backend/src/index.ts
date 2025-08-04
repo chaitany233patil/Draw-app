@@ -12,6 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", mainRoute);
 
+app.get("/", (req, res) => {
+  res.json({
+    health: "good",
+  });
+  return;
+});
+
 app.listen(PORT, () => {
   console.log("server listning on port ", PORT);
 });
