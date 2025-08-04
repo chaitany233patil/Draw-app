@@ -10,6 +10,7 @@ import {
   RectangleHorizontal,
   MousePointer,
   Hand,
+  Menu,
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BAKCEND } from "../config";
@@ -29,10 +30,16 @@ export function Canvas({ canvasRef, roomId }: Props) {
     { selctedTool: "text", icon: LetterText },
   ];
 
+  const StrokColors = [
+    { id: "1", color: "bg-white", stroke: "white" },
+    { id: "2", color: "bg-red-400", stroke: "red" },
+  ];
+
   const [scale, setScale] = useState<number>(100);
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("cursor");
+  const [strokeColor, setStrokeColor] = useState("red");
   const game = useRef<CanvasManager | null>(null);
 
   useEffect(() => {
@@ -62,6 +69,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
                 setScale(newScalePercent)
               );
               Game.changeTool(isSelected);
+              Game.changeColor(strokeColor);
               game.current = Game;
             }
           }
@@ -79,6 +87,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
   if (game.current) {
     game.current.changeTool(isSelected);
+    game.current.changeColor(strokeColor);
   }
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
@@ -91,6 +100,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
         height={window.innerHeight}
         width={window.innerWidth}
       />
+
+      {/* Drawing Tools */}
       <div className="absolute top-0 flex w-full ">
         <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl mt-2 p-1.5">
           {DrawTools.map((tool) => (
@@ -104,6 +115,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
           ))}
         </div>
       </div>
+
+      {/* zoom in and zoom out */}
       <div className="absolute bottom-5 left-10 text-white flex items-center gap-1 bg-[#232329] rounded-lg py-1">
         <button
           className="h-8 w-8 cursor-pointer"
@@ -124,6 +137,27 @@ export function Canvas({ canvasRef, roomId }: Props) {
         >
           -
         </button>
+      </div>
+
+      {/* setting pannel menu icon */}
+      <div className="hidden absolute top-4 left-6 bg-[#232329] p-2 rounded-lg cursor-pointer">
+        <Menu strokeWidth={1} />
+      </div>
+
+      {/* setting pannel window */}
+      <div className="hidden absolute top-20 left-6 bg-[#232329] p-4 rounded-lg cursor-pointer flex-col">
+        <div className="flex flex-col gap-2">
+          <div className="text-xs text-neutral-300">Stroke</div>
+          <div className="flex gap-3">
+            {StrokColors.map((stroke) => (
+              <div
+                key={stroke.id}
+                className={`${stroke.color} h-7 w-7 rounded-md ring-offset-1 ring-slate-600 hover:ring-1 hover:ring-blue-400`}
+                onClick={() => setStrokeColor(stroke.stroke)}
+              ></div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

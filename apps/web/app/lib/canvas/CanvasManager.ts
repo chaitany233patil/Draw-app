@@ -20,6 +20,7 @@ export class CanvasManager {
   private textBox: HTMLInputElement | undefined;
   private textStartX: number = 0;
   private textStartY: number = 0;
+  private strokeColor: string = "white";
   public scallingNumber: number = 100;
 
   // Zoom in out settings
@@ -38,7 +39,7 @@ export class CanvasManager {
   }
 
   private handlePanStart = (e: MouseEvent) => {
-    if (this.selectedTool === "Pan") {
+    if (this.selectedTool === "pan") {
       this.isPanning = true;
       this.panStartX = e.clientX - this.translateX;
       this.panStartY = e.clientY - this.translateY;
@@ -120,6 +121,7 @@ export class CanvasManager {
       const input = document.createElement("input");
       this.textBox = input;
       input.type = "text";
+      this.ctx.fillStyle = "blue";
       input.placeholder = "type here..";
       input.style.color = "gray";
       input.style.fontSize = "22px";
@@ -384,5 +386,9 @@ export class CanvasManager {
       default:
         this.canvas.style.cursor = "crosshair";
     }
+  }
+
+  changeColor(color: string) {
+    this.strokeColor = color;
   }
 }
