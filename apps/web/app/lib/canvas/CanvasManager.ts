@@ -1,5 +1,5 @@
-import axios from "axios";
-import { HTTP_BACKEND } from "../../config";
+// import axios from "axios";
+// import { HTTP_BACKEND } from "../../config";
 import { Shape } from "./Types";
 
 export class CanvasManager {
@@ -20,15 +20,22 @@ export class CanvasManager {
   private textBox: HTMLInputElement | undefined;
   private textStartX: number = 0;
   private textStartY: number = 0;
+  public scallingNumber: number = 100;
 
   // Zoom in out settings
   private scale: number = 1;
   private translateX: number = 0;
   private translateY: number = 0;
 
+  private onScaleChangeCallback?: (scale: number) => void;
+
   private isPanning: boolean = false;
   private panStartX: number = 0;
   private panStartY: number = 0;
+
+  public setOnScaleChange(cb: (scale: number) => void) {
+    this.onScaleChangeCallback = cb;
+  }
 
   private handlePanStart = (e: MouseEvent) => {
     if (this.selectedTool === "Pan") {
@@ -51,15 +58,18 @@ export class CanvasManager {
   };
 
   private handleWheel = (e: WheelEvent) => {
-    if (this.selectedTool == "Pan") {
-      e.preventDefault();
+    e.preventDefault();
 
-      const scaleAmount = -e.deltaY * 0.001;
-      const newScale = this.scale * (1 + scaleAmount);
+    const scaleAmount = -e.deltaY * 0.001;
+    const newScale = this.scale * (1 + scaleAmount);
 
-      this.scale = Math.min(Math.max(newScale, 0.2), 5);
+    this.scale = Math.min(Math.max(newScale, 0.2), 5);
+    this.scallingNumber = Math.round(this.scale * 100);
 
-      this.redraw();
+    this.redraw();
+
+    if (this.onScaleChangeCallback) {
+      this.onScaleChangeCallback(this.scallingNumber);
     }
   };
 
@@ -335,12 +345,22 @@ export class CanvasManager {
 
   zoomIn() {
     this.scale *= 1.1;
+    this.scallingNumber = Math.round(this.scale * 100);
     this.redraw();
+
+    if (this.onScaleChangeCallback) {
+      this.onScaleChangeCallback(this.scallingNumber);
+    }
   }
 
   zoomOut() {
     this.scale /= 1.1;
+    this.scallingNumber = Math.floor(this.scale * 100);
     this.redraw();
+
+    if (this.onScaleChangeCallback) {
+      this.onScaleChangeCallback(this.scallingNumber);
+    }
   }
 
   //redraw
@@ -351,17 +371,18 @@ export class CanvasManager {
 
   changeTool(tool: string) {
     this.selectedTool = tool;
-
-    if (this.selectedTool == "cursor") {
-      this.canvas.style.cursor = "default";
-    }
-
-    if (this.selectedTool != "Pan") {
-      this.canvas.style.cursor = "crosshair";
-    }
-
-    if (this.selectedTool == "Pan") {
-      this.canvas.style.cursor = "grabbing";
+    switch (this.selectedTool) {
+      case "text":
+        this.canvas.style.cursor = "text";
+        break;
+      case "pan":
+        this.canvas.style.cursor = "grabbing";
+        break;
+      case "cursor":
+        this.canvas.style.cursor = "default";
+        break;
+      default:
+        this.canvas.style.cursor = "crosshair";
     }
   }
 }

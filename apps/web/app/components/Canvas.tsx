@@ -22,13 +22,14 @@ interface Props {
 export function Canvas({ canvasRef, roomId }: Props) {
   const DrawTools = [
     { selctedTool: "cursor", icon: MousePointer },
+    { selctedTool: "pan", icon: Hand },
     { selctedTool: "circle", icon: Circle },
-    { selctedTool: "Pan", icon: Hand },
     { selctedTool: "rect", icon: RectangleHorizontal },
     { selctedTool: "line", icon: PenLine },
     { selctedTool: "text", icon: LetterText },
   ];
 
+  const [scale, setScale] = useState<number>(100);
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("cursor");
@@ -56,6 +57,9 @@ export function Canvas({ canvasRef, roomId }: Props) {
                 canvasRef.current,
                 ws,
                 roomId
+              );
+              Game.setOnScaleChange((newScalePercent) =>
+                setScale(newScalePercent)
               );
               Game.changeTool(isSelected);
               game.current = Game;
@@ -95,22 +99,28 @@ export function Canvas({ canvasRef, roomId }: Props) {
               selected={isSelected == tool.selctedTool}
               onClick={() => setIsSelected(tool.selctedTool)}
             >
-              <tool.icon height={18} width={14} className="h-5 w-5" />
+              <tool.icon height={18} width={14} className="h-4 w-4" />
             </Tool>
           ))}
         </div>
       </div>
-      <div className="absolute bottom-5 right-10 text-white flex gap-3 ms-2">
+      <div className="absolute bottom-5 left-10 text-white flex items-center gap-1 bg-[#232329] rounded-lg py-1">
         <button
-          className="bg-gray-600/70 w-8 h-8 rounded-full"
-          onClick={() => game.current?.zoomIn()}
+          className="h-8 w-8 cursor-pointer"
+          onClick={() => {
+            setScale(game.current?.scallingNumber as number);
+            game.current?.zoomIn();
+          }}
         >
           +
         </button>
-
+        <div className="text-sm w-14 text-center">{scale}%</div>
         <button
-          className="bg-gray-600/70 w-8 h-8 rounded-full"
-          onClick={() => game.current?.zoomOut()}
+          className="h-8 w-8 cursor-pointer"
+          onClick={() => {
+            setScale(game.current?.scallingNumber as number);
+            game.current?.zoomOut();
+          }}
         >
           -
         </button>
