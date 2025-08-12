@@ -6,11 +6,12 @@ import { CanvasManager } from "../lib/canvas/CanvasManager";
 import {
   Circle,
   LetterText,
-  PenLine,
+  Minus,
   RectangleHorizontal,
   MousePointer,
   Hand,
   Menu,
+  Pencil,
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BAKCEND } from "../config";
@@ -26,7 +27,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
     { selctedTool: "pan", icon: Hand },
     { selctedTool: "circle", icon: Circle },
     { selctedTool: "rect", icon: RectangleHorizontal },
-    { selctedTool: "line", icon: PenLine },
+    { selctedTool: "line", icon: Minus },
+    { selctedTool: "pen", icon: Pencil },
     { selctedTool: "text", icon: LetterText },
   ];
 
@@ -44,6 +46,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const [isSelected, setIsSelected] = useState("cursor");
   const [strokeColor, setStrokeColor] = useState("#FFFFFF");
   const game = useRef<CanvasManager | null>(null);
+  const [settingModel, setSettingModel] = useState(false);
 
   useEffect(() => {
     const roomExist = async () => {
@@ -92,7 +95,6 @@ export function Canvas({ canvasRef, roomId }: Props) {
   if (game.current) {
     game.current.changeTool(isSelected);
     game.current.changeColor(strokeColor);
-    game.current.reseteDrawingTool(setIsSelected);
   }
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
@@ -104,6 +106,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
         ref={canvasRef}
         height={window.innerHeight}
         width={window.innerWidth}
+        onClick={() => setSettingModel(false)}
       />
 
       {/* Drawing Tools */}
@@ -113,7 +116,10 @@ export function Canvas({ canvasRef, roomId }: Props) {
             <Tool
               key={tool.selctedTool}
               selected={isSelected == tool.selctedTool}
-              onClick={() => setIsSelected(tool.selctedTool)}
+              onClick={() => {
+                setSettingModel(true);
+                setIsSelected(tool.selctedTool);
+              }}
             >
               <tool.icon height={18} width={14} className="h-3.5 w-3.5" />
             </Tool>
@@ -150,23 +156,27 @@ export function Canvas({ canvasRef, roomId }: Props) {
       </div>
 
       {/* setting pannel window */}
-      <div className="absolute top-22 left-3 bg-[#232329] p-4 rounded-lg cursor-pointer flex-col">
-        <div className="flex flex-col gap-2">
-          <div className="text-[11px] text-neutral-300">Stroke</div>
-          <div className="flex gap-3">
-            <div className="flex gap-1 border-r-3 border-slate-600 pr-3">
-              {StrokColors.map((stroke) => (
-                <div
-                  key={stroke.id}
-                  className={`${stroke.color} h-5.5 w-5.5 rounded-sm ring-offset-1 ring-slate-600 hover:ring-1 hover:ring-blue-400 ${strokeColor == stroke.stroke ? "ring-1 ring-blue-400" : ""}`}
-                  onClick={() => setStrokeColor(stroke.stroke)}
-                ></div>
-              ))}
+      {settingModel && (
+        <div className="absolute top-22 left-3 bg-[#232329] p-4 rounded-lg cursor-pointer flex-col">
+          <div className="flex flex-col gap-2">
+            <div className="text-[11px] text-neutral-300">Stroke</div>
+            <div className="flex gap-3">
+              <div className="flex gap-1 border-r-3 border-slate-600 pr-3">
+                {StrokColors.map((stroke) => (
+                  <div
+                    key={stroke.id}
+                    className={`${stroke.color} h-5.5 w-5.5 rounded-sm ring-offset-1 ring-slate-600 hover:ring-1 hover:ring-blue-400 ${strokeColor == stroke.stroke ? "ring-1 ring-blue-400" : ""}`}
+                    onClick={() => setStrokeColor(stroke.stroke)}
+                  ></div>
+                ))}
+              </div>
+              <div
+                className={`bg-[${strokeColor}] h-5.5 w-5.5 rounded-sm`}
+              ></div>
             </div>
-            <div className={`bg-[${strokeColor}] h-5.5 w-5.5 rounded-sm`}></div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

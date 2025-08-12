@@ -29,7 +29,6 @@ export class CanvasManager {
   private translateY: number = 0;
 
   private onScaleChangeCallback?: (scale: number) => void;
-  private ReseteDrawTool: ((selectedTool: string) => void) | undefined;
 
   private isPanning: boolean = false;
   private panStartX: number = 0;
@@ -52,10 +51,6 @@ export class CanvasManager {
   //Scalling
   public setOnScaleChange(cb: (scale: number) => void) {
     this.onScaleChangeCallback = cb;
-  }
-
-  public reseteDrawingTool(cb: (selectedTool: string) => void) {
-    this.ReseteDrawTool = cb;
   }
 
   private handlePanStart = (e: MouseEvent) => {
@@ -184,8 +179,12 @@ export class CanvasManager {
   };
 
   private handleMouseUp = () => {
-    if (this.ReseteDrawTool) this.ReseteDrawTool("cursor");
     this.isDrawing = false;
+
+    if (this.selectedTool == "pen") {
+      this.ctx.beginPath();
+    }
+
     if (this.selectedTool == "rect") {
       const shape: Shape = {
         type: "rect",
@@ -228,6 +227,14 @@ export class CanvasManager {
 
   private handleMouseMove = (e: MouseEvent) => {
     if (!this.isDrawing) return;
+
+    if (this.selectedTool == "pen") {
+      this.ctx.lineWidth = 1;
+      this.ctx.lineCap = "round";
+      this.ctx.strokeStyle = this.currentColor;
+      this.ctx.lineTo(e.clientX, e.clientY);
+      this.ctx.stroke();
+    }
 
     if (this.selectedTool == "rect") {
       const rect = this.canvas.getBoundingClientRect();
