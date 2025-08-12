@@ -16,7 +16,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@repo/db": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
