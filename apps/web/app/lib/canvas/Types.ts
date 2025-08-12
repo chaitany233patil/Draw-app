@@ -6,16 +6,19 @@ export type Shape =
       startY: number;
       width: number;
       height: number;
+      color: string;
     }
   | {
       type: "circle";
       centerX: number;
       centerY: number;
       radius: number;
+      color: string;
     }
   | {
       type: "text";
       startX: number;
       startY: number;
       text: string;
+      color: string;
     };

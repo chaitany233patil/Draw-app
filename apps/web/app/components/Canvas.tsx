@@ -31,15 +31,18 @@ export function Canvas({ canvasRef, roomId }: Props) {
   ];
 
   const StrokColors = [
-    { id: "1", color: "bg-white", stroke: "white" },
-    { id: "2", color: "bg-red-400", stroke: "red" },
+    { id: "1", color: "bg-[#FFFFFF]", stroke: "#FFFFFF" },
+    { id: "2", color: "bg-[#F26666]", stroke: "#F26666" },
+    { id: "3", color: "bg-[#17AD3A]", stroke: "#17AD3A" },
+    { id: "4", color: "bg-[#398EE3]", stroke: "#398EE3" },
+    { id: "5", color: "bg-[#BD9204]", stroke: "#BD9204" },
   ];
 
   const [scale, setScale] = useState<number>(100);
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("cursor");
-  const [strokeColor, setStrokeColor] = useState("red");
+  const [strokeColor, setStrokeColor] = useState("#FFFFFF");
   const game = useRef<CanvasManager | null>(null);
 
   useEffect(() => {
@@ -85,9 +88,11 @@ export function Canvas({ canvasRef, roomId }: Props) {
     roomExist();
   }, [canvasRef, roomId, isConnected]);
 
+  //reset selcted tool
   if (game.current) {
     game.current.changeTool(isSelected);
     game.current.changeColor(strokeColor);
+    game.current.reseteDrawingTool(setIsSelected);
   }
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
@@ -103,14 +108,14 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
       {/* Drawing Tools */}
       <div className="absolute top-0 flex w-full ">
-        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl mt-2 p-1.5">
+        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl mt-3 p-1">
           {DrawTools.map((tool) => (
             <Tool
               key={tool.selctedTool}
               selected={isSelected == tool.selctedTool}
               onClick={() => setIsSelected(tool.selctedTool)}
             >
-              <tool.icon height={18} width={14} className="h-4 w-4" />
+              <tool.icon height={18} width={14} className="h-3.5 w-3.5" />
             </Tool>
           ))}
         </div>
@@ -140,22 +145,25 @@ export function Canvas({ canvasRef, roomId }: Props) {
       </div>
 
       {/* setting pannel menu icon */}
-      <div className="hidden absolute top-4 left-6 bg-[#232329] p-2 rounded-lg cursor-pointer">
-        <Menu strokeWidth={1} />
+      <div className="absolute top-4 left-3 bg-[#232329] p-2 rounded-lg cursor-pointer">
+        <Menu strokeWidth={1} className="h-5 w-5" />
       </div>
 
       {/* setting pannel window */}
-      <div className="hidden absolute top-20 left-6 bg-[#232329] p-4 rounded-lg cursor-pointer flex-col">
+      <div className="absolute top-22 left-3 bg-[#232329] p-4 rounded-lg cursor-pointer flex-col">
         <div className="flex flex-col gap-2">
-          <div className="text-xs text-neutral-300">Stroke</div>
+          <div className="text-[11px] text-neutral-300">Stroke</div>
           <div className="flex gap-3">
-            {StrokColors.map((stroke) => (
-              <div
-                key={stroke.id}
-                className={`${stroke.color} h-7 w-7 rounded-md ring-offset-1 ring-slate-600 hover:ring-1 hover:ring-blue-400`}
-                onClick={() => setStrokeColor(stroke.stroke)}
-              ></div>
-            ))}
+            <div className="flex gap-1 border-r-3 border-slate-600 pr-3">
+              {StrokColors.map((stroke) => (
+                <div
+                  key={stroke.id}
+                  className={`${stroke.color} h-5.5 w-5.5 rounded-sm ring-offset-1 ring-slate-600 hover:ring-1 hover:ring-blue-400 ${strokeColor == stroke.stroke ? "ring-1 ring-blue-400" : ""}`}
+                  onClick={() => setStrokeColor(stroke.stroke)}
+                ></div>
+              ))}
+            </div>
+            <div className={`bg-[${strokeColor}] h-5.5 w-5.5 rounded-sm`}></div>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ export class CanvasManager {
   private roomId: string;
   private shapes: Shape[] = [];
   private selectedTool: string = "cursor";
+  private currentColor: string = "white";
   private isDrawing = false;
   private startX = 0;
   private startY = 0;
@@ -20,7 +21,6 @@ export class CanvasManager {
   private textBox: HTMLInputElement | undefined;
   private textStartX: number = 0;
   private textStartY: number = 0;
-  private strokeColor: string = "white";
   public scallingNumber: number = 100;
 
   // Zoom in out settings
@@ -29,13 +29,33 @@ export class CanvasManager {
   private translateY: number = 0;
 
   private onScaleChangeCallback?: (scale: number) => void;
+  private ReseteDrawTool: ((selectedTool: string) => void) | undefined;
 
   private isPanning: boolean = false;
   private panStartX: number = 0;
   private panStartY: number = 0;
 
+  //Contructor
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    ws: WebSocket,
+    roomId: string
+  ) {
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.ws = ws;
+    this.roomId = roomId;
+    this.init();
+  }
+
+  //Scalling
   public setOnScaleChange(cb: (scale: number) => void) {
     this.onScaleChangeCallback = cb;
+  }
+
+  public reseteDrawingTool(cb: (selectedTool: string) => void) {
+    this.ReseteDrawTool = cb;
   }
 
   private handlePanStart = (e: MouseEvent) => {
@@ -74,22 +94,7 @@ export class CanvasManager {
     }
   };
 
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    ws: WebSocket,
-    roomId: string
-  ) {
-    this.ctx = ctx;
-    this.canvas = canvas;
-    this.ws = ws;
-    this.roomId = roomId;
-
-    this.ctx.strokeStyle = "white";
-
-    this.init();
-  }
-
+  //Init Draw
   private async init() {
     this.shapes = await this.fetchShapes();
     this.clearCanvas();
@@ -99,6 +104,7 @@ export class CanvasManager {
     this.ws.onmessage = this.handleSocketMessage;
   }
 
+  //all Mouse Events
   private addEventListeners() {
     this.canvas.addEventListener("mousedown", this.handleMouseDown);
     this.canvas.addEventListener("mouseup", this.handleMouseUp);
@@ -121,9 +127,9 @@ export class CanvasManager {
       const input = document.createElement("input");
       this.textBox = input;
       input.type = "text";
-      this.ctx.fillStyle = "blue";
+      this.ctx.fillStyle = this.currentColor;
       input.placeholder = "type here..";
-      input.style.color = "gray";
+      input.style.color = this.currentColor;
       input.style.fontSize = "22px";
       input.style.position = "absolute";
       input.style.outline = "none";
@@ -139,7 +145,7 @@ export class CanvasManager {
 
       const textHandler = () => {
         this.canvas.removeEventListener("mousedown", textHandler);
-        this.ctx.fillStyle = "gray";
+        this.ctx.fillStyle = this.currentColor;
         this.ctx.font = "22px Arial";
         const text = input.value;
         this.ctx.fillText(text, this.textStartX, this.textStartY);
@@ -151,6 +157,7 @@ export class CanvasManager {
           type: "text",
           startX: this.textStartX,
           startY: this.textStartY,
+          color: this.currentColor,
           text,
         };
         this.shapes.push(shape);
@@ -177,6 +184,7 @@ export class CanvasManager {
   };
 
   private handleMouseUp = () => {
+    if (this.ReseteDrawTool) this.ReseteDrawTool("cursor");
     this.isDrawing = false;
     if (this.selectedTool == "rect") {
       const shape: Shape = {
@@ -185,6 +193,7 @@ export class CanvasManager {
         startY: this.startY,
         width: this.width,
         height: this.height,
+        color: this.currentColor,
       };
       this.shapes.push(shape);
       this.sendShape(shape);
@@ -196,6 +205,7 @@ export class CanvasManager {
         centerX: this.centerX,
         centerY: this.centerY,
         radius: this.radius,
+        color: this.currentColor,
       };
       this.shapes.push(shape);
       this.sendShape(shape);
@@ -208,6 +218,7 @@ export class CanvasManager {
         startY: this.startY,
         width: this.width,
         height: this.height,
+        color: this.currentColor,
       };
 
       this.shapes.push(shape);
@@ -228,6 +239,7 @@ export class CanvasManager {
 
       this.clearCanvas();
       this.drawAllShapes();
+      this.ctx.strokeStyle = this.currentColor;
       this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
     }
 
@@ -237,6 +249,7 @@ export class CanvasManager {
       this.ctx.beginPath();
       this.clearCanvas();
       this.drawAllShapes();
+      this.ctx.strokeStyle = this.currentColor;
       this.ctx.moveTo(this.startX, this.startY);
       this.ctx.lineTo(this.width, this.height);
       this.ctx.stroke();
@@ -262,6 +275,7 @@ export class CanvasManager {
       this.drawAllShapes();
 
       this.ctx.beginPath();
+      this.ctx.strokeStyle = this.currentColor;
       this.ctx.arc(this.centerX, this.centerY, this.radius, 0, 2 * Math.PI);
       this.ctx.stroke();
     }
@@ -293,6 +307,7 @@ export class CanvasManager {
     );
     for (const shape of this.shapes) {
       if (shape.type == "rect") {
+        this.ctx.strokeStyle = shape.color;
         this.ctx.strokeRect(
           shape.startX,
           shape.startY,
@@ -302,13 +317,14 @@ export class CanvasManager {
       }
 
       if (shape.type == "text") {
-        this.ctx.fillStyle = "gray";
+        this.ctx.fillStyle = shape.color;
         this.ctx.font = "22px Arial";
         this.ctx.fillText(shape.text, shape.startX, shape.startY);
       }
 
       if (shape.type == "line") {
         this.ctx.beginPath();
+        this.ctx.strokeStyle = shape.color;
         this.ctx.moveTo(shape.startX, shape.startY);
         this.ctx.lineTo(shape.width, shape.height);
         this.ctx.stroke();
@@ -316,6 +332,7 @@ export class CanvasManager {
 
       if (shape.type == "circle") {
         this.ctx.beginPath();
+        this.ctx.strokeStyle = shape.color;
         this.ctx.arc(
           shape.centerX,
           shape.centerY,
@@ -389,6 +406,6 @@ export class CanvasManager {
   }
 
   changeColor(color: string) {
-    this.strokeColor = color;
+    this.currentColor = color;
   }
 }
