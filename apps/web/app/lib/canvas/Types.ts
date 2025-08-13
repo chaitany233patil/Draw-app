@@ -1,4 +1,9 @@
 // /lib/canvas/types.ts
+export interface strokePoints {
+  x: number;
+  y: number;
+}
+
 export type Shape =
   | {
       type: "rect" | "line";
@@ -20,5 +25,11 @@ export type Shape =
       startX: number;
       startY: number;
       text: string;
+      color: string;
+    }
+  | {
+      type: "pen";
+      linewidth: number;
+      points: strokePoints[];
       color: string;
     };

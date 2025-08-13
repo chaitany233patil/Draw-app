@@ -1,6 +1,6 @@
 // import axios from "axios";
 // import { HTTP_BACKEND } from "../../config";
-import { Shape } from "./Types";
+import { Shape, strokePoints } from "./Types";
 
 export class CanvasManager {
   private ctx: CanvasRenderingContext2D;
@@ -22,6 +22,9 @@ export class CanvasManager {
   private textStartX: number = 0;
   private textStartY: number = 0;
   public scallingNumber: number = 100;
+
+  //pen drawing points arr
+  private currentStrokePoints: strokePoints[] = [];
 
   // Zoom in out settings
   private scale: number = 1;
@@ -180,9 +183,18 @@ export class CanvasManager {
 
   private handleMouseUp = () => {
     this.isDrawing = false;
+    this.ctx.beginPath();
 
     if (this.selectedTool == "pen") {
-      this.ctx.beginPath();
+      const shape: Shape = {
+        type: "pen",
+        points: this.currentStrokePoints,
+        linewidth: 1,
+        color: this.currentColor,
+      };
+      this.currentStrokePoints = [];
+      this.shapes.push(shape);
+      this.sendShape(shape);
     }
 
     if (this.selectedTool == "rect") {
@@ -233,6 +245,7 @@ export class CanvasManager {
       this.ctx.lineCap = "round";
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.lineTo(e.clientX, e.clientY);
+      this.currentStrokePoints.push({ x: e.clientX, y: e.clientY });
       this.ctx.stroke();
     }
 
@@ -313,6 +326,16 @@ export class CanvasManager {
       this.translateY
     );
     for (const shape of this.shapes) {
+      if (shape.type == "pen") {
+        this.ctx.strokeStyle = shape.color;
+        this.ctx.lineWidth = 1;
+        this.ctx.lineCap = "round";
+        this.ctx.beginPath();
+        const points = shape.points;
+        points.forEach((point) => this.ctx.lineTo(point.x, point.y));
+        this.ctx.stroke();
+      }
+
       if (shape.type == "rect") {
         this.ctx.strokeStyle = shape.color;
         this.ctx.strokeRect(
