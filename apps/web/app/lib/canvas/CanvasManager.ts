@@ -26,6 +26,8 @@ export class CanvasManager {
   //pen drawing points arr
   private currentStrokePoints: strokePoints[] = [];
 
+  private currentStrokeWidth: number = 1;
+
   // Zoom in out settings
   private scale: number = 1;
   private translateX: number = 0;
@@ -191,6 +193,7 @@ export class CanvasManager {
         points: this.currentStrokePoints,
         linewidth: 1,
         color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
       };
       this.currentStrokePoints = [];
       this.shapes.push(shape);
@@ -205,6 +208,7 @@ export class CanvasManager {
         width: this.width,
         height: this.height,
         color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
       };
       this.shapes.push(shape);
       this.sendShape(shape);
@@ -217,6 +221,7 @@ export class CanvasManager {
         centerY: this.centerY,
         radius: this.radius,
         color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
       };
       this.shapes.push(shape);
       this.sendShape(shape);
@@ -230,6 +235,7 @@ export class CanvasManager {
         width: this.width,
         height: this.height,
         color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
       };
 
       this.shapes.push(shape);
@@ -241,7 +247,7 @@ export class CanvasManager {
     if (!this.isDrawing) return;
 
     if (this.selectedTool == "pen") {
-      this.ctx.lineWidth = 1;
+      this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.lineCap = "round";
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.lineTo(e.clientX, e.clientY);
@@ -259,6 +265,7 @@ export class CanvasManager {
 
       this.clearCanvas();
       this.drawAllShapes();
+      this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
     }
@@ -269,6 +276,7 @@ export class CanvasManager {
       this.ctx.beginPath();
       this.clearCanvas();
       this.drawAllShapes();
+      this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.moveTo(this.startX, this.startY);
       this.ctx.lineTo(this.width, this.height);
@@ -295,6 +303,7 @@ export class CanvasManager {
       this.drawAllShapes();
 
       this.ctx.beginPath();
+      this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.arc(this.centerX, this.centerY, this.radius, 0, 2 * Math.PI);
       this.ctx.stroke();
@@ -328,7 +337,7 @@ export class CanvasManager {
     for (const shape of this.shapes) {
       if (shape.type == "pen") {
         this.ctx.strokeStyle = shape.color;
-        this.ctx.lineWidth = 1;
+        this.ctx.lineWidth = shape.lineWidth;
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
         const points = shape.points;
@@ -338,6 +347,7 @@ export class CanvasManager {
 
       if (shape.type == "rect") {
         this.ctx.strokeStyle = shape.color;
+        this.ctx.lineWidth = shape.lineWidth;
         this.ctx.strokeRect(
           shape.startX,
           shape.startY,
@@ -355,6 +365,7 @@ export class CanvasManager {
       if (shape.type == "line") {
         this.ctx.beginPath();
         this.ctx.strokeStyle = shape.color;
+        this.ctx.lineWidth = shape.lineWidth;
         this.ctx.moveTo(shape.startX, shape.startY);
         this.ctx.lineTo(shape.width, shape.height);
         this.ctx.stroke();
@@ -362,6 +373,7 @@ export class CanvasManager {
 
       if (shape.type == "circle") {
         this.ctx.beginPath();
+        this.ctx.lineWidth = shape.lineWidth;
         this.ctx.strokeStyle = shape.color;
         this.ctx.arc(
           shape.centerX,
@@ -437,5 +449,9 @@ export class CanvasManager {
 
   changeColor(color: string) {
     this.currentColor = color;
+  }
+
+  changeStrokeWidth(width: number) {
+    this.currentStrokeWidth = width;
   }
 }

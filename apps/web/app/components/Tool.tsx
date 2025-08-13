@@ -14,7 +14,7 @@ export const Tool = ({
   return (
     <div
       onClick={onClick}
-      className={`p-2.5 cursor-pointer hover:bg-gray-500/20 rounded-lg ${selected ? "bg-[#4F4D8C]" : "text-white"}`}
+      className={`p-2.5 cursor-pointer hover:bg-gray-500/15 rounded-lg ${selected ? "bg-[#4F4D8C]" : "text-white"}`}
     >
       {children}
     </div>

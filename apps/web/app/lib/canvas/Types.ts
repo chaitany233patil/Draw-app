@@ -12,6 +12,7 @@ export type Shape =
       width: number;
       height: number;
       color: string;
+      lineWidth: number;
     }
   | {
       type: "circle";
@@ -19,6 +20,7 @@ export type Shape =
       centerY: number;
       radius: number;
       color: string;
+      lineWidth: number;
     }
   | {
       type: "text";
@@ -32,4 +34,5 @@ export type Shape =
       linewidth: number;
       points: strokePoints[];
       color: string;
+      lineWidth: number;
     };
