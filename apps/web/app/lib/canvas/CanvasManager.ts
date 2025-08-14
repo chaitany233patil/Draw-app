@@ -27,6 +27,7 @@ export class CanvasManager {
   private currentStrokePoints: strokePoints[] = [];
 
   private currentStrokeWidth: number = 1;
+  private currentStrokeStyle: number[] = [0, 0];
 
   // Zoom in out settings
   private scale: number = 1;
@@ -194,6 +195,7 @@ export class CanvasManager {
         linewidth: 1,
         color: this.currentColor,
         lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
       };
       this.currentStrokePoints = [];
       this.shapes.push(shape);
@@ -209,6 +211,7 @@ export class CanvasManager {
         height: this.height,
         color: this.currentColor,
         lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
       };
       this.shapes.push(shape);
       this.sendShape(shape);
@@ -222,6 +225,7 @@ export class CanvasManager {
         radius: this.radius,
         color: this.currentColor,
         lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
       };
       this.shapes.push(shape);
       this.sendShape(shape);
@@ -236,6 +240,7 @@ export class CanvasManager {
         height: this.height,
         color: this.currentColor,
         lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
       };
 
       this.shapes.push(shape);
@@ -248,6 +253,7 @@ export class CanvasManager {
 
     if (this.selectedTool == "pen") {
       this.ctx.lineWidth = this.currentStrokeWidth;
+      this.ctx.setLineDash(this.currentStrokeStyle);
       this.ctx.lineCap = "round";
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.lineTo(e.clientX, e.clientY);
@@ -265,6 +271,7 @@ export class CanvasManager {
 
       this.clearCanvas();
       this.drawAllShapes();
+      this.ctx.setLineDash(this.currentStrokeStyle);
       this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
@@ -276,6 +283,7 @@ export class CanvasManager {
       this.ctx.beginPath();
       this.clearCanvas();
       this.drawAllShapes();
+      this.ctx.setLineDash(this.currentStrokeStyle);
       this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.moveTo(this.startX, this.startY);
@@ -303,6 +311,7 @@ export class CanvasManager {
       this.drawAllShapes();
 
       this.ctx.beginPath();
+      this.ctx.setLineDash(this.currentStrokeStyle);
       this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.arc(this.centerX, this.centerY, this.radius, 0, 2 * Math.PI);
@@ -338,6 +347,7 @@ export class CanvasManager {
       if (shape.type == "pen") {
         this.ctx.strokeStyle = shape.color;
         this.ctx.lineWidth = shape.lineWidth;
+        this.ctx.setLineDash(shape.lineStyle);
         this.ctx.lineCap = "round";
         this.ctx.beginPath();
         const points = shape.points;
@@ -346,6 +356,7 @@ export class CanvasManager {
       }
 
       if (shape.type == "rect") {
+        this.ctx.setLineDash(shape.lineStyle);
         this.ctx.strokeStyle = shape.color;
         this.ctx.lineWidth = shape.lineWidth;
         this.ctx.strokeRect(
@@ -364,6 +375,7 @@ export class CanvasManager {
 
       if (shape.type == "line") {
         this.ctx.beginPath();
+        this.ctx.setLineDash(shape.lineStyle);
         this.ctx.strokeStyle = shape.color;
         this.ctx.lineWidth = shape.lineWidth;
         this.ctx.moveTo(shape.startX, shape.startY);
@@ -373,6 +385,7 @@ export class CanvasManager {
 
       if (shape.type == "circle") {
         this.ctx.beginPath();
+        this.ctx.setLineDash(shape.lineStyle);
         this.ctx.lineWidth = shape.lineWidth;
         this.ctx.strokeStyle = shape.color;
         this.ctx.arc(
@@ -453,5 +466,9 @@ export class CanvasManager {
 
   changeStrokeWidth(width: number) {
     this.currentStrokeWidth = width;
+  }
+
+  changeStrokeStyle(strokeStyle: number[]) {
+    this.currentStrokeStyle = strokeStyle;
   }
 }

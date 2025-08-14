@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BAKCEND } from "../config";
+import Image from "next/image";
 
 interface Props {
   canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -46,6 +47,12 @@ export function Canvas({ canvasRef, roomId }: Props) {
     { id: 3, strokeWidth: 5 },
   ];
 
+  const StrokeStyles = [
+    { id: 1, strokeStyle: [0, 0], iconHref: "/line.svg" },
+    { id: 2, strokeStyle: [3, 3], iconHref: "/dash_line.svg" },
+    { id: 3, strokeStyle: [10, 5], iconHref: "/dash_line.svg" },
+  ];
+
   const [scale, setScale] = useState<number>(100);
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -54,6 +61,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const game = useRef<CanvasManager | null>(null);
   const [settingModel, setSettingModel] = useState(false);
   const [strokeWidth, setStrokWidth] = useState(1);
+  const [strokeStyle, setStrokeStyle] = useState([0, 0]);
 
   useEffect(() => {
     const roomExist = async () => {
@@ -104,6 +112,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
     game.current.changeTool(isSelected);
     game.current.changeColor(strokeColor);
     game.current.changeStrokeWidth(strokeWidth);
+    game.current.changeStrokeStyle(strokeStyle);
   }
 
   if (!isConnected) return <div>Connecting to WebSocket...</div>;
@@ -166,6 +175,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
       {/* setting pannel window */}
       {settingModel && (
+        // Stroke Colors
         <div className="absolute top-22 left-3 bg-[#232329] p-4 rounded-lg cursor-pointer flex-col">
           <div className="flex flex-col gap-2">
             <div className="text-[12px] text-neutral-300">Stroke</div>
@@ -183,6 +193,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
                 className={`bg-[${strokeColor}] h-5.5 w-5.5 rounded-sm`}
               ></div>
             </div>
+
+            {/* Stroke Width */}
             <div className="flex flex-col mt-3">
               <div className="text-[12px] text-neutral-300">Stroke Width</div>
               <div className="flex mt-2 gap-2">
@@ -198,6 +210,30 @@ export function Canvas({ canvasRef, roomId }: Props) {
                       className="h-3 w-3"
                       strokeWidth={stroke.strokeWidth}
                     />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col mt-2">
+              <div className="text-[12px] text-neutral-300">Stroke Style</div>
+              <div className="flex mt-2 gap-2">
+                {StrokeStyles.map((stroke) => (
+                  <div
+                    key={stroke.id}
+                    className={`rounded-lg hover:bg-gray-500/30 
+                      ${strokeStyle[0] == stroke.strokeStyle[0] ? "bg-purple-500/30" : "bg-gray-500/15"}          
+                      `}
+                    onClick={() => setStrokeStyle(stroke.strokeStyle)}
+                  >
+                    <div className="p-0.5 flex gap-1">
+                      <Image
+                        src={stroke.iconHref}
+                        alt="dash-line"
+                        height={32}
+                        width={32}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
