@@ -45,7 +45,7 @@ export class CanvasManager {
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     ws: WebSocket,
-    roomId: string
+    roomId: string,
   ) {
     this.ctx = ctx;
     this.canvas = canvas;
@@ -341,7 +341,7 @@ export class CanvasManager {
       0,
       this.scale,
       this.translateX,
-      this.translateY
+      this.translateY,
     );
     for (const shape of this.shapes) {
       if (shape.type == "pen") {
@@ -363,7 +363,7 @@ export class CanvasManager {
           shape.startX,
           shape.startY,
           shape.width,
-          shape.height
+          shape.height,
         );
       }
 
@@ -393,7 +393,7 @@ export class CanvasManager {
           shape.centerY,
           shape.radius,
           0,
-          2 * Math.PI
+          2 * Math.PI,
         );
         this.ctx.stroke();
       }
@@ -413,7 +413,7 @@ export class CanvasManager {
         type: "chat",
         roomId: this.roomId,
         message: JSON.stringify(shape),
-      })
+      }),
     );
   }
 
