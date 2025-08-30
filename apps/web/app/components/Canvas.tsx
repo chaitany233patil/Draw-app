@@ -74,7 +74,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
             JSON.stringify({
               type: "join_room",
               roomId,
-            })
+            }),
           );
 
           if (canvasRef.current) {
@@ -84,10 +84,10 @@ export function Canvas({ canvasRef, roomId }: Props) {
                 ctx,
                 canvasRef.current,
                 ws,
-                roomId
+                roomId,
               );
               Game.setOnScaleChange((newScalePercent) =>
-                setScale(newScalePercent)
+                setScale(newScalePercent),
               );
               Game.changeTool(isSelected);
               Game.changeColor(strokeColor);
