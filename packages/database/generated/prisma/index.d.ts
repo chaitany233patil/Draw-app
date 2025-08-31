@@ -1,33 +1,31 @@
-
 /**
  * Client
-**/
+ **/
 
-import * as runtime from './runtime/library.js';
-import $Types = runtime.Types // general types
-import $Public = runtime.Types.Public
-import $Utils = runtime.Types.Utils
-import $Extensions = runtime.Types.Extensions
-import $Result = runtime.Types.Result
+import * as runtime from "./runtime/library.js";
+import $Types = runtime.Types; // general types
+import $Public = runtime.Types.Public;
+import $Utils = runtime.Types.Utils;
+import $Extensions = runtime.Types.Extensions;
+import $Result = runtime.Types.Result;
 
-export type PrismaPromise<T> = $Public.PrismaPromise<T>
-
+export type PrismaPromise<T> = $Public.PrismaPromise<T>;
 
 /**
  * Model User
- * 
+ *
  */
-export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+export type User = $Result.DefaultSelection<Prisma.$UserPayload>;
 /**
  * Model Room
- * 
+ *
  */
-export type Room = $Result.DefaultSelection<Prisma.$RoomPayload>
+export type Room = $Result.DefaultSelection<Prisma.$RoomPayload>;
 /**
  * Model Shapes
- * 
+ *
  */
-export type Shapes = $Result.DefaultSelection<Prisma.$ShapesPayload>
+export type Shapes = $Result.DefaultSelection<Prisma.$ShapesPayload>;
 
 /**
  * ##  Prisma Client ʲˢ
@@ -45,12 +43,16 @@ export type Shapes = $Result.DefaultSelection<Prisma.$ShapesPayload>
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
-  ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
+  const U = "log" extends keyof ClientOptions
+    ? ClientOptions["log"] extends Array<Prisma.LogLevel | Prisma.LogDefinition>
+      ? Prisma.GetEvents<ClientOptions["log"]>
+      : never
+    : never,
+  ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
 > {
-  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
+  [K: symbol]: { types: Prisma.TypeMap<ExtArgs>["other"] };
 
-    /**
+  /**
    * ##  Prisma Client ʲˢ
    *
    * Type-safe database client for TypeScript & Node.js
@@ -65,8 +67,15 @@ export class PrismaClient<
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
-  constructor(optionsArg ?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>);
-  $on<V extends U>(eventType: V, callback: (event: V extends 'query' ? Prisma.QueryEvent : Prisma.LogEvent) => void): PrismaClient;
+  constructor(
+    optionsArg?: Prisma.Subset<ClientOptions, Prisma.PrismaClientOptions>,
+  );
+  $on<V extends U>(
+    eventType: V,
+    callback: (
+      event: V extends "query" ? Prisma.QueryEvent : Prisma.LogEvent,
+    ) => void,
+  ): PrismaClient;
 
   /**
    * Connect with the database
@@ -83,9 +92,9 @@ export class PrismaClient<
    * @deprecated since 4.16.0. For new code, prefer client extensions instead.
    * @see https://pris.ly/d/extensions
    */
-  $use(cb: Prisma.Middleware): void
+  $use(cb: Prisma.Middleware): void;
 
-/**
+  /**
    * Executes a prepared raw query and returns the number of affected rows.
    * @example
    * ```
@@ -94,7 +103,10 @@ export class PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
+  $executeRaw<T = unknown>(
+    query: TemplateStringsArray | Prisma.Sql,
+    ...values: any[]
+  ): Prisma.PrismaPromise<number>;
 
   /**
    * Executes a raw query and returns the number of affected rows.
@@ -106,7 +118,10 @@ export class PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
+  $executeRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): Prisma.PrismaPromise<number>;
 
   /**
    * Performs a prepared raw query and returns the `SELECT` data.
@@ -117,7 +132,10 @@ export class PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
+  $queryRaw<T = unknown>(
+    query: TemplateStringsArray | Prisma.Sql,
+    ...values: any[]
+  ): Prisma.PrismaPromise<T>;
 
   /**
    * Performs a raw query and returns the `SELECT` data.
@@ -129,8 +147,10 @@ export class PrismaClient<
    *
    * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
-  $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
-
+  $queryRawUnsafe<T = unknown>(
+    query: string,
+    ...values: any[]
+  ): Prisma.PrismaPromise<T>;
 
   /**
    * Allows the running of a sequence of read/write operations that are guaranteed to either succeed or fail as a whole.
@@ -142,125 +162,141 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(
+    arg: [...P],
+    options?: { isolationLevel?: Prisma.TransactionIsolationLevel },
+  ): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>;
 
-  $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
+  $transaction<R>(
+    fn: (
+      prisma: Omit<PrismaClient, runtime.ITXClientDenyList>,
+    ) => $Utils.JsPromise<R>,
+    options?: {
+      maxWait?: number;
+      timeout?: number;
+      isolationLevel?: Prisma.TransactionIsolationLevel;
+    },
+  ): $Utils.JsPromise<R>;
 
+  $extends: $Extensions.ExtendsHook<
+    "extends",
+    Prisma.TypeMapCb<ClientOptions>,
+    ExtArgs,
+    $Utils.Call<
+      Prisma.TypeMapCb<ClientOptions>,
+      {
+        extArgs: ExtArgs;
+      }
+    >
+  >;
 
-  $extends: $Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<ClientOptions>, ExtArgs, $Utils.Call<Prisma.TypeMapCb<ClientOptions>, {
-    extArgs: ExtArgs
-  }>>
-
-      /**
+  /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Users
-    * const users = await prisma.user.findMany()
-    * ```
-    */
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
+   * ```
+   */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.room`: Exposes CRUD operations for the **Room** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Rooms
-    * const rooms = await prisma.room.findMany()
-    * ```
-    */
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Rooms
+   * const rooms = await prisma.room.findMany()
+   * ```
+   */
   get room(): Prisma.RoomDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.shapes`: Exposes CRUD operations for the **Shapes** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Shapes
-    * const shapes = await prisma.shapes.findMany()
-    * ```
-    */
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more Shapes
+   * const shapes = await prisma.shapes.findMany()
+   * ```
+   */
   get shapes(): Prisma.ShapesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
-  export import DMMF = runtime.DMMF
+  export import DMMF = runtime.DMMF;
 
-  export type PrismaPromise<T> = $Public.PrismaPromise<T>
+  export type PrismaPromise<T> = $Public.PrismaPromise<T>;
 
   /**
    * Validator
    */
-  export import validator = runtime.Public.validator
+  export import validator = runtime.Public.validator;
 
   /**
    * Prisma Errors
    */
-  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError
-  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError
-  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError
-  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError
-  export import PrismaClientValidationError = runtime.PrismaClientValidationError
+  export import PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
+  export import PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
+  export import PrismaClientRustPanicError = runtime.PrismaClientRustPanicError;
+  export import PrismaClientInitializationError = runtime.PrismaClientInitializationError;
+  export import PrismaClientValidationError = runtime.PrismaClientValidationError;
 
   /**
    * Re-export of sql-template-tag
    */
-  export import sql = runtime.sqltag
-  export import empty = runtime.empty
-  export import join = runtime.join
-  export import raw = runtime.raw
-  export import Sql = runtime.Sql
-
-
+  export import sql = runtime.sqltag;
+  export import empty = runtime.empty;
+  export import join = runtime.join;
+  export import raw = runtime.raw;
+  export import Sql = runtime.Sql;
 
   /**
    * Decimal.js
    */
-  export import Decimal = runtime.Decimal
+  export import Decimal = runtime.Decimal;
 
-  export type DecimalJsLike = runtime.DecimalJsLike
+  export type DecimalJsLike = runtime.DecimalJsLike;
 
   /**
    * Metrics
    */
-  export type Metrics = runtime.Metrics
-  export type Metric<T> = runtime.Metric<T>
-  export type MetricHistogram = runtime.MetricHistogram
-  export type MetricHistogramBucket = runtime.MetricHistogramBucket
+  export type Metrics = runtime.Metrics;
+  export type Metric<T> = runtime.Metric<T>;
+  export type MetricHistogram = runtime.MetricHistogram;
+  export type MetricHistogramBucket = runtime.MetricHistogramBucket;
 
   /**
-  * Extensions
-  */
-  export import Extension = $Extensions.UserArgs
-  export import getExtensionContext = runtime.Extensions.getExtensionContext
-  export import Args = $Public.Args
-  export import Payload = $Public.Payload
-  export import Result = $Public.Result
-  export import Exact = $Public.Exact
+   * Extensions
+   */
+  export import Extension = $Extensions.UserArgs;
+  export import getExtensionContext = runtime.Extensions.getExtensionContext;
+  export import Args = $Public.Args;
+  export import Payload = $Public.Payload;
+  export import Result = $Public.Result;
+  export import Exact = $Public.Exact;
 
   /**
    * Prisma Client JS version: 6.13.0
    * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
    */
   export type PrismaVersion = {
-    client: string
-  }
+    client: string;
+  };
 
-  export const prismaVersion: PrismaVersion
+  export const prismaVersion: PrismaVersion;
 
   /**
    * Utility Types
    */
 
-
-  export import JsonObject = runtime.JsonObject
-  export import JsonArray = runtime.JsonArray
-  export import JsonValue = runtime.JsonValue
-  export import InputJsonObject = runtime.InputJsonObject
-  export import InputJsonArray = runtime.InputJsonArray
-  export import InputJsonValue = runtime.InputJsonValue
+  export import JsonObject = runtime.JsonObject;
+  export import JsonArray = runtime.JsonArray;
+  export import JsonValue = runtime.JsonValue;
+  export import InputJsonObject = runtime.InputJsonObject;
+  export import InputJsonArray = runtime.InputJsonArray;
+  export import InputJsonValue = runtime.InputJsonValue;
 
   /**
    * Types of the values used to represent different kinds of `null` values when working with JSON fields.
@@ -269,39 +305,39 @@ export namespace Prisma {
    */
   namespace NullTypes {
     /**
-    * Type of `Prisma.DbNull`.
-    *
-    * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
-    *
-    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-    */
+     * Type of `Prisma.DbNull`.
+     *
+     * You cannot use other instances of this class. Please use the `Prisma.DbNull` value.
+     *
+     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+     */
     class DbNull {
-      private DbNull: never
-      private constructor()
+      private DbNull: never;
+      private constructor();
     }
 
     /**
-    * Type of `Prisma.JsonNull`.
-    *
-    * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
-    *
-    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-    */
+     * Type of `Prisma.JsonNull`.
+     *
+     * You cannot use other instances of this class. Please use the `Prisma.JsonNull` value.
+     *
+     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+     */
     class JsonNull {
-      private JsonNull: never
-      private constructor()
+      private JsonNull: never;
+      private constructor();
     }
 
     /**
-    * Type of `Prisma.AnyNull`.
-    *
-    * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
-    *
-    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
-    */
+     * Type of `Prisma.AnyNull`.
+     *
+     * You cannot use other instances of this class. Please use the `Prisma.AnyNull` value.
+     *
+     * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
+     */
     class AnyNull {
-      private AnyNull: never
-      private constructor()
+      private AnyNull: never;
+      private constructor();
     }
   }
 
@@ -310,61 +346,63 @@ export namespace Prisma {
    *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
-  export const DbNull: NullTypes.DbNull
+  export const DbNull: NullTypes.DbNull;
 
   /**
    * Helper for filtering JSON entries that have JSON `null` values (not empty on the db)
    *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
-  export const JsonNull: NullTypes.JsonNull
+  export const JsonNull: NullTypes.JsonNull;
 
   /**
    * Helper for filtering JSON entries that are `Prisma.DbNull` or `Prisma.JsonNull`
    *
    * @see https://www.prisma.io/docs/concepts/components/prisma-client/working-with-fields/working-with-json-fields#filtering-on-a-json-field
    */
-  export const AnyNull: NullTypes.AnyNull
+  export const AnyNull: NullTypes.AnyNull;
 
   type SelectAndInclude = {
-    select: any
-    include: any
-  }
+    select: any;
+    include: any;
+  };
 
   type SelectAndOmit = {
-    select: any
-    omit: any
-  }
+    select: any;
+    omit: any;
+  };
 
   /**
    * Get the type of the value, that the Promise holds.
    */
-  export type PromiseType<T extends PromiseLike<any>> = T extends PromiseLike<infer U> ? U : T;
+  export type PromiseType<T extends PromiseLike<any>> =
+    T extends PromiseLike<infer U> ? U : T;
 
   /**
    * Get the return type of a function which returns a Promise.
    */
-  export type PromiseReturnType<T extends (...args: any) => $Utils.JsPromise<any>> = PromiseType<ReturnType<T>>
+  export type PromiseReturnType<
+    T extends (...args: any) => $Utils.JsPromise<any>,
+  > = PromiseType<ReturnType<T>>;
 
   /**
    * From T, pick a set of properties whose keys are in the union K
    */
   type Prisma__Pick<T, K extends keyof T> = {
-      [P in K]: T[P];
+    [P in K]: T[P];
   };
-
 
   export type Enumerable<T> = T | Array<T>;
 
   export type RequiredKeys<T> = {
-    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K
-  }[keyof T]
+    [K in keyof T]-?: {} extends Prisma__Pick<T, K> ? never : K;
+  }[keyof T];
 
   export type TruthyKeys<T> = keyof {
-    [K in keyof T as T[K] extends false | undefined | null ? never : K]: K
-  }
+    [K in keyof T as T[K] extends false | undefined | null ? never : K]: K;
+  };
 
-  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>
+  export type TrueKeys<T> = TruthyKeys<Prisma__Pick<T, RequiredKeys<T>>>;
 
   /**
    * Subset
@@ -380,22 +418,20 @@ export namespace Prisma {
    * Additionally, it validates, if both select and include are present. If the case, it errors.
    */
   export type SelectSubset<T, U> = {
-    [key in keyof T]: key extends keyof U ? T[key] : never
-  } &
-    (T extends SelectAndInclude
-      ? 'Please either choose `select` or `include`.'
-      : T extends SelectAndOmit
-        ? 'Please either choose `select` or `omit`.'
-        : {})
+    [key in keyof T]: key extends keyof U ? T[key] : never;
+  } & (T extends SelectAndInclude
+    ? "Please either choose `select` or `include`."
+    : T extends SelectAndOmit
+      ? "Please either choose `select` or `omit`."
+      : {});
 
   /**
    * Subset + Intersection
    * @desc From `T` pick properties that exist in `U` and intersect `K`
    */
   export type SubsetIntersection<T, U, K> = {
-    [key in keyof T]: key extends keyof U ? T[key] : never
-  } &
-    K
+    [key in keyof T]: key extends keyof U ? T[key] : never;
+  } & K;
 
   type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 
@@ -403,33 +439,32 @@ export namespace Prisma {
    * XOR is needed to have a real mutually exclusive union type
    * https://stackoverflow.com/questions/42123407/does-typescript-support-mutually-exclusive-types
    */
-  type XOR<T, U> =
-    T extends object ?
-    U extends object ?
-      (Without<T, U> & U) | (Without<U, T> & T)
-    : U : T
-
+  type XOR<T, U> = T extends object
+    ? U extends object
+      ? (Without<T, U> & U) | (Without<U, T> & T)
+      : U
+    : T;
 
   /**
    * Is T a Record?
    */
-  type IsObject<T extends any> = T extends Array<any>
-  ? False
-  : T extends Date
-  ? False
-  : T extends Uint8Array
-  ? False
-  : T extends BigInt
-  ? False
-  : T extends object
-  ? True
-  : False
-
+  type IsObject<T extends any> =
+    T extends Array<any>
+      ? False
+      : T extends Date
+        ? False
+        : T extends Uint8Array
+          ? False
+          : T extends BigInt
+            ? False
+            : T extends object
+              ? True
+              : False;
 
   /**
    * If it's T[], return T
    */
-  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T
+  export type UnEnumerate<T extends unknown> = T extends Array<infer U> ? U : T;
 
   /**
    * From ts-toolbelt
@@ -438,61 +473,74 @@ export namespace Prisma {
   type __Either<O extends object, K extends Key> = Omit<O, K> &
     {
       // Merge all but K
-      [P in K]: Prisma__Pick<O, P & keyof O> // With K possibilities
-    }[K]
+      [P in K]: Prisma__Pick<O, P & keyof O>; // With K possibilities
+    }[K];
 
-  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>
+  type EitherStrict<O extends object, K extends Key> = Strict<__Either<O, K>>;
 
-  type EitherLoose<O extends object, K extends Key> = ComputeRaw<__Either<O, K>>
+  type EitherLoose<O extends object, K extends Key> = ComputeRaw<
+    __Either<O, K>
+  >;
 
-  type _Either<
-    O extends object,
-    K extends Key,
-    strict extends Boolean
-  > = {
-    1: EitherStrict<O, K>
-    0: EitherLoose<O, K>
-  }[strict]
+  type _Either<O extends object, K extends Key, strict extends Boolean> = {
+    1: EitherStrict<O, K>;
+    0: EitherLoose<O, K>;
+  }[strict];
 
   type Either<
     O extends object,
     K extends Key,
-    strict extends Boolean = 1
-  > = O extends unknown ? _Either<O, K, strict> : never
+    strict extends Boolean = 1,
+  > = O extends unknown ? _Either<O, K, strict> : never;
 
-  export type Union = any
+  export type Union = any;
 
   type PatchUndefined<O extends object, O1 extends object> = {
-    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K]
-  } & {}
+    [K in keyof O]: O[K] extends undefined ? At<O1, K> : O[K];
+  } & {};
 
   /** Helper Types for "Merge" **/
   export type IntersectOf<U extends Union> = (
     U extends unknown ? (k: U) => void : never
   ) extends (k: infer I) => void
     ? I
-    : never
+    : never;
 
   export type Overwrite<O extends object, O1 extends object> = {
-      [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
+    [K in keyof O]: K extends keyof O1 ? O1[K] : O[K];
   } & {};
 
-  type _Merge<U extends object> = IntersectOf<Overwrite<U, {
-      [K in keyof U]-?: At<U, K>;
-  }>>;
+  type _Merge<U extends object> = IntersectOf<
+    Overwrite<
+      U,
+      {
+        [K in keyof U]-?: At<U, K>;
+      }
+    >
+  >;
 
   type Key = string | number | symbol;
-  type AtBasic<O extends object, K extends Key> = K extends keyof O ? O[K] : never;
+  type AtBasic<O extends object, K extends Key> = K extends keyof O
+    ? O[K]
+    : never;
   type AtStrict<O extends object, K extends Key> = O[K & keyof O];
-  type AtLoose<O extends object, K extends Key> = O extends unknown ? AtStrict<O, K> : never;
-  export type At<O extends object, K extends Key, strict extends Boolean = 1> = {
-      1: AtStrict<O, K>;
-      0: AtLoose<O, K>;
+  type AtLoose<O extends object, K extends Key> = O extends unknown
+    ? AtStrict<O, K>
+    : never;
+  export type At<
+    O extends object,
+    K extends Key,
+    strict extends Boolean = 1,
+  > = {
+    1: AtStrict<O, K>;
+    0: AtLoose<O, K>;
   }[strict];
 
-  export type ComputeRaw<A extends any> = A extends Function ? A : {
-    [K in keyof A]: A[K];
-  } & {};
+  export type ComputeRaw<A extends any> = A extends Function
+    ? A
+    : {
+        [K in keyof A]: A[K];
+      } & {};
 
   export type OptionalFlat<O> = {
     [K in keyof O]?: O[K];
@@ -508,11 +556,15 @@ export namespace Prisma {
   // this type assumes the passed object is entirely optional
   type AtLeast<O extends object, K extends string> = NoExpand<
     O extends unknown
-    ? | (K extends keyof O ? { [P in K]: O[P] } & O : O)
-      | {[P in keyof O as P extends K ? P : never]-?: O[P]} & O
-    : never>;
+      ?
+          | (K extends keyof O ? { [P in K]: O[P] } & O : O)
+          | ({ [P in keyof O as P extends K ? P : never]-?: O[P] } & O)
+      : never
+  >;
 
-  type _Strict<U, _U = U> = U extends unknown ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>> : never;
+  type _Strict<U, _U = U> = U extends unknown
+    ? U & OptionalFlat<_Record<Exclude<Keys<_U>, keyof U>, never>>
+    : never;
 
   export type Strict<U extends object> = ComputeRaw<_Strict<U>>;
   /** End Helper Types for "Merge" **/
@@ -522,400 +574,418 @@ export namespace Prisma {
   /**
   A [[Boolean]]
   */
-  export type Boolean = True | False
+  export type Boolean = True | False;
 
   // /**
   // 1
   // */
-  export type True = 1
+  export type True = 1;
 
   /**
   0
   */
-  export type False = 0
+  export type False = 0;
 
   export type Not<B extends Boolean> = {
-    0: 1
-    1: 0
-  }[B]
+    0: 1;
+    1: 0;
+  }[B];
 
   export type Extends<A1 extends any, A2 extends any> = [A1] extends [never]
     ? 0 // anything `never` is false
     : A1 extends A2
-    ? 1
-    : 0
+      ? 1
+      : 0;
 
   export type Has<U extends Union, U1 extends Union> = Not<
     Extends<Exclude<U1, U>, U1>
-  >
+  >;
 
   export type Or<B1 extends Boolean, B2 extends Boolean> = {
     0: {
-      0: 0
-      1: 1
-    }
+      0: 0;
+      1: 1;
+    };
     1: {
-      0: 1
-      1: 1
-    }
-  }[B1][B2]
+      0: 1;
+      1: 1;
+    };
+  }[B1][B2];
 
-  export type Keys<U extends Union> = U extends unknown ? keyof U : never
+  export type Keys<U extends Union> = U extends unknown ? keyof U : never;
 
   type Cast<A, B> = A extends B ? A : B;
 
   export const type: unique symbol;
 
-
-
   /**
    * Used by group by
    */
 
-  export type GetScalarType<T, O> = O extends object ? {
-    [P in keyof T]: P extends keyof O
-      ? O[P]
-      : never
-  } : never
+  export type GetScalarType<T, O> = O extends object
+    ? {
+        [P in keyof T]: P extends keyof O ? O[P] : never;
+      }
+    : never;
 
   type FieldPaths<
     T,
-    U = Omit<T, '_avg' | '_sum' | '_count' | '_min' | '_max'>
-  > = IsObject<T> extends True ? U : T
+    U = Omit<T, "_avg" | "_sum" | "_count" | "_min" | "_max">,
+  > = IsObject<T> extends True ? U : T;
 
   type GetHavingFields<T> = {
     [K in keyof T]: Or<
-      Or<Extends<'OR', K>, Extends<'AND', K>>,
-      Extends<'NOT', K>
+      Or<Extends<"OR", K>, Extends<"AND", K>>,
+      Extends<"NOT", K>
     > extends True
       ? // infer is only needed to not hit TS limit
         // based on the brilliant idea of Pierre-Antoine Mills
         // https://github.com/microsoft/TypeScript/issues/30188#issuecomment-478938437
         T[K] extends infer TK
-        ? GetHavingFields<UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never>
+        ? GetHavingFields<
+            UnEnumerate<TK> extends object ? Merge<UnEnumerate<TK>> : never
+          >
         : never
       : {} extends FieldPaths<T[K]>
-      ? never
-      : K
-  }[keyof T]
+        ? never
+        : K;
+  }[keyof T];
 
   /**
    * Convert tuple to union
    */
-  type _TupleToUnion<T> = T extends (infer E)[] ? E : never
-  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>
-  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T
+  type _TupleToUnion<T> = T extends (infer E)[] ? E : never;
+  type TupleToUnion<K extends readonly any[]> = _TupleToUnion<K>;
+  type MaybeTupleToUnion<T> = T extends any[] ? TupleToUnion<T> : T;
 
   /**
    * Like `Pick`, but additionally can also accept an array of keys
    */
-  type PickEnumerable<T, K extends Enumerable<keyof T> | keyof T> = Prisma__Pick<T, MaybeTupleToUnion<K>>
+  type PickEnumerable<
+    T,
+    K extends Enumerable<keyof T> | keyof T,
+  > = Prisma__Pick<T, MaybeTupleToUnion<K>>;
 
   /**
    * Exclude all keys with underscores
    */
-  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}` ? never : T
+  type ExcludeUnderscoreKeys<T extends string> = T extends `_${string}`
+    ? never
+    : T;
 
+  export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>;
 
-  export type FieldRef<Model, FieldType> = runtime.FieldRef<Model, FieldType>
-
-  type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRef<Model, FieldType>
-
+  type FieldRefInputType<Model, FieldType> = Model extends never
+    ? never
+    : FieldRef<Model, FieldType>;
 
   export const ModelName: {
-    User: 'User',
-    Room: 'Room',
-    Shapes: 'Shapes'
+    User: "User";
+    Room: "Room";
+    Shapes: "Shapes";
   };
 
-  export type ModelName = (typeof ModelName)[keyof typeof ModelName]
-
+  export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 
   export type Datasources = {
-    db?: Datasource
+    db?: Datasource;
+  };
+
+  interface TypeMapCb<ClientOptions = {}>
+    extends $Utils.Fn<
+      { extArgs: $Extensions.InternalArgs },
+      $Utils.Record<string, any>
+    > {
+    returns: Prisma.TypeMap<
+      this["params"]["extArgs"],
+      ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}
+    >;
   }
 
-  interface TypeMapCb<ClientOptions = {}> extends $Utils.Fn<{extArgs: $Extensions.InternalArgs }, $Utils.Record<string, any>> {
-    returns: Prisma.TypeMap<this['params']['extArgs'], ClientOptions extends { omit: infer OmitOptions } ? OmitOptions : {}>
-  }
-
-  export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> = {
+  export type TypeMap<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > = {
     globalOmitOptions: {
-      omit: GlobalOmitOptions
-    }
+      omit: GlobalOmitOptions;
+    };
     meta: {
-      modelProps: "user" | "room" | "shapes"
-      txIsolationLevel: Prisma.TransactionIsolationLevel
-    }
+      modelProps: "user" | "room" | "shapes";
+      txIsolationLevel: Prisma.TransactionIsolationLevel;
+    };
     model: {
       User: {
-        payload: Prisma.$UserPayload<ExtArgs>
-        fields: Prisma.UserFieldRefs
+        payload: Prisma.$UserPayload<ExtArgs>;
+        fields: Prisma.UserFieldRefs;
         operations: {
           findUnique: {
-            args: Prisma.UserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
-          }
+            args: Prisma.UserFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null;
+          };
           findUniqueOrThrow: {
-            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
+            args: Prisma.UserFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>;
+          };
           findFirst: {
-            args: Prisma.UserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null
-          }
+            args: Prisma.UserFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload> | null;
+          };
           findFirstOrThrow: {
-            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
+            args: Prisma.UserFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>;
+          };
           findMany: {
-            args: Prisma.UserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
+            args: Prisma.UserFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[];
+          };
           create: {
-            args: Prisma.UserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
+            args: Prisma.UserCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>;
+          };
           createMany: {
-            args: Prisma.UserCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.UserCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           createManyAndReturn: {
-            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[];
+          };
           delete: {
-            args: Prisma.UserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
+            args: Prisma.UserDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>;
+          };
           update: {
-            args: Prisma.UserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
+            args: Prisma.UserUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>;
+          };
           deleteMany: {
-            args: Prisma.UserDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.UserDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           updateMany: {
-            args: Prisma.UserUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.UserUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           updateManyAndReturn: {
-            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
+            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[];
+          };
           upsert: {
-            args: Prisma.UserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>
-          }
+            args: Prisma.UserUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>;
+          };
           aggregate: {
-            args: Prisma.UserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUser>
-          }
+            args: Prisma.UserAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateUser>;
+          };
           groupBy: {
-            args: Prisma.UserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UserGroupByOutputType>[]
-          }
+            args: Prisma.UserGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<UserGroupByOutputType>[];
+          };
           count: {
-            args: Prisma.UserCountArgs<ExtArgs>
-            result: $Utils.Optional<UserCountAggregateOutputType> | number
-          }
-        }
-      }
+            args: Prisma.UserCountArgs<ExtArgs>;
+            result: $Utils.Optional<UserCountAggregateOutputType> | number;
+          };
+        };
+      };
       Room: {
-        payload: Prisma.$RoomPayload<ExtArgs>
-        fields: Prisma.RoomFieldRefs
+        payload: Prisma.$RoomPayload<ExtArgs>;
+        fields: Prisma.RoomFieldRefs;
         operations: {
           findUnique: {
-            args: Prisma.RoomFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload> | null
-          }
+            args: Prisma.RoomFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload> | null;
+          };
           findUniqueOrThrow: {
-            args: Prisma.RoomFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
-          }
+            args: Prisma.RoomFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>;
+          };
           findFirst: {
-            args: Prisma.RoomFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload> | null
-          }
+            args: Prisma.RoomFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload> | null;
+          };
           findFirstOrThrow: {
-            args: Prisma.RoomFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
-          }
+            args: Prisma.RoomFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>;
+          };
           findMany: {
-            args: Prisma.RoomFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[]
-          }
+            args: Prisma.RoomFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[];
+          };
           create: {
-            args: Prisma.RoomCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
-          }
+            args: Prisma.RoomCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>;
+          };
           createMany: {
-            args: Prisma.RoomCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.RoomCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           createManyAndReturn: {
-            args: Prisma.RoomCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[]
-          }
+            args: Prisma.RoomCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[];
+          };
           delete: {
-            args: Prisma.RoomDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
-          }
+            args: Prisma.RoomDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>;
+          };
           update: {
-            args: Prisma.RoomUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
-          }
+            args: Prisma.RoomUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>;
+          };
           deleteMany: {
-            args: Prisma.RoomDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.RoomDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           updateMany: {
-            args: Prisma.RoomUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.RoomUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           updateManyAndReturn: {
-            args: Prisma.RoomUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[]
-          }
+            args: Prisma.RoomUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>[];
+          };
           upsert: {
-            args: Prisma.RoomUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RoomPayload>
-          }
+            args: Prisma.RoomUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$RoomPayload>;
+          };
           aggregate: {
-            args: Prisma.RoomAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateRoom>
-          }
+            args: Prisma.RoomAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateRoom>;
+          };
           groupBy: {
-            args: Prisma.RoomGroupByArgs<ExtArgs>
-            result: $Utils.Optional<RoomGroupByOutputType>[]
-          }
+            args: Prisma.RoomGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<RoomGroupByOutputType>[];
+          };
           count: {
-            args: Prisma.RoomCountArgs<ExtArgs>
-            result: $Utils.Optional<RoomCountAggregateOutputType> | number
-          }
-        }
-      }
+            args: Prisma.RoomCountArgs<ExtArgs>;
+            result: $Utils.Optional<RoomCountAggregateOutputType> | number;
+          };
+        };
+      };
       Shapes: {
-        payload: Prisma.$ShapesPayload<ExtArgs>
-        fields: Prisma.ShapesFieldRefs
+        payload: Prisma.$ShapesPayload<ExtArgs>;
+        fields: Prisma.ShapesFieldRefs;
         operations: {
           findUnique: {
-            args: Prisma.ShapesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload> | null
-          }
+            args: Prisma.ShapesFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload> | null;
+          };
           findUniqueOrThrow: {
-            args: Prisma.ShapesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>
-          }
+            args: Prisma.ShapesFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>;
+          };
           findFirst: {
-            args: Prisma.ShapesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload> | null
-          }
+            args: Prisma.ShapesFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload> | null;
+          };
           findFirstOrThrow: {
-            args: Prisma.ShapesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>
-          }
+            args: Prisma.ShapesFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>;
+          };
           findMany: {
-            args: Prisma.ShapesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>[]
-          }
+            args: Prisma.ShapesFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>[];
+          };
           create: {
-            args: Prisma.ShapesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>
-          }
+            args: Prisma.ShapesCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>;
+          };
           createMany: {
-            args: Prisma.ShapesCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.ShapesCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           createManyAndReturn: {
-            args: Prisma.ShapesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>[]
-          }
+            args: Prisma.ShapesCreateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>[];
+          };
           delete: {
-            args: Prisma.ShapesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>
-          }
+            args: Prisma.ShapesDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>;
+          };
           update: {
-            args: Prisma.ShapesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>
-          }
+            args: Prisma.ShapesUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>;
+          };
           deleteMany: {
-            args: Prisma.ShapesDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.ShapesDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           updateMany: {
-            args: Prisma.ShapesUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
+            args: Prisma.ShapesUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
           updateManyAndReturn: {
-            args: Prisma.ShapesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>[]
-          }
+            args: Prisma.ShapesUpdateManyAndReturnArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>[];
+          };
           upsert: {
-            args: Prisma.ShapesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>
-          }
+            args: Prisma.ShapesUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$ShapesPayload>;
+          };
           aggregate: {
-            args: Prisma.ShapesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateShapes>
-          }
+            args: Prisma.ShapesAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateShapes>;
+          };
           groupBy: {
-            args: Prisma.ShapesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ShapesGroupByOutputType>[]
-          }
+            args: Prisma.ShapesGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<ShapesGroupByOutputType>[];
+          };
           count: {
-            args: Prisma.ShapesCountArgs<ExtArgs>
-            result: $Utils.Optional<ShapesCountAggregateOutputType> | number
-          }
-        }
-      }
-    }
+            args: Prisma.ShapesCountArgs<ExtArgs>;
+            result: $Utils.Optional<ShapesCountAggregateOutputType> | number;
+          };
+        };
+      };
+    };
   } & {
     other: {
-      payload: any
+      payload: any;
       operations: {
         $executeRaw: {
-          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
-          result: any
-        }
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]];
+          result: any;
+        };
         $executeRawUnsafe: {
-          args: [query: string, ...values: any[]],
-          result: any
-        }
+          args: [query: string, ...values: any[]];
+          result: any;
+        };
         $queryRaw: {
-          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]],
-          result: any
-        }
+          args: [query: TemplateStringsArray | Prisma.Sql, ...values: any[]];
+          result: any;
+        };
         $queryRawUnsafe: {
-          args: [query: string, ...values: any[]],
-          result: any
-        }
-      }
-    }
-  }
-  export const defineExtension: $Extensions.ExtendsHook<"define", Prisma.TypeMapCb, $Extensions.DefaultArgs>
-  export type DefaultPrismaClient = PrismaClient
-  export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
+          args: [query: string, ...values: any[]];
+          result: any;
+        };
+      };
+    };
+  };
+  export const defineExtension: $Extensions.ExtendsHook<
+    "define",
+    Prisma.TypeMapCb,
+    $Extensions.DefaultArgs
+  >;
+  export type DefaultPrismaClient = PrismaClient;
+  export type ErrorFormat = "pretty" | "colorless" | "minimal";
   export interface PrismaClientOptions {
     /**
      * Overwrites the datasource url from your schema.prisma file
      */
-    datasources?: Datasources
+    datasources?: Datasources;
     /**
      * Overwrites the datasource url from your schema.prisma file
      */
-    datasourceUrl?: string
+    datasourceUrl?: string;
     /**
      * @default "colorless"
      */
-    errorFormat?: ErrorFormat
+    errorFormat?: ErrorFormat;
     /**
      * @example
      * ```
      * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
-     * 
+     *
      * // Emit as events only
      * log: [
      *   { emit: 'event', level: 'query' },
@@ -923,31 +993,31 @@ export namespace Prisma {
      *   { emit: 'event', level: 'warn' }
      *   { emit: 'event', level: 'error' }
      * ]
-     * 
+     *
      * / Emit as events and log to stdout
      * og: [
      *  { emit: 'stdout', level: 'query' },
      *  { emit: 'stdout', level: 'info' },
      *  { emit: 'stdout', level: 'warn' }
      *  { emit: 'stdout', level: 'error' }
-     * 
+     *
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
-    log?: (LogLevel | LogDefinition)[]
+    log?: (LogLevel | LogDefinition)[];
     /**
      * The default values for transactionOptions
      * maxWait ?= 2000
      * timeout ?= 5000
      */
     transactionOptions?: {
-      maxWait?: number
-      timeout?: number
-      isolationLevel?: Prisma.TransactionIsolationLevel
-    }
+      maxWait?: number;
+      timeout?: number;
+      isolationLevel?: Prisma.TransactionIsolationLevel;
+    };
     /**
      * Global configuration for omitting model fields by default.
-     * 
+     *
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -959,80 +1029,78 @@ export namespace Prisma {
      * })
      * ```
      */
-    omit?: Prisma.GlobalOmitConfig
+    omit?: Prisma.GlobalOmitConfig;
   }
   export type GlobalOmitConfig = {
-    user?: UserOmit
-    room?: RoomOmit
-    shapes?: ShapesOmit
-  }
+    user?: UserOmit;
+    room?: RoomOmit;
+    shapes?: ShapesOmit;
+  };
 
   /* Types for Logging */
-  export type LogLevel = 'info' | 'query' | 'warn' | 'error'
+  export type LogLevel = "info" | "query" | "warn" | "error";
   export type LogDefinition = {
-    level: LogLevel
-    emit: 'stdout' | 'event'
-  }
+    level: LogLevel;
+    emit: "stdout" | "event";
+  };
 
   export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
 
   export type GetLogType<T> = CheckIsLogLevel<
-    T extends LogDefinition ? T['level'] : T
+    T extends LogDefinition ? T["level"] : T
   >;
 
-  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
-    ? GetLogType<T[number]>
-    : never;
+  export type GetEvents<T extends any[]> =
+    T extends Array<LogLevel | LogDefinition> ? GetLogType<T[number]> : never;
 
   export type QueryEvent = {
-    timestamp: Date
-    query: string
-    params: string
-    duration: number
-    target: string
-  }
+    timestamp: Date;
+    query: string;
+    params: string;
+    duration: number;
+    target: string;
+  };
 
   export type LogEvent = {
-    timestamp: Date
-    message: string
-    target: string
-  }
+    timestamp: Date;
+    message: string;
+    target: string;
+  };
   /* End Types for Logging */
 
-
   export type PrismaAction =
-    | 'findUnique'
-    | 'findUniqueOrThrow'
-    | 'findMany'
-    | 'findFirst'
-    | 'findFirstOrThrow'
-    | 'create'
-    | 'createMany'
-    | 'createManyAndReturn'
-    | 'update'
-    | 'updateMany'
-    | 'updateManyAndReturn'
-    | 'upsert'
-    | 'delete'
-    | 'deleteMany'
-    | 'executeRaw'
-    | 'queryRaw'
-    | 'aggregate'
-    | 'count'
-    | 'runCommandRaw'
-    | 'findRaw'
-    | 'groupBy'
+    | "findUnique"
+    | "findUniqueOrThrow"
+    | "findMany"
+    | "findFirst"
+    | "findFirstOrThrow"
+    | "create"
+    | "createMany"
+    | "createManyAndReturn"
+    | "update"
+    | "updateMany"
+    | "updateManyAndReturn"
+    | "upsert"
+    | "delete"
+    | "deleteMany"
+    | "executeRaw"
+    | "queryRaw"
+    | "aggregate"
+    | "count"
+    | "runCommandRaw"
+    | "findRaw"
+    | "groupBy";
 
   /**
    * These options are being passed into the middleware as "params"
    */
   export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
+    model?: ModelName;
+    action: PrismaAction;
+    args: any;
+    dataPath: string[];
+    runInTransaction: boolean;
+  };
 
   /**
    * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
@@ -1040,95 +1108,111 @@ export namespace Prisma {
   export type Middleware<T = any> = (
     params: MiddlewareParams,
     next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
+  ) => $Utils.JsPromise<T>;
 
   // tested in getLogLevel.test.ts
-  export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
+  export function getLogLevel(
+    log: Array<LogLevel | LogDefinition>,
+  ): LogLevel | undefined;
 
   /**
    * `PrismaClient` proxy available in interactive transactions.
    */
-  export type TransactionClient = Omit<Prisma.DefaultPrismaClient, runtime.ITXClientDenyList>
+  export type TransactionClient = Omit<
+    Prisma.DefaultPrismaClient,
+    runtime.ITXClientDenyList
+  >;
 
   export type Datasource = {
-    url?: string
-  }
+    url?: string;
+  };
 
   /**
    * Count Types
    */
-
 
   /**
    * Count Type UserCountOutputType
    */
 
   export type UserCountOutputType = {
-    Room: number
-    Chats: number
-  }
+    Room: number;
+    Chats: number;
+  };
 
-  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Room?: boolean | UserCountOutputTypeCountRoomArgs
-    Chats?: boolean | UserCountOutputTypeCountChatsArgs
-  }
+  export type UserCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    Room?: boolean | UserCountOutputTypeCountRoomArgs;
+    Chats?: boolean | UserCountOutputTypeCountChatsArgs;
+  };
 
   // Custom InputTypes
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the UserCountOutputType
      */
-    select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
+    select?: UserCountOutputTypeSelect<ExtArgs> | null;
+  };
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
-  }
+  export type UserCountOutputTypeCountRoomArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: RoomWhereInput;
+  };
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShapesWhereInput
-  }
-
+  export type UserCountOutputTypeCountChatsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: ShapesWhereInput;
+  };
 
   /**
    * Count Type RoomCountOutputType
    */
 
   export type RoomCountOutputType = {
-    Chats: number
-  }
+    Chats: number;
+  };
 
-  export type RoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Chats?: boolean | RoomCountOutputTypeCountChatsArgs
-  }
+  export type RoomCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    Chats?: boolean | RoomCountOutputTypeCountChatsArgs;
+  };
 
   // Custom InputTypes
   /**
    * RoomCountOutputType without action
    */
-  export type RoomCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the RoomCountOutputType
      */
-    select?: RoomCountOutputTypeSelect<ExtArgs> | null
-  }
+    select?: RoomCountOutputTypeSelect<ExtArgs> | null;
+  };
 
   /**
    * RoomCountOutputType without action
    */
-  export type RoomCountOutputTypeCountChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShapesWhereInput
-  }
-
+  export type RoomCountOutputTypeCountChatsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: ShapesWhereInput;
+  };
 
   /**
    * Models
@@ -1139,216 +1223,255 @@ export namespace Prisma {
    */
 
   export type AggregateUser = {
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
+    _count: UserCountAggregateOutputType | null;
+    _min: UserMinAggregateOutputType | null;
+    _max: UserMaxAggregateOutputType | null;
+  };
 
   export type UserMinAggregateOutputType = {
-    id: string | null
-    email: string | null
-    username: string | null
-    password: string | null
-  }
+    id: string | null;
+    email: string | null;
+    username: string | null;
+    password: string | null;
+  };
 
   export type UserMaxAggregateOutputType = {
-    id: string | null
-    email: string | null
-    username: string | null
-    password: string | null
-  }
+    id: string | null;
+    email: string | null;
+    username: string | null;
+    password: string | null;
+  };
 
   export type UserCountAggregateOutputType = {
-    id: number
-    email: number
-    username: number
-    password: number
-    _all: number
-  }
-
+    id: number;
+    email: number;
+    username: number;
+    password: number;
+    _all: number;
+  };
 
   export type UserMinAggregateInputType = {
-    id?: true
-    email?: true
-    username?: true
-    password?: true
-  }
+    id?: true;
+    email?: true;
+    username?: true;
+    password?: true;
+  };
 
   export type UserMaxAggregateInputType = {
-    id?: true
-    email?: true
-    username?: true
-    password?: true
-  }
+    id?: true;
+    email?: true;
+    username?: true;
+    password?: true;
+  };
 
   export type UserCountAggregateInputType = {
-    id?: true
-    email?: true
-    username?: true
-    password?: true
-    _all?: true
-  }
+    id?: true;
+    email?: true;
+    username?: true;
+    password?: true;
+    _all?: true;
+  };
 
-  export type UserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Filter which User to aggregate.
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
      */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
-    cursor?: UserWhereUniqueInput
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Users
-    **/
-    _count?: true | UserCountAggregateInputType
+     **/
+    _count?: true | UserCountAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
-    **/
-    _min?: UserMinAggregateInputType
+     **/
+    _min?: UserMinAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
-    **/
-    _max?: UserMaxAggregateInputType
-  }
+     **/
+    _max?: UserMaxAggregateInputType;
+  };
 
   export type GetUserAggregateType<T extends UserAggregateArgs> = {
-        [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count'
+    [P in keyof T & keyof AggregateUser]: P extends "_count" | "count"
       ? T[P] extends true
         ? number
         : GetScalarType<T[P], AggregateUser[P]>
-      : GetScalarType<T[P], AggregateUser[P]>
-  }
+      : GetScalarType<T[P], AggregateUser[P]>;
+  };
 
-
-
-
-  export type UserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithAggregationInput | UserOrderByWithAggregationInput[]
-    by: UserScalarFieldEnum[] | UserScalarFieldEnum
-    having?: UserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: UserCountAggregateInputType | true
-    _min?: UserMinAggregateInputType
-    _max?: UserMaxAggregateInputType
-  }
+  export type UserGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: UserWhereInput;
+    orderBy?:
+      | UserOrderByWithAggregationInput
+      | UserOrderByWithAggregationInput[];
+    by: UserScalarFieldEnum[] | UserScalarFieldEnum;
+    having?: UserScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: UserCountAggregateInputType | true;
+    _min?: UserMinAggregateInputType;
+    _max?: UserMaxAggregateInputType;
+  };
 
   export type UserGroupByOutputType = {
-    id: string
-    email: string
-    username: string
-    password: string
-    _count: UserCountAggregateOutputType | null
-    _min: UserMinAggregateOutputType | null
-    _max: UserMaxAggregateOutputType | null
-  }
+    id: string;
+    email: string;
+    username: string;
+    password: string;
+    _count: UserCountAggregateOutputType | null;
+    _min: UserMinAggregateOutputType | null;
+    _max: UserMaxAggregateOutputType | null;
+  };
 
   type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], UserGroupByOutputType[P]>
+      PickEnumerable<UserGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof UserGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
             : GetScalarType<T[P], UserGroupByOutputType[P]>
-        }
-      >
+          : GetScalarType<T[P], UserGroupByOutputType[P]>;
+      }
     >
+  >;
 
+  export type UserSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      email?: boolean;
+      username?: boolean;
+      password?: boolean;
+      Room?: boolean | User$RoomArgs<ExtArgs>;
+      Chats?: boolean | User$ChatsArgs<ExtArgs>;
+      _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["user"]
+  >;
 
-  export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    username?: boolean
-    password?: boolean
-    Room?: boolean | User$RoomArgs<ExtArgs>
-    Chats?: boolean | User$ChatsArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["user"]>
+  export type UserSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      email?: boolean;
+      username?: boolean;
+      password?: boolean;
+    },
+    ExtArgs["result"]["user"]
+  >;
 
-  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    username?: boolean
-    password?: boolean
-  }, ExtArgs["result"]["user"]>
-
-  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    email?: boolean
-    username?: boolean
-    password?: boolean
-  }, ExtArgs["result"]["user"]>
+  export type UserSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      email?: boolean;
+      username?: boolean;
+      password?: boolean;
+    },
+    ExtArgs["result"]["user"]
+  >;
 
   export type UserSelectScalar = {
-    id?: boolean
-    email?: boolean
-    username?: boolean
-    password?: boolean
-  }
+    id?: boolean;
+    email?: boolean;
+    username?: boolean;
+    password?: boolean;
+  };
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "username" | "password", ExtArgs["result"]["user"]>
-  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Room?: boolean | User$RoomArgs<ExtArgs>
-    Chats?: boolean | User$ChatsArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "email" | "username" | "password",
+    ExtArgs["result"]["user"]
+  >;
+  export type UserInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    Room?: boolean | User$RoomArgs<ExtArgs>;
+    Chats?: boolean | User$ChatsArgs<ExtArgs>;
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
+  };
+  export type UserIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {};
+  export type UserIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {};
 
-  export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "User"
+  export type $UserPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "User";
     objects: {
-      Room: Prisma.$RoomPayload<ExtArgs>[]
-      Chats: Prisma.$ShapesPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      email: string
-      username: string
-      password: string
-    }, ExtArgs["result"]["user"]>
-    composites: {}
-  }
+      Room: Prisma.$RoomPayload<ExtArgs>[];
+      Chats: Prisma.$ShapesPayload<ExtArgs>[];
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        email: string;
+        username: string;
+        password: string;
+      },
+      ExtArgs["result"]["user"]
+    >;
+    composites: {};
+  };
 
-  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = $Result.GetResult<Prisma.$UserPayload, S>
+  type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> =
+    $Result.GetResult<Prisma.$UserPayload, S>;
 
-  type UserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UserCountAggregateInputType | true
-    }
+  type UserCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<UserFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+    select?: UserCountAggregateInputType | true;
+  };
 
-  export interface UserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['User'], meta: { name: 'User' } }
+  export interface UserDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["User"];
+      meta: { name: "User" };
+    };
     /**
      * Find zero or one User that matches the filter.
      * @param {UserFindUniqueArgs} args - Arguments to find a User
@@ -1360,7 +1483,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends UserFindUniqueArgs>(args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends UserFindUniqueArgs>(
+      args: SelectSubset<T, UserFindUniqueArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find one User that matches the filter or throw an error with `error.code='P2025'`
@@ -1374,7 +1509,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find the first User that matches the filter.
@@ -1389,7 +1536,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends UserFindFirstArgs>(args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends UserFindFirstArgs>(
+      args?: SelectSubset<T, UserFindFirstArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find the first User that matches the filter or
@@ -1405,7 +1564,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find zero or more Users that matches the filter.
@@ -1415,15 +1586,24 @@ export namespace Prisma {
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
-     * 
+     *
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     * 
+     *
      */
-    findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends UserFindManyArgs>(
+      args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Create a User.
@@ -1435,9 +1615,21 @@ export namespace Prisma {
      *     // ... data to create a User
      *   }
      * })
-     * 
+     *
      */
-    create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends UserCreateArgs>(
+      args: SelectSubset<T, UserCreateArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Create many Users.
@@ -1449,9 +1641,11 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
-    createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends UserCreateManyArgs>(
+      args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Create many Users and returns the data saved in the database.
@@ -1463,7 +1657,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Users and only return the `id`
      * const userWithIdOnly = await prisma.user.createManyAndReturn({
      *   select: { id: true },
@@ -1473,9 +1667,18 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Delete a User.
@@ -1487,9 +1690,21 @@ export namespace Prisma {
      *     // ... filter to delete one User
      *   }
      * })
-     * 
+     *
      */
-    delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends UserDeleteArgs>(
+      args: SelectSubset<T, UserDeleteArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Update one User.
@@ -1504,9 +1719,21 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
-    update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends UserUpdateArgs>(
+      args: SelectSubset<T, UserUpdateArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Delete zero or more Users.
@@ -1518,9 +1745,11 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
-    deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends UserDeleteManyArgs>(
+      args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Users.
@@ -1537,9 +1766,11 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
-    updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends UserUpdateManyArgs>(
+      args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Users and returns the data updated in the database.
@@ -1554,7 +1785,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Users and only return the `id`
      * const userWithIdOnly = await prisma.user.updateManyAndReturn({
      *   select: { id: true },
@@ -1567,9 +1798,18 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Create or update one User.
@@ -1588,8 +1828,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends UserUpsertArgs>(args: SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
+    upsert<T extends UserUpsertArgs>(
+      args: SelectSubset<T, UserUpsertArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      $Result.GetResult<
+        Prisma.$UserPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Count the number of Users.
@@ -1603,16 +1854,16 @@ export namespace Prisma {
      *     // ... the filter for the Users we want to count
      *   }
      * })
-    **/
+     **/
     count<T extends UserCountArgs>(
       args?: Subset<T, UserCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
           ? number
-          : GetScalarType<T['select'], UserCountAggregateOutputType>
+          : GetScalarType<T["select"], UserCountAggregateOutputType>
         : number
-    >
+    >;
 
     /**
      * Allows you to perform aggregations operations on a User.
@@ -1637,8 +1888,10 @@ export namespace Prisma {
      *   },
      *   take: 10,
      * })
-    **/
-    aggregate<T extends UserAggregateArgs>(args: Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>
+     **/
+    aggregate<T extends UserAggregateArgs>(
+      args: Subset<T, UserAggregateArgs>,
+    ): Prisma.PrismaPromise<GetUserAggregateType<T>>;
 
     /**
      * Group by User.
@@ -1656,70 +1909,76 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
-    **/
+     *
+     **/
     groupBy<
       T extends UserGroupByArgs,
       HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserGroupByArgs['orderBy'] }
-        : { orderBy?: UserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
+        ? { orderBy: UserGroupByArgs["orderBy"] }
+        : { orderBy?: UserGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
       ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
+      HavingFields extends GetHavingFields<T["having"]>,
       HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
+      ByEmpty extends T["by"] extends never[] ? True : False,
       InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
                 ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the User model
-   */
-  readonly fields: UserFieldRefs;
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors
+      ? GetUserGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the User model
+     */
+    readonly fields: UserFieldRefs;
   }
 
   /**
@@ -1728,740 +1987,844 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    Room<T extends User$RoomArgs<ExtArgs> = {}>(args?: Subset<T, User$RoomArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Chats<T extends User$ChatsArgs<ExtArgs> = {}>(args?: Subset<T, User$ChatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  export interface Prisma__UserClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    Room<T extends User$RoomArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$RoomArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$RoomPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
+    Chats<T extends User$ChatsArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$ChatsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$ShapesPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
-
-
 
   /**
    * Fields of the User model
    */
   interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'String'>
-    readonly email: FieldRef<"User", 'String'>
-    readonly username: FieldRef<"User", 'String'>
-    readonly password: FieldRef<"User", 'String'>
+    readonly id: FieldRef<"User", "String">;
+    readonly email: FieldRef<"User", "String">;
+    readonly username: FieldRef<"User", "String">;
+    readonly password: FieldRef<"User", "String">;
   }
-    
 
   // Custom InputTypes
   /**
    * User findUnique
    */
-  export type UserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * Filter, which User to fetch.
      */
-    where: UserWhereUniqueInput
-  }
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User findUniqueOrThrow
    */
-  export type UserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * Filter, which User to fetch.
      */
-    where: UserWhereUniqueInput
-  }
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User findFirst
    */
-  export type UserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * Filter, which User to fetch.
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
      */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Users.
      */
-    cursor?: UserWhereUniqueInput
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Users.
      */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[];
+  };
 
   /**
    * User findFirstOrThrow
    */
-  export type UserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * Filter, which User to fetch.
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
      */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Users.
      */
-    cursor?: UserWhereUniqueInput
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Users.
      */
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[];
+  };
 
   /**
    * User findMany
    */
-  export type UserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * Filter, which Users to fetch.
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Users to fetch.
      */
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Users.
      */
-    cursor?: UserWhereUniqueInput
+    cursor?: UserWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Users from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Users.
      */
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
-  }
+    skip?: number;
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[];
+  };
 
   /**
    * User create
    */
-  export type UserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * The data needed to create a User.
      */
-    data: XOR<UserCreateInput, UserUncheckedCreateInput>
-  }
+    data: XOR<UserCreateInput, UserUncheckedCreateInput>;
+  };
 
   /**
    * User createMany
    */
-  export type UserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * The data used to create many Users.
      */
-    data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
+    data: UserCreateManyInput | UserCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
 
   /**
    * User createManyAndReturn
    */
-  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * The data used to create many Users.
      */
-    data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
+    data: UserCreateManyInput | UserCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
 
   /**
    * User update
    */
-  export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * The data needed to update a User.
      */
-    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>
+    data: XOR<UserUpdateInput, UserUncheckedUpdateInput>;
     /**
      * Choose, which User to update.
      */
-    where: UserWhereUniqueInput
-  }
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User updateMany
    */
-  export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * The data used to update Users.
      */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>;
     /**
      * Filter which Users to update
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * Limit how many Users to update.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * User updateManyAndReturn
    */
-  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * The data used to update Users.
      */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>;
     /**
      * Filter which Users to update
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * Limit how many Users to update.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * User upsert
    */
-  export type UserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * The filter to search for the User to update in case it exists.
      */
-    where: UserWhereUniqueInput
+    where: UserWhereUniqueInput;
     /**
      * In case the User found by the `where` argument doesn't exist, create a new User with this data.
      */
-    create: XOR<UserCreateInput, UserUncheckedCreateInput>
+    create: XOR<UserCreateInput, UserUncheckedCreateInput>;
     /**
      * In case the User was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>
-  }
+    update: XOR<UserUpdateInput, UserUncheckedUpdateInput>;
+  };
 
   /**
    * User delete
    */
-  export type UserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
+    include?: UserInclude<ExtArgs> | null;
     /**
      * Filter which User to delete.
      */
-    where: UserWhereUniqueInput
-  }
+    where: UserWhereUniqueInput;
+  };
 
   /**
    * User deleteMany
    */
-  export type UserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Filter which Users to delete
      */
-    where?: UserWhereInput
+    where?: UserWhereInput;
     /**
      * Limit how many Users to delete.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * User.Room
    */
-  export type User$RoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$RoomArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
-    cursor?: RoomWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
-  }
+    include?: RoomInclude<ExtArgs> | null;
+    where?: RoomWhereInput;
+    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[];
+    cursor?: RoomWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[];
+  };
 
   /**
    * User.Chats
    */
-  export type User$ChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$ChatsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
-    where?: ShapesWhereInput
-    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[]
-    cursor?: ShapesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[]
-  }
+    include?: ShapesInclude<ExtArgs> | null;
+    where?: ShapesWhereInput;
+    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[];
+    cursor?: ShapesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[];
+  };
 
   /**
    * User without action
    */
-  export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the User
      */
-    select?: UserSelect<ExtArgs> | null
+    select?: UserSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the User
      */
-    omit?: UserOmit<ExtArgs> | null
+    omit?: UserOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserInclude<ExtArgs> | null
-  }
-
+    include?: UserInclude<ExtArgs> | null;
+  };
 
   /**
    * Model Room
    */
 
   export type AggregateRoom = {
-    _count: RoomCountAggregateOutputType | null
-    _avg: RoomAvgAggregateOutputType | null
-    _sum: RoomSumAggregateOutputType | null
-    _min: RoomMinAggregateOutputType | null
-    _max: RoomMaxAggregateOutputType | null
-  }
+    _count: RoomCountAggregateOutputType | null;
+    _avg: RoomAvgAggregateOutputType | null;
+    _sum: RoomSumAggregateOutputType | null;
+    _min: RoomMinAggregateOutputType | null;
+    _max: RoomMaxAggregateOutputType | null;
+  };
 
   export type RoomAvgAggregateOutputType = {
-    id: number | null
-  }
+    id: number | null;
+  };
 
   export type RoomSumAggregateOutputType = {
-    id: number | null
-  }
+    id: number | null;
+  };
 
   export type RoomMinAggregateOutputType = {
-    id: number | null
-    slug: string | null
-    userId: string | null
-  }
+    id: number | null;
+    slug: string | null;
+    userId: string | null;
+  };
 
   export type RoomMaxAggregateOutputType = {
-    id: number | null
-    slug: string | null
-    userId: string | null
-  }
+    id: number | null;
+    slug: string | null;
+    userId: string | null;
+  };
 
   export type RoomCountAggregateOutputType = {
-    id: number
-    slug: number
-    userId: number
-    _all: number
-  }
-
+    id: number;
+    slug: number;
+    userId: number;
+    _all: number;
+  };
 
   export type RoomAvgAggregateInputType = {
-    id?: true
-  }
+    id?: true;
+  };
 
   export type RoomSumAggregateInputType = {
-    id?: true
-  }
+    id?: true;
+  };
 
   export type RoomMinAggregateInputType = {
-    id?: true
-    slug?: true
-    userId?: true
-  }
+    id?: true;
+    slug?: true;
+    userId?: true;
+  };
 
   export type RoomMaxAggregateInputType = {
-    id?: true
-    slug?: true
-    userId?: true
-  }
+    id?: true;
+    slug?: true;
+    userId?: true;
+  };
 
   export type RoomCountAggregateInputType = {
-    id?: true
-    slug?: true
-    userId?: true
-    _all?: true
-  }
+    id?: true;
+    slug?: true;
+    userId?: true;
+    _all?: true;
+  };
 
-  export type RoomAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Filter which Room to aggregate.
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Rooms to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: RoomWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Rooms from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Rooms.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Rooms
-    **/
-    _count?: true | RoomCountAggregateInputType
+     **/
+    _count?: true | RoomCountAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
-    **/
-    _avg?: RoomAvgAggregateInputType
+     **/
+    _avg?: RoomAvgAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
-    **/
-    _sum?: RoomSumAggregateInputType
+     **/
+    _sum?: RoomSumAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
-    **/
-    _min?: RoomMinAggregateInputType
+     **/
+    _min?: RoomMinAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
-    **/
-    _max?: RoomMaxAggregateInputType
-  }
+     **/
+    _max?: RoomMaxAggregateInputType;
+  };
 
   export type GetRoomAggregateType<T extends RoomAggregateArgs> = {
-        [P in keyof T & keyof AggregateRoom]: P extends '_count' | 'count'
+    [P in keyof T & keyof AggregateRoom]: P extends "_count" | "count"
       ? T[P] extends true
         ? number
         : GetScalarType<T[P], AggregateRoom[P]>
-      : GetScalarType<T[P], AggregateRoom[P]>
-  }
+      : GetScalarType<T[P], AggregateRoom[P]>;
+  };
 
-
-
-
-  export type RoomGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoomWhereInput
-    orderBy?: RoomOrderByWithAggregationInput | RoomOrderByWithAggregationInput[]
-    by: RoomScalarFieldEnum[] | RoomScalarFieldEnum
-    having?: RoomScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: RoomCountAggregateInputType | true
-    _avg?: RoomAvgAggregateInputType
-    _sum?: RoomSumAggregateInputType
-    _min?: RoomMinAggregateInputType
-    _max?: RoomMaxAggregateInputType
-  }
+  export type RoomGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: RoomWhereInput;
+    orderBy?:
+      | RoomOrderByWithAggregationInput
+      | RoomOrderByWithAggregationInput[];
+    by: RoomScalarFieldEnum[] | RoomScalarFieldEnum;
+    having?: RoomScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: RoomCountAggregateInputType | true;
+    _avg?: RoomAvgAggregateInputType;
+    _sum?: RoomSumAggregateInputType;
+    _min?: RoomMinAggregateInputType;
+    _max?: RoomMaxAggregateInputType;
+  };
 
   export type RoomGroupByOutputType = {
-    id: number
-    slug: string
-    userId: string
-    _count: RoomCountAggregateOutputType | null
-    _avg: RoomAvgAggregateOutputType | null
-    _sum: RoomSumAggregateOutputType | null
-    _min: RoomMinAggregateOutputType | null
-    _max: RoomMaxAggregateOutputType | null
-  }
+    id: number;
+    slug: string;
+    userId: string;
+    _count: RoomCountAggregateOutputType | null;
+    _avg: RoomAvgAggregateOutputType | null;
+    _sum: RoomSumAggregateOutputType | null;
+    _min: RoomMinAggregateOutputType | null;
+    _max: RoomMaxAggregateOutputType | null;
+  };
 
   type GetRoomGroupByPayload<T extends RoomGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<RoomGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof RoomGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], RoomGroupByOutputType[P]>
+      PickEnumerable<RoomGroupByOutputType, T["by"]> & {
+        [P in keyof T & keyof RoomGroupByOutputType]: P extends "_count"
+          ? T[P] extends boolean
+            ? number
             : GetScalarType<T[P], RoomGroupByOutputType[P]>
-        }
-      >
+          : GetScalarType<T[P], RoomGroupByOutputType[P]>;
+      }
     >
+  >;
 
+  export type RoomSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      slug?: boolean;
+      userId?: boolean;
+      Admin?: boolean | UserDefaultArgs<ExtArgs>;
+      Chats?: boolean | Room$ChatsArgs<ExtArgs>;
+      _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["room"]
+  >;
 
-  export type RoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    slug?: boolean
-    userId?: boolean
-    Admin?: boolean | UserDefaultArgs<ExtArgs>
-    Chats?: boolean | Room$ChatsArgs<ExtArgs>
-    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["room"]>
+  export type RoomSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      slug?: boolean;
+      userId?: boolean;
+      Admin?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["room"]
+  >;
 
-  export type RoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    slug?: boolean
-    userId?: boolean
-    Admin?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["room"]>
-
-  export type RoomSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    slug?: boolean
-    userId?: boolean
-    Admin?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["room"]>
+  export type RoomSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      slug?: boolean;
+      userId?: boolean;
+      Admin?: boolean | UserDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["room"]
+  >;
 
   export type RoomSelectScalar = {
-    id?: boolean
-    slug?: boolean
-    userId?: boolean
-  }
+    id?: boolean;
+    slug?: boolean;
+    userId?: boolean;
+  };
 
-  export type RoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "userId", ExtArgs["result"]["room"]>
-  export type RoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Admin?: boolean | UserDefaultArgs<ExtArgs>
-    Chats?: boolean | Room$ChatsArgs<ExtArgs>
-    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type RoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Admin?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type RoomIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Admin?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type RoomOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<"id" | "slug" | "userId", ExtArgs["result"]["room"]>;
+  export type RoomInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    Admin?: boolean | UserDefaultArgs<ExtArgs>;
+    Chats?: boolean | Room$ChatsArgs<ExtArgs>;
+    _count?: boolean | RoomCountOutputTypeDefaultArgs<ExtArgs>;
+  };
+  export type RoomIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    Admin?: boolean | UserDefaultArgs<ExtArgs>;
+  };
+  export type RoomIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    Admin?: boolean | UserDefaultArgs<ExtArgs>;
+  };
 
-  export type $RoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Room"
+  export type $RoomPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Room";
     objects: {
-      Admin: Prisma.$UserPayload<ExtArgs>
-      Chats: Prisma.$ShapesPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      slug: string
-      userId: string
-    }, ExtArgs["result"]["room"]>
-    composites: {}
-  }
+      Admin: Prisma.$UserPayload<ExtArgs>;
+      Chats: Prisma.$ShapesPayload<ExtArgs>[];
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: number;
+        slug: string;
+        userId: string;
+      },
+      ExtArgs["result"]["room"]
+    >;
+    composites: {};
+  };
 
-  type RoomGetPayload<S extends boolean | null | undefined | RoomDefaultArgs> = $Result.GetResult<Prisma.$RoomPayload, S>
+  type RoomGetPayload<S extends boolean | null | undefined | RoomDefaultArgs> =
+    $Result.GetResult<Prisma.$RoomPayload, S>;
 
-  type RoomCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<RoomFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: RoomCountAggregateInputType | true
-    }
+  type RoomCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<RoomFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+    select?: RoomCountAggregateInputType | true;
+  };
 
-  export interface RoomDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Room'], meta: { name: 'Room' } }
+  export interface RoomDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Room"];
+      meta: { name: "Room" };
+    };
     /**
      * Find zero or one Room that matches the filter.
      * @param {RoomFindUniqueArgs} args - Arguments to find a Room
@@ -2473,7 +2836,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends RoomFindUniqueArgs>(args: SelectSubset<T, RoomFindUniqueArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends RoomFindUniqueArgs>(
+      args: SelectSubset<T, RoomFindUniqueArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find one Room that matches the filter or throw an error with `error.code='P2025'`
@@ -2487,7 +2862,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends RoomFindUniqueOrThrowArgs>(args: SelectSubset<T, RoomFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends RoomFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, RoomFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find the first Room that matches the filter.
@@ -2502,7 +2889,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends RoomFindFirstArgs>(args?: SelectSubset<T, RoomFindFirstArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends RoomFindFirstArgs>(
+      args?: SelectSubset<T, RoomFindFirstArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find the first Room that matches the filter or
@@ -2518,7 +2917,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends RoomFindFirstOrThrowArgs>(args?: SelectSubset<T, RoomFindFirstOrThrowArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends RoomFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, RoomFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find zero or more Rooms that matches the filter.
@@ -2528,15 +2939,24 @@ export namespace Prisma {
      * @example
      * // Get all Rooms
      * const rooms = await prisma.room.findMany()
-     * 
+     *
      * // Get first 10 Rooms
      * const rooms = await prisma.room.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const roomWithIdOnly = await prisma.room.findMany({ select: { id: true } })
-     * 
+     *
      */
-    findMany<T extends RoomFindManyArgs>(args?: SelectSubset<T, RoomFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends RoomFindManyArgs>(
+      args?: SelectSubset<T, RoomFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Create a Room.
@@ -2548,9 +2968,21 @@ export namespace Prisma {
      *     // ... data to create a Room
      *   }
      * })
-     * 
+     *
      */
-    create<T extends RoomCreateArgs>(args: SelectSubset<T, RoomCreateArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends RoomCreateArgs>(
+      args: SelectSubset<T, RoomCreateArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Create many Rooms.
@@ -2562,9 +2994,11 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
-    createMany<T extends RoomCreateManyArgs>(args?: SelectSubset<T, RoomCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends RoomCreateManyArgs>(
+      args?: SelectSubset<T, RoomCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Create many Rooms and returns the data saved in the database.
@@ -2576,7 +3010,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Rooms and only return the `id`
      * const roomWithIdOnly = await prisma.room.createManyAndReturn({
      *   select: { id: true },
@@ -2586,9 +3020,18 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
-    createManyAndReturn<T extends RoomCreateManyAndReturnArgs>(args?: SelectSubset<T, RoomCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends RoomCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, RoomCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Delete a Room.
@@ -2600,9 +3043,21 @@ export namespace Prisma {
      *     // ... filter to delete one Room
      *   }
      * })
-     * 
+     *
      */
-    delete<T extends RoomDeleteArgs>(args: SelectSubset<T, RoomDeleteArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends RoomDeleteArgs>(
+      args: SelectSubset<T, RoomDeleteArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Update one Room.
@@ -2617,9 +3072,21 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
-    update<T extends RoomUpdateArgs>(args: SelectSubset<T, RoomUpdateArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends RoomUpdateArgs>(
+      args: SelectSubset<T, RoomUpdateArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Delete zero or more Rooms.
@@ -2631,9 +3098,11 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
-    deleteMany<T extends RoomDeleteManyArgs>(args?: SelectSubset<T, RoomDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends RoomDeleteManyArgs>(
+      args?: SelectSubset<T, RoomDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Rooms.
@@ -2650,9 +3119,11 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
-    updateMany<T extends RoomUpdateManyArgs>(args: SelectSubset<T, RoomUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends RoomUpdateManyArgs>(
+      args: SelectSubset<T, RoomUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Rooms and returns the data updated in the database.
@@ -2667,7 +3138,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Rooms and only return the `id`
      * const roomWithIdOnly = await prisma.room.updateManyAndReturn({
      *   select: { id: true },
@@ -2680,9 +3151,18 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
-    updateManyAndReturn<T extends RoomUpdateManyAndReturnArgs>(args: SelectSubset<T, RoomUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends RoomUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, RoomUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Create or update one Room.
@@ -2701,8 +3181,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends RoomUpsertArgs>(args: SelectSubset<T, RoomUpsertArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
+    upsert<T extends RoomUpsertArgs>(
+      args: SelectSubset<T, RoomUpsertArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      $Result.GetResult<
+        Prisma.$RoomPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Count the number of Rooms.
@@ -2716,16 +3207,16 @@ export namespace Prisma {
      *     // ... the filter for the Rooms we want to count
      *   }
      * })
-    **/
+     **/
     count<T extends RoomCountArgs>(
       args?: Subset<T, RoomCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
           ? number
-          : GetScalarType<T['select'], RoomCountAggregateOutputType>
+          : GetScalarType<T["select"], RoomCountAggregateOutputType>
         : number
-    >
+    >;
 
     /**
      * Allows you to perform aggregations operations on a Room.
@@ -2750,8 +3241,10 @@ export namespace Prisma {
      *   },
      *   take: 10,
      * })
-    **/
-    aggregate<T extends RoomAggregateArgs>(args: Subset<T, RoomAggregateArgs>): Prisma.PrismaPromise<GetRoomAggregateType<T>>
+     **/
+    aggregate<T extends RoomAggregateArgs>(
+      args: Subset<T, RoomAggregateArgs>,
+    ): Prisma.PrismaPromise<GetRoomAggregateType<T>>;
 
     /**
      * Group by Room.
@@ -2769,70 +3262,76 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
-    **/
+     *
+     **/
     groupBy<
       T extends RoomGroupByArgs,
       HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: RoomGroupByArgs['orderBy'] }
-        : { orderBy?: RoomGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
+        ? { orderBy: RoomGroupByArgs["orderBy"] }
+        : { orderBy?: RoomGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
       ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
+      HavingFields extends GetHavingFields<T["having"]>,
       HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
+      ByEmpty extends T["by"] extends never[] ? True : False,
       InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
                 ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, RoomGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRoomGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Room model
-   */
-  readonly fields: RoomFieldRefs;
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, RoomGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors
+      ? GetRoomGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Room model
+     */
+    readonly fields: RoomFieldRefs;
   }
 
   /**
@@ -2841,741 +3340,851 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__RoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    Admin<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    Chats<T extends Room$ChatsArgs<ExtArgs> = {}>(args?: Subset<T, Room$ChatsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  export interface Prisma__RoomClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    Admin<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    Chats<T extends Room$ChatsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Room$ChatsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$ShapesPayload<ExtArgs>,
+          T,
+          "findMany",
+          GlobalOmitOptions
+        >
+      | Null
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
-
-
 
   /**
    * Fields of the Room model
    */
   interface RoomFieldRefs {
-    readonly id: FieldRef<"Room", 'Int'>
-    readonly slug: FieldRef<"Room", 'String'>
-    readonly userId: FieldRef<"Room", 'String'>
+    readonly id: FieldRef<"Room", "Int">;
+    readonly slug: FieldRef<"Room", "String">;
+    readonly userId: FieldRef<"Room", "String">;
   }
-    
 
   // Custom InputTypes
   /**
    * Room findUnique
    */
-  export type RoomFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * Filter, which Room to fetch.
      */
-    where: RoomWhereUniqueInput
-  }
+    where: RoomWhereUniqueInput;
+  };
 
   /**
    * Room findUniqueOrThrow
    */
-  export type RoomFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * Filter, which Room to fetch.
      */
-    where: RoomWhereUniqueInput
-  }
+    where: RoomWhereUniqueInput;
+  };
 
   /**
    * Room findFirst
    */
-  export type RoomFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * Filter, which Room to fetch.
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Rooms to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Rooms.
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: RoomWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Rooms from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Rooms.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Rooms.
      */
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
-  }
+    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[];
+  };
 
   /**
    * Room findFirstOrThrow
    */
-  export type RoomFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * Filter, which Room to fetch.
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Rooms to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Rooms.
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: RoomWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Rooms from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Rooms.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Rooms.
      */
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
-  }
+    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[];
+  };
 
   /**
    * Room findMany
    */
-  export type RoomFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * Filter, which Rooms to fetch.
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Rooms to fetch.
      */
-    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[]
+    orderBy?: RoomOrderByWithRelationInput | RoomOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Rooms.
      */
-    cursor?: RoomWhereUniqueInput
+    cursor?: RoomWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Rooms from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Rooms.
      */
-    skip?: number
-    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[]
-  }
+    skip?: number;
+    distinct?: RoomScalarFieldEnum | RoomScalarFieldEnum[];
+  };
 
   /**
    * Room create
    */
-  export type RoomCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * The data needed to create a Room.
      */
-    data: XOR<RoomCreateInput, RoomUncheckedCreateInput>
-  }
+    data: XOR<RoomCreateInput, RoomUncheckedCreateInput>;
+  };
 
   /**
    * Room createMany
    */
-  export type RoomCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * The data used to create many Rooms.
      */
-    data: RoomCreateManyInput | RoomCreateManyInput[]
-    skipDuplicates?: boolean
-  }
+    data: RoomCreateManyInput | RoomCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
 
   /**
    * Room createManyAndReturn
    */
-  export type RoomCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelectCreateManyAndReturn<ExtArgs> | null
+    select?: RoomSelectCreateManyAndReturn<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * The data used to create many Rooms.
      */
-    data: RoomCreateManyInput | RoomCreateManyInput[]
-    skipDuplicates?: boolean
+    data: RoomCreateManyInput | RoomCreateManyInput[];
+    skipDuplicates?: boolean;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomIncludeCreateManyAndReturn<ExtArgs> | null
-  }
+    include?: RoomIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
 
   /**
    * Room update
    */
-  export type RoomUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * The data needed to update a Room.
      */
-    data: XOR<RoomUpdateInput, RoomUncheckedUpdateInput>
+    data: XOR<RoomUpdateInput, RoomUncheckedUpdateInput>;
     /**
      * Choose, which Room to update.
      */
-    where: RoomWhereUniqueInput
-  }
+    where: RoomWhereUniqueInput;
+  };
 
   /**
    * Room updateMany
    */
-  export type RoomUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * The data used to update Rooms.
      */
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyInput>
+    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyInput>;
     /**
      * Filter which Rooms to update
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * Limit how many Rooms to update.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * Room updateManyAndReturn
    */
-  export type RoomUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: RoomSelectUpdateManyAndReturn<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * The data used to update Rooms.
      */
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyInput>
+    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyInput>;
     /**
      * Filter which Rooms to update
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * Limit how many Rooms to update.
      */
-    limit?: number
+    limit?: number;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
+    include?: RoomIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
 
   /**
    * Room upsert
    */
-  export type RoomUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * The filter to search for the Room to update in case it exists.
      */
-    where: RoomWhereUniqueInput
+    where: RoomWhereUniqueInput;
     /**
      * In case the Room found by the `where` argument doesn't exist, create a new Room with this data.
      */
-    create: XOR<RoomCreateInput, RoomUncheckedCreateInput>
+    create: XOR<RoomCreateInput, RoomUncheckedCreateInput>;
     /**
      * In case the Room was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<RoomUpdateInput, RoomUncheckedUpdateInput>
-  }
+    update: XOR<RoomUpdateInput, RoomUncheckedUpdateInput>;
+  };
 
   /**
    * Room delete
    */
-  export type RoomDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
+    include?: RoomInclude<ExtArgs> | null;
     /**
      * Filter which Room to delete.
      */
-    where: RoomWhereUniqueInput
-  }
+    where: RoomWhereUniqueInput;
+  };
 
   /**
    * Room deleteMany
    */
-  export type RoomDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Filter which Rooms to delete
      */
-    where?: RoomWhereInput
+    where?: RoomWhereInput;
     /**
      * Limit how many Rooms to delete.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * Room.Chats
    */
-  export type Room$ChatsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Room$ChatsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
-    where?: ShapesWhereInput
-    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[]
-    cursor?: ShapesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[]
-  }
+    include?: ShapesInclude<ExtArgs> | null;
+    where?: ShapesWhereInput;
+    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[];
+    cursor?: ShapesWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[];
+  };
 
   /**
    * Room without action
    */
-  export type RoomDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type RoomDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Room
      */
-    select?: RoomSelect<ExtArgs> | null
+    select?: RoomSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Room
      */
-    omit?: RoomOmit<ExtArgs> | null
+    omit?: RoomOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoomInclude<ExtArgs> | null
-  }
-
+    include?: RoomInclude<ExtArgs> | null;
+  };
 
   /**
    * Model Shapes
    */
 
   export type AggregateShapes = {
-    _count: ShapesCountAggregateOutputType | null
-    _avg: ShapesAvgAggregateOutputType | null
-    _sum: ShapesSumAggregateOutputType | null
-    _min: ShapesMinAggregateOutputType | null
-    _max: ShapesMaxAggregateOutputType | null
-  }
+    _count: ShapesCountAggregateOutputType | null;
+    _avg: ShapesAvgAggregateOutputType | null;
+    _sum: ShapesSumAggregateOutputType | null;
+    _min: ShapesMinAggregateOutputType | null;
+    _max: ShapesMaxAggregateOutputType | null;
+  };
 
   export type ShapesAvgAggregateOutputType = {
-    id: number | null
-    RoomId: number | null
-  }
+    id: number | null;
+    RoomId: number | null;
+  };
 
   export type ShapesSumAggregateOutputType = {
-    id: number | null
-    RoomId: number | null
-  }
+    id: number | null;
+    RoomId: number | null;
+  };
 
   export type ShapesMinAggregateOutputType = {
-    id: number | null
-    message: string | null
-    userId: string | null
-    RoomId: number | null
-  }
+    id: number | null;
+    message: string | null;
+    userId: string | null;
+    RoomId: number | null;
+  };
 
   export type ShapesMaxAggregateOutputType = {
-    id: number | null
-    message: string | null
-    userId: string | null
-    RoomId: number | null
-  }
+    id: number | null;
+    message: string | null;
+    userId: string | null;
+    RoomId: number | null;
+  };
 
   export type ShapesCountAggregateOutputType = {
-    id: number
-    message: number
-    userId: number
-    RoomId: number
-    _all: number
-  }
-
+    id: number;
+    message: number;
+    userId: number;
+    RoomId: number;
+    _all: number;
+  };
 
   export type ShapesAvgAggregateInputType = {
-    id?: true
-    RoomId?: true
-  }
+    id?: true;
+    RoomId?: true;
+  };
 
   export type ShapesSumAggregateInputType = {
-    id?: true
-    RoomId?: true
-  }
+    id?: true;
+    RoomId?: true;
+  };
 
   export type ShapesMinAggregateInputType = {
-    id?: true
-    message?: true
-    userId?: true
-    RoomId?: true
-  }
+    id?: true;
+    message?: true;
+    userId?: true;
+    RoomId?: true;
+  };
 
   export type ShapesMaxAggregateInputType = {
-    id?: true
-    message?: true
-    userId?: true
-    RoomId?: true
-  }
+    id?: true;
+    message?: true;
+    userId?: true;
+    RoomId?: true;
+  };
 
   export type ShapesCountAggregateInputType = {
-    id?: true
-    message?: true
-    userId?: true
-    RoomId?: true
-    _all?: true
-  }
+    id?: true;
+    message?: true;
+    userId?: true;
+    RoomId?: true;
+    _all?: true;
+  };
 
-  export type ShapesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Filter which Shapes to aggregate.
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Shapes to fetch.
      */
-    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[]
+    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
-    cursor?: ShapesWhereUniqueInput
+    cursor?: ShapesWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Shapes from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Shapes.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Shapes
-    **/
-    _count?: true | ShapesCountAggregateInputType
+     **/
+    _count?: true | ShapesCountAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
-    **/
-    _avg?: ShapesAvgAggregateInputType
+     **/
+    _avg?: ShapesAvgAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
-    **/
-    _sum?: ShapesSumAggregateInputType
+     **/
+    _sum?: ShapesSumAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
-    **/
-    _min?: ShapesMinAggregateInputType
+     **/
+    _min?: ShapesMinAggregateInputType;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
-    **/
-    _max?: ShapesMaxAggregateInputType
-  }
+     **/
+    _max?: ShapesMaxAggregateInputType;
+  };
 
   export type GetShapesAggregateType<T extends ShapesAggregateArgs> = {
-        [P in keyof T & keyof AggregateShapes]: P extends '_count' | 'count'
+    [P in keyof T & keyof AggregateShapes]: P extends "_count" | "count"
       ? T[P] extends true
         ? number
         : GetScalarType<T[P], AggregateShapes[P]>
-      : GetScalarType<T[P], AggregateShapes[P]>
-  }
+      : GetScalarType<T[P], AggregateShapes[P]>;
+  };
 
-
-
-
-  export type ShapesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShapesWhereInput
-    orderBy?: ShapesOrderByWithAggregationInput | ShapesOrderByWithAggregationInput[]
-    by: ShapesScalarFieldEnum[] | ShapesScalarFieldEnum
-    having?: ShapesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ShapesCountAggregateInputType | true
-    _avg?: ShapesAvgAggregateInputType
-    _sum?: ShapesSumAggregateInputType
-    _min?: ShapesMinAggregateInputType
-    _max?: ShapesMaxAggregateInputType
-  }
+  export type ShapesGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: ShapesWhereInput;
+    orderBy?:
+      | ShapesOrderByWithAggregationInput
+      | ShapesOrderByWithAggregationInput[];
+    by: ShapesScalarFieldEnum[] | ShapesScalarFieldEnum;
+    having?: ShapesScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: ShapesCountAggregateInputType | true;
+    _avg?: ShapesAvgAggregateInputType;
+    _sum?: ShapesSumAggregateInputType;
+    _min?: ShapesMinAggregateInputType;
+    _max?: ShapesMaxAggregateInputType;
+  };
 
   export type ShapesGroupByOutputType = {
-    id: number
-    message: string
-    userId: string
-    RoomId: number
-    _count: ShapesCountAggregateOutputType | null
-    _avg: ShapesAvgAggregateOutputType | null
-    _sum: ShapesSumAggregateOutputType | null
-    _min: ShapesMinAggregateOutputType | null
-    _max: ShapesMaxAggregateOutputType | null
-  }
+    id: number;
+    message: string;
+    userId: string;
+    RoomId: number;
+    _count: ShapesCountAggregateOutputType | null;
+    _avg: ShapesAvgAggregateOutputType | null;
+    _sum: ShapesSumAggregateOutputType | null;
+    _min: ShapesMinAggregateOutputType | null;
+    _max: ShapesMaxAggregateOutputType | null;
+  };
 
-  type GetShapesGroupByPayload<T extends ShapesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ShapesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ShapesGroupByOutputType))]: P extends '_count'
+  type GetShapesGroupByPayload<T extends ShapesGroupByArgs> =
+    Prisma.PrismaPromise<
+      Array<
+        PickEnumerable<ShapesGroupByOutputType, T["by"]> & {
+          [P in keyof T & keyof ShapesGroupByOutputType]: P extends "_count"
             ? T[P] extends boolean
               ? number
               : GetScalarType<T[P], ShapesGroupByOutputType[P]>
-            : GetScalarType<T[P], ShapesGroupByOutputType[P]>
+            : GetScalarType<T[P], ShapesGroupByOutputType[P]>;
         }
       >
-    >
+    >;
 
+  export type ShapesSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      message?: boolean;
+      userId?: boolean;
+      RoomId?: boolean;
+      User?: boolean | UserDefaultArgs<ExtArgs>;
+      Room?: boolean | RoomDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["shapes"]
+  >;
 
-  export type ShapesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    message?: boolean
-    userId?: boolean
-    RoomId?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    Room?: boolean | RoomDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shapes"]>
+  export type ShapesSelectCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      message?: boolean;
+      userId?: boolean;
+      RoomId?: boolean;
+      User?: boolean | UserDefaultArgs<ExtArgs>;
+      Room?: boolean | RoomDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["shapes"]
+  >;
 
-  export type ShapesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    message?: boolean
-    userId?: boolean
-    RoomId?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    Room?: boolean | RoomDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shapes"]>
-
-  export type ShapesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    message?: boolean
-    userId?: boolean
-    RoomId?: boolean
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    Room?: boolean | RoomDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shapes"]>
+  export type ShapesSelectUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      message?: boolean;
+      userId?: boolean;
+      RoomId?: boolean;
+      User?: boolean | UserDefaultArgs<ExtArgs>;
+      Room?: boolean | RoomDefaultArgs<ExtArgs>;
+    },
+    ExtArgs["result"]["shapes"]
+  >;
 
   export type ShapesSelectScalar = {
-    id?: boolean
-    message?: boolean
-    userId?: boolean
-    RoomId?: boolean
-  }
+    id?: boolean;
+    message?: boolean;
+    userId?: boolean;
+    RoomId?: boolean;
+  };
 
-  export type ShapesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "userId" | "RoomId", ExtArgs["result"]["shapes"]>
-  export type ShapesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    Room?: boolean | RoomDefaultArgs<ExtArgs>
-  }
-  export type ShapesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    Room?: boolean | RoomDefaultArgs<ExtArgs>
-  }
-  export type ShapesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    User?: boolean | UserDefaultArgs<ExtArgs>
-    Room?: boolean | RoomDefaultArgs<ExtArgs>
-  }
+  export type ShapesOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    "id" | "message" | "userId" | "RoomId",
+    ExtArgs["result"]["shapes"]
+  >;
+  export type ShapesInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    User?: boolean | UserDefaultArgs<ExtArgs>;
+    Room?: boolean | RoomDefaultArgs<ExtArgs>;
+  };
+  export type ShapesIncludeCreateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    User?: boolean | UserDefaultArgs<ExtArgs>;
+    Room?: boolean | RoomDefaultArgs<ExtArgs>;
+  };
+  export type ShapesIncludeUpdateManyAndReturn<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    User?: boolean | UserDefaultArgs<ExtArgs>;
+    Room?: boolean | RoomDefaultArgs<ExtArgs>;
+  };
 
-  export type $ShapesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Shapes"
+  export type $ShapesPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: "Shapes";
     objects: {
-      User: Prisma.$UserPayload<ExtArgs>
-      Room: Prisma.$RoomPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      message: string
-      userId: string
-      RoomId: number
-    }, ExtArgs["result"]["shapes"]>
-    composites: {}
-  }
+      User: Prisma.$UserPayload<ExtArgs>;
+      Room: Prisma.$RoomPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: number;
+        message: string;
+        userId: string;
+        RoomId: number;
+      },
+      ExtArgs["result"]["shapes"]
+    >;
+    composites: {};
+  };
 
-  type ShapesGetPayload<S extends boolean | null | undefined | ShapesDefaultArgs> = $Result.GetResult<Prisma.$ShapesPayload, S>
+  type ShapesGetPayload<
+    S extends boolean | null | undefined | ShapesDefaultArgs,
+  > = $Result.GetResult<Prisma.$ShapesPayload, S>;
 
-  type ShapesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ShapesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ShapesCountAggregateInputType | true
-    }
+  type ShapesCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<ShapesFindManyArgs, "select" | "include" | "distinct" | "omit"> & {
+    select?: ShapesCountAggregateInputType | true;
+  };
 
-  export interface ShapesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Shapes'], meta: { name: 'Shapes' } }
+  export interface ShapesDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>["model"]["Shapes"];
+      meta: { name: "Shapes" };
+    };
     /**
      * Find zero or one Shapes that matches the filter.
      * @param {ShapesFindUniqueArgs} args - Arguments to find a Shapes
@@ -3587,7 +4196,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUnique<T extends ShapesFindUniqueArgs>(args: SelectSubset<T, ShapesFindUniqueArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ShapesFindUniqueArgs>(
+      args: SelectSubset<T, ShapesFindUniqueArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "findUnique",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find one Shapes that matches the filter or throw an error with `error.code='P2025'`
@@ -3601,7 +4222,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ShapesFindUniqueOrThrowArgs>(args: SelectSubset<T, ShapesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ShapesFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, ShapesFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "findUniqueOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find the first Shapes that matches the filter.
@@ -3616,7 +4249,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirst<T extends ShapesFindFirstArgs>(args?: SelectSubset<T, ShapesFindFirstArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ShapesFindFirstArgs>(
+      args?: SelectSubset<T, ShapesFindFirstArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "findFirst",
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find the first Shapes that matches the filter or
@@ -3632,7 +4277,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    findFirstOrThrow<T extends ShapesFindFirstOrThrowArgs>(args?: SelectSubset<T, ShapesFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ShapesFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, ShapesFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "findFirstOrThrow",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Find zero or more Shapes that matches the filter.
@@ -3642,15 +4299,24 @@ export namespace Prisma {
      * @example
      * // Get all Shapes
      * const shapes = await prisma.shapes.findMany()
-     * 
+     *
      * // Get first 10 Shapes
      * const shapes = await prisma.shapes.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const shapesWithIdOnly = await prisma.shapes.findMany({ select: { id: true } })
-     * 
+     *
      */
-    findMany<T extends ShapesFindManyArgs>(args?: SelectSubset<T, ShapesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ShapesFindManyArgs>(
+      args?: SelectSubset<T, ShapesFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Create a Shapes.
@@ -3662,9 +4328,21 @@ export namespace Prisma {
      *     // ... data to create a Shapes
      *   }
      * })
-     * 
+     *
      */
-    create<T extends ShapesCreateArgs>(args: SelectSubset<T, ShapesCreateArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ShapesCreateArgs>(
+      args: SelectSubset<T, ShapesCreateArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "create",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Create many Shapes.
@@ -3676,9 +4354,11 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
-    createMany<T extends ShapesCreateManyArgs>(args?: SelectSubset<T, ShapesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ShapesCreateManyArgs>(
+      args?: SelectSubset<T, ShapesCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Create many Shapes and returns the data saved in the database.
@@ -3690,7 +4370,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Shapes and only return the `id`
      * const shapesWithIdOnly = await prisma.shapes.createManyAndReturn({
      *   select: { id: true },
@@ -3700,9 +4380,18 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
-    createManyAndReturn<T extends ShapesCreateManyAndReturnArgs>(args?: SelectSubset<T, ShapesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ShapesCreateManyAndReturnArgs>(
+      args?: SelectSubset<T, ShapesCreateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "createManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Delete a Shapes.
@@ -3714,9 +4403,21 @@ export namespace Prisma {
      *     // ... filter to delete one Shapes
      *   }
      * })
-     * 
+     *
      */
-    delete<T extends ShapesDeleteArgs>(args: SelectSubset<T, ShapesDeleteArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ShapesDeleteArgs>(
+      args: SelectSubset<T, ShapesDeleteArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "delete",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Update one Shapes.
@@ -3731,9 +4432,21 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
-    update<T extends ShapesUpdateArgs>(args: SelectSubset<T, ShapesUpdateArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ShapesUpdateArgs>(
+      args: SelectSubset<T, ShapesUpdateArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "update",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Delete zero or more Shapes.
@@ -3745,9 +4458,11 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
-    deleteMany<T extends ShapesDeleteManyArgs>(args?: SelectSubset<T, ShapesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ShapesDeleteManyArgs>(
+      args?: SelectSubset<T, ShapesDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Shapes.
@@ -3764,9 +4479,11 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
-    updateMany<T extends ShapesUpdateManyArgs>(args: SelectSubset<T, ShapesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ShapesUpdateManyArgs>(
+      args: SelectSubset<T, ShapesUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
 
     /**
      * Update zero or more Shapes and returns the data updated in the database.
@@ -3781,7 +4498,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Shapes and only return the `id`
      * const shapesWithIdOnly = await prisma.shapes.updateManyAndReturn({
      *   select: { id: true },
@@ -3794,9 +4511,18 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
-    updateManyAndReturn<T extends ShapesUpdateManyAndReturnArgs>(args: SelectSubset<T, ShapesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ShapesUpdateManyAndReturnArgs>(
+      args: SelectSubset<T, ShapesUpdateManyAndReturnArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "updateManyAndReturn",
+        GlobalOmitOptions
+      >
+    >;
 
     /**
      * Create or update one Shapes.
@@ -3815,8 +4541,19 @@ export namespace Prisma {
      *   }
      * })
      */
-    upsert<T extends ShapesUpsertArgs>(args: SelectSubset<T, ShapesUpsertArgs<ExtArgs>>): Prisma__ShapesClient<$Result.GetResult<Prisma.$ShapesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
+    upsert<T extends ShapesUpsertArgs>(
+      args: SelectSubset<T, ShapesUpsertArgs<ExtArgs>>,
+    ): Prisma__ShapesClient<
+      $Result.GetResult<
+        Prisma.$ShapesPayload<ExtArgs>,
+        T,
+        "upsert",
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
 
     /**
      * Count the number of Shapes.
@@ -3830,16 +4567,16 @@ export namespace Prisma {
      *     // ... the filter for the Shapes we want to count
      *   }
      * })
-    **/
+     **/
     count<T extends ShapesCountArgs>(
       args?: Subset<T, ShapesCountArgs>,
     ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
+      T extends $Utils.Record<"select", any>
+        ? T["select"] extends true
           ? number
-          : GetScalarType<T['select'], ShapesCountAggregateOutputType>
+          : GetScalarType<T["select"], ShapesCountAggregateOutputType>
         : number
-    >
+    >;
 
     /**
      * Allows you to perform aggregations operations on a Shapes.
@@ -3864,8 +4601,10 @@ export namespace Prisma {
      *   },
      *   take: 10,
      * })
-    **/
-    aggregate<T extends ShapesAggregateArgs>(args: Subset<T, ShapesAggregateArgs>): Prisma.PrismaPromise<GetShapesAggregateType<T>>
+     **/
+    aggregate<T extends ShapesAggregateArgs>(
+      args: Subset<T, ShapesAggregateArgs>,
+    ): Prisma.PrismaPromise<GetShapesAggregateType<T>>;
 
     /**
      * Group by Shapes.
@@ -3883,70 +4622,76 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
-    **/
+     *
+     **/
     groupBy<
       T extends ShapesGroupByArgs,
       HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
+        Extends<"skip", Keys<T>>,
+        Extends<"take", Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ShapesGroupByArgs['orderBy'] }
-        : { orderBy?: ShapesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
+        ? { orderBy: ShapesGroupByArgs["orderBy"] }
+        : { orderBy?: ShapesGroupByArgs["orderBy"] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T["orderBy"]>>
+      >,
+      ByFields extends MaybeTupleToUnion<T["by"]>,
       ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
+      HavingFields extends GetHavingFields<T["having"]>,
       HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
+      ByEmpty extends T["by"] extends never[] ? True : False,
       InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
                 ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ShapesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShapesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Shapes model
-   */
-  readonly fields: ShapesFieldRefs;
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      "Field ",
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : "take" extends Keys<T>
+            ? "orderBy" extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : "skip" extends Keys<T>
+              ? "orderBy" extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, ShapesGroupByArgs, OrderByArg> & InputErrors,
+    ): {} extends InputErrors
+      ? GetShapesGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the Shapes model
+     */
+    readonly fields: ShapesFieldRefs;
   }
 
   /**
@@ -3955,1627 +4700,1927 @@ export namespace Prisma {
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ShapesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    User<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    Room<T extends RoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoomDefaultArgs<ExtArgs>>): Prisma__RoomClient<$Result.GetResult<Prisma.$RoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  export interface Prisma__ShapesClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    User<T extends UserDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, UserDefaultArgs<ExtArgs>>,
+    ): Prisma__UserClient<
+      | $Result.GetResult<
+          Prisma.$UserPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    Room<T extends RoomDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, RoomDefaultArgs<ExtArgs>>,
+    ): Prisma__RoomClient<
+      | $Result.GetResult<
+          Prisma.$RoomPayload<ExtArgs>,
+          T,
+          "findUniqueOrThrow",
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of which ever callback is executed.
      */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
     /**
      * Attaches a callback for only the rejection of the Promise.
      * @param onrejected The callback to execute when the Promise is rejected.
      * @returns A Promise for the completion of the callback.
      */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
     /**
      * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
      * resolved value cannot be modified from the callback.
      * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
      * @returns A Promise for the completion of the callback.
      */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
   }
-
-
-
 
   /**
    * Fields of the Shapes model
    */
   interface ShapesFieldRefs {
-    readonly id: FieldRef<"Shapes", 'Int'>
-    readonly message: FieldRef<"Shapes", 'String'>
-    readonly userId: FieldRef<"Shapes", 'String'>
-    readonly RoomId: FieldRef<"Shapes", 'Int'>
+    readonly id: FieldRef<"Shapes", "Int">;
+    readonly message: FieldRef<"Shapes", "String">;
+    readonly userId: FieldRef<"Shapes", "String">;
+    readonly RoomId: FieldRef<"Shapes", "Int">;
   }
-    
 
   // Custom InputTypes
   /**
    * Shapes findUnique
    */
-  export type ShapesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * Filter, which Shapes to fetch.
      */
-    where: ShapesWhereUniqueInput
-  }
+    where: ShapesWhereUniqueInput;
+  };
 
   /**
    * Shapes findUniqueOrThrow
    */
-  export type ShapesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * Filter, which Shapes to fetch.
      */
-    where: ShapesWhereUniqueInput
-  }
+    where: ShapesWhereUniqueInput;
+  };
 
   /**
    * Shapes findFirst
    */
-  export type ShapesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * Filter, which Shapes to fetch.
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Shapes to fetch.
      */
-    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[]
+    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Shapes.
      */
-    cursor?: ShapesWhereUniqueInput
+    cursor?: ShapesWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Shapes from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Shapes.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Shapes.
      */
-    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[]
-  }
+    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[];
+  };
 
   /**
    * Shapes findFirstOrThrow
    */
-  export type ShapesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * Filter, which Shapes to fetch.
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Shapes to fetch.
      */
-    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[]
+    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Shapes.
      */
-    cursor?: ShapesWhereUniqueInput
+    cursor?: ShapesWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Shapes from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Shapes.
      */
-    skip?: number
+    skip?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Shapes.
      */
-    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[]
-  }
+    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[];
+  };
 
   /**
    * Shapes findMany
    */
-  export type ShapesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * Filter, which Shapes to fetch.
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Shapes to fetch.
      */
-    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[]
+    orderBy?: ShapesOrderByWithRelationInput | ShapesOrderByWithRelationInput[];
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Shapes.
      */
-    cursor?: ShapesWhereUniqueInput
+    cursor?: ShapesWhereUniqueInput;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Shapes from the position of the cursor.
      */
-    take?: number
+    take?: number;
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Shapes.
      */
-    skip?: number
-    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[]
-  }
+    skip?: number;
+    distinct?: ShapesScalarFieldEnum | ShapesScalarFieldEnum[];
+  };
 
   /**
    * Shapes create
    */
-  export type ShapesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * The data needed to create a Shapes.
      */
-    data: XOR<ShapesCreateInput, ShapesUncheckedCreateInput>
-  }
+    data: XOR<ShapesCreateInput, ShapesUncheckedCreateInput>;
+  };
 
   /**
    * Shapes createMany
    */
-  export type ShapesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * The data used to create many Shapes.
      */
-    data: ShapesCreateManyInput | ShapesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
+    data: ShapesCreateManyInput | ShapesCreateManyInput[];
+    skipDuplicates?: boolean;
+  };
 
   /**
    * Shapes createManyAndReturn
    */
-  export type ShapesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesCreateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ShapesSelectCreateManyAndReturn<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * The data used to create many Shapes.
      */
-    data: ShapesCreateManyInput | ShapesCreateManyInput[]
-    skipDuplicates?: boolean
+    data: ShapesCreateManyInput | ShapesCreateManyInput[];
+    skipDuplicates?: boolean;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesIncludeCreateManyAndReturn<ExtArgs> | null
-  }
+    include?: ShapesIncludeCreateManyAndReturn<ExtArgs> | null;
+  };
 
   /**
    * Shapes update
    */
-  export type ShapesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * The data needed to update a Shapes.
      */
-    data: XOR<ShapesUpdateInput, ShapesUncheckedUpdateInput>
+    data: XOR<ShapesUpdateInput, ShapesUncheckedUpdateInput>;
     /**
      * Choose, which Shapes to update.
      */
-    where: ShapesWhereUniqueInput
-  }
+    where: ShapesWhereUniqueInput;
+  };
 
   /**
    * Shapes updateMany
    */
-  export type ShapesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * The data used to update Shapes.
      */
-    data: XOR<ShapesUpdateManyMutationInput, ShapesUncheckedUpdateManyInput>
+    data: XOR<ShapesUpdateManyMutationInput, ShapesUncheckedUpdateManyInput>;
     /**
      * Filter which Shapes to update
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * Limit how many Shapes to update.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * Shapes updateManyAndReturn
    */
-  export type ShapesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesUpdateManyAndReturnArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ShapesSelectUpdateManyAndReturn<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * The data used to update Shapes.
      */
-    data: XOR<ShapesUpdateManyMutationInput, ShapesUncheckedUpdateManyInput>
+    data: XOR<ShapesUpdateManyMutationInput, ShapesUncheckedUpdateManyInput>;
     /**
      * Filter which Shapes to update
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * Limit how many Shapes to update.
      */
-    limit?: number
+    limit?: number;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
+    include?: ShapesIncludeUpdateManyAndReturn<ExtArgs> | null;
+  };
 
   /**
    * Shapes upsert
    */
-  export type ShapesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * The filter to search for the Shapes to update in case it exists.
      */
-    where: ShapesWhereUniqueInput
+    where: ShapesWhereUniqueInput;
     /**
      * In case the Shapes found by the `where` argument doesn't exist, create a new Shapes with this data.
      */
-    create: XOR<ShapesCreateInput, ShapesUncheckedCreateInput>
+    create: XOR<ShapesCreateInput, ShapesUncheckedCreateInput>;
     /**
      * In case the Shapes was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ShapesUpdateInput, ShapesUncheckedUpdateInput>
-  }
+    update: XOR<ShapesUpdateInput, ShapesUncheckedUpdateInput>;
+  };
 
   /**
    * Shapes delete
    */
-  export type ShapesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
+    include?: ShapesInclude<ExtArgs> | null;
     /**
      * Filter which Shapes to delete.
      */
-    where: ShapesWhereUniqueInput
-  }
+    where: ShapesWhereUniqueInput;
+  };
 
   /**
    * Shapes deleteMany
    */
-  export type ShapesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Filter which Shapes to delete
      */
-    where?: ShapesWhereInput
+    where?: ShapesWhereInput;
     /**
      * Limit how many Shapes to delete.
      */
-    limit?: number
-  }
+    limit?: number;
+  };
 
   /**
    * Shapes without action
    */
-  export type ShapesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ShapesDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
     /**
      * Select specific fields to fetch from the Shapes
      */
-    select?: ShapesSelect<ExtArgs> | null
+    select?: ShapesSelect<ExtArgs> | null;
     /**
      * Omit specific fields from the Shapes
      */
-    omit?: ShapesOmit<ExtArgs> | null
+    omit?: ShapesOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShapesInclude<ExtArgs> | null
-  }
-
+    include?: ShapesInclude<ExtArgs> | null;
+  };
 
   /**
    * Enums
    */
 
   export const TransactionIsolationLevel: {
-    ReadUncommitted: 'ReadUncommitted',
-    ReadCommitted: 'ReadCommitted',
-    RepeatableRead: 'RepeatableRead',
-    Serializable: 'Serializable'
+    ReadUncommitted: "ReadUncommitted";
+    ReadCommitted: "ReadCommitted";
+    RepeatableRead: "RepeatableRead";
+    Serializable: "Serializable";
   };
 
-  export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
-
+  export type TransactionIsolationLevel =
+    (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
 
   export const UserScalarFieldEnum: {
-    id: 'id',
-    email: 'email',
-    username: 'username',
-    password: 'password'
+    id: "id";
+    email: "email";
+    username: "username";
+    password: "password";
   };
 
-  export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
+  export type UserScalarFieldEnum =
+    (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
 
   export const RoomScalarFieldEnum: {
-    id: 'id',
-    slug: 'slug',
-    userId: 'userId'
+    id: "id";
+    slug: "slug";
+    userId: "userId";
   };
 
-  export type RoomScalarFieldEnum = (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum]
-
+  export type RoomScalarFieldEnum =
+    (typeof RoomScalarFieldEnum)[keyof typeof RoomScalarFieldEnum];
 
   export const ShapesScalarFieldEnum: {
-    id: 'id',
-    message: 'message',
-    userId: 'userId',
-    RoomId: 'RoomId'
+    id: "id";
+    message: "message";
+    userId: "userId";
+    RoomId: "RoomId";
   };
 
-  export type ShapesScalarFieldEnum = (typeof ShapesScalarFieldEnum)[keyof typeof ShapesScalarFieldEnum]
-
+  export type ShapesScalarFieldEnum =
+    (typeof ShapesScalarFieldEnum)[keyof typeof ShapesScalarFieldEnum];
 
   export const SortOrder: {
-    asc: 'asc',
-    desc: 'desc'
+    asc: "asc";
+    desc: "desc";
   };
 
-  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder];
 
   export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
+    default: "default";
+    insensitive: "insensitive";
   };
 
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode];
 
   /**
    * Field references
    */
 
-
   /**
    * Reference to a field of type 'String'
    */
-  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
-
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "String"
+  >;
 
   /**
    * Reference to a field of type 'String[]'
    */
-  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "String[]"
+  >;
 
   /**
    * Reference to a field of type 'Int'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Int"
+  >;
 
   /**
    * Reference to a field of type 'Int[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Int[]"
+  >;
 
   /**
    * Reference to a field of type 'Float'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Float"
+  >;
 
   /**
    * Reference to a field of type 'Float[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<
+    $PrismaModel,
+    "Float[]"
+  >;
+
   /**
    * Deep Input Types
    */
 
-
   export type UserWhereInput = {
-    AND?: UserWhereInput | UserWhereInput[]
-    OR?: UserWhereInput[]
-    NOT?: UserWhereInput | UserWhereInput[]
-    id?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
-    username?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
-    Room?: RoomListRelationFilter
-    Chats?: ShapesListRelationFilter
-  }
+    AND?: UserWhereInput | UserWhereInput[];
+    OR?: UserWhereInput[];
+    NOT?: UserWhereInput | UserWhereInput[];
+    id?: StringFilter<"User"> | string;
+    email?: StringFilter<"User"> | string;
+    username?: StringFilter<"User"> | string;
+    password?: StringFilter<"User"> | string;
+    Room?: RoomListRelationFilter;
+    Chats?: ShapesListRelationFilter;
+  };
 
   export type UserOrderByWithRelationInput = {
-    id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
-    Room?: RoomOrderByRelationAggregateInput
-    Chats?: ShapesOrderByRelationAggregateInput
-  }
+    id?: SortOrder;
+    email?: SortOrder;
+    username?: SortOrder;
+    password?: SortOrder;
+    Room?: RoomOrderByRelationAggregateInput;
+    Chats?: ShapesOrderByRelationAggregateInput;
+  };
 
-  export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    email?: string
-    username?: string
-    AND?: UserWhereInput | UserWhereInput[]
-    OR?: UserWhereInput[]
-    NOT?: UserWhereInput | UserWhereInput[]
-    password?: StringFilter<"User"> | string
-    Room?: RoomListRelationFilter
-    Chats?: ShapesListRelationFilter
-  }, "id" | "email" | "username">
+  export type UserWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      email?: string;
+      username?: string;
+      AND?: UserWhereInput | UserWhereInput[];
+      OR?: UserWhereInput[];
+      NOT?: UserWhereInput | UserWhereInput[];
+      password?: StringFilter<"User"> | string;
+      Room?: RoomListRelationFilter;
+      Chats?: ShapesListRelationFilter;
+    },
+    "id" | "email" | "username"
+  >;
 
   export type UserOrderByWithAggregationInput = {
-    id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
-    _count?: UserCountOrderByAggregateInput
-    _max?: UserMaxOrderByAggregateInput
-    _min?: UserMinOrderByAggregateInput
-  }
+    id?: SortOrder;
+    email?: SortOrder;
+    username?: SortOrder;
+    password?: SortOrder;
+    _count?: UserCountOrderByAggregateInput;
+    _max?: UserMaxOrderByAggregateInput;
+    _min?: UserMinOrderByAggregateInput;
+  };
 
   export type UserScalarWhereWithAggregatesInput = {
-    AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    OR?: UserScalarWhereWithAggregatesInput[]
-    NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"User"> | string
-    email?: StringWithAggregatesFilter<"User"> | string
-    username?: StringWithAggregatesFilter<"User"> | string
-    password?: StringWithAggregatesFilter<"User"> | string
-  }
+    AND?:
+      | UserScalarWhereWithAggregatesInput
+      | UserScalarWhereWithAggregatesInput[];
+    OR?: UserScalarWhereWithAggregatesInput[];
+    NOT?:
+      | UserScalarWhereWithAggregatesInput
+      | UserScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<"User"> | string;
+    email?: StringWithAggregatesFilter<"User"> | string;
+    username?: StringWithAggregatesFilter<"User"> | string;
+    password?: StringWithAggregatesFilter<"User"> | string;
+  };
 
   export type RoomWhereInput = {
-    AND?: RoomWhereInput | RoomWhereInput[]
-    OR?: RoomWhereInput[]
-    NOT?: RoomWhereInput | RoomWhereInput[]
-    id?: IntFilter<"Room"> | number
-    slug?: StringFilter<"Room"> | string
-    userId?: StringFilter<"Room"> | string
-    Admin?: XOR<UserScalarRelationFilter, UserWhereInput>
-    Chats?: ShapesListRelationFilter
-  }
+    AND?: RoomWhereInput | RoomWhereInput[];
+    OR?: RoomWhereInput[];
+    NOT?: RoomWhereInput | RoomWhereInput[];
+    id?: IntFilter<"Room"> | number;
+    slug?: StringFilter<"Room"> | string;
+    userId?: StringFilter<"Room"> | string;
+    Admin?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    Chats?: ShapesListRelationFilter;
+  };
 
   export type RoomOrderByWithRelationInput = {
-    id?: SortOrder
-    slug?: SortOrder
-    userId?: SortOrder
-    Admin?: UserOrderByWithRelationInput
-    Chats?: ShapesOrderByRelationAggregateInput
-  }
+    id?: SortOrder;
+    slug?: SortOrder;
+    userId?: SortOrder;
+    Admin?: UserOrderByWithRelationInput;
+    Chats?: ShapesOrderByRelationAggregateInput;
+  };
 
-  export type RoomWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    slug?: string
-    AND?: RoomWhereInput | RoomWhereInput[]
-    OR?: RoomWhereInput[]
-    NOT?: RoomWhereInput | RoomWhereInput[]
-    userId?: StringFilter<"Room"> | string
-    Admin?: XOR<UserScalarRelationFilter, UserWhereInput>
-    Chats?: ShapesListRelationFilter
-  }, "id" | "slug">
+  export type RoomWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: number;
+      slug?: string;
+      AND?: RoomWhereInput | RoomWhereInput[];
+      OR?: RoomWhereInput[];
+      NOT?: RoomWhereInput | RoomWhereInput[];
+      userId?: StringFilter<"Room"> | string;
+      Admin?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      Chats?: ShapesListRelationFilter;
+    },
+    "id" | "slug"
+  >;
 
   export type RoomOrderByWithAggregationInput = {
-    id?: SortOrder
-    slug?: SortOrder
-    userId?: SortOrder
-    _count?: RoomCountOrderByAggregateInput
-    _avg?: RoomAvgOrderByAggregateInput
-    _max?: RoomMaxOrderByAggregateInput
-    _min?: RoomMinOrderByAggregateInput
-    _sum?: RoomSumOrderByAggregateInput
-  }
+    id?: SortOrder;
+    slug?: SortOrder;
+    userId?: SortOrder;
+    _count?: RoomCountOrderByAggregateInput;
+    _avg?: RoomAvgOrderByAggregateInput;
+    _max?: RoomMaxOrderByAggregateInput;
+    _min?: RoomMinOrderByAggregateInput;
+    _sum?: RoomSumOrderByAggregateInput;
+  };
 
   export type RoomScalarWhereWithAggregatesInput = {
-    AND?: RoomScalarWhereWithAggregatesInput | RoomScalarWhereWithAggregatesInput[]
-    OR?: RoomScalarWhereWithAggregatesInput[]
-    NOT?: RoomScalarWhereWithAggregatesInput | RoomScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Room"> | number
-    slug?: StringWithAggregatesFilter<"Room"> | string
-    userId?: StringWithAggregatesFilter<"Room"> | string
-  }
+    AND?:
+      | RoomScalarWhereWithAggregatesInput
+      | RoomScalarWhereWithAggregatesInput[];
+    OR?: RoomScalarWhereWithAggregatesInput[];
+    NOT?:
+      | RoomScalarWhereWithAggregatesInput
+      | RoomScalarWhereWithAggregatesInput[];
+    id?: IntWithAggregatesFilter<"Room"> | number;
+    slug?: StringWithAggregatesFilter<"Room"> | string;
+    userId?: StringWithAggregatesFilter<"Room"> | string;
+  };
 
   export type ShapesWhereInput = {
-    AND?: ShapesWhereInput | ShapesWhereInput[]
-    OR?: ShapesWhereInput[]
-    NOT?: ShapesWhereInput | ShapesWhereInput[]
-    id?: IntFilter<"Shapes"> | number
-    message?: StringFilter<"Shapes"> | string
-    userId?: StringFilter<"Shapes"> | string
-    RoomId?: IntFilter<"Shapes"> | number
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
-    Room?: XOR<RoomScalarRelationFilter, RoomWhereInput>
-  }
+    AND?: ShapesWhereInput | ShapesWhereInput[];
+    OR?: ShapesWhereInput[];
+    NOT?: ShapesWhereInput | ShapesWhereInput[];
+    id?: IntFilter<"Shapes"> | number;
+    message?: StringFilter<"Shapes"> | string;
+    userId?: StringFilter<"Shapes"> | string;
+    RoomId?: IntFilter<"Shapes"> | number;
+    User?: XOR<UserScalarRelationFilter, UserWhereInput>;
+    Room?: XOR<RoomScalarRelationFilter, RoomWhereInput>;
+  };
 
   export type ShapesOrderByWithRelationInput = {
-    id?: SortOrder
-    message?: SortOrder
-    userId?: SortOrder
-    RoomId?: SortOrder
-    User?: UserOrderByWithRelationInput
-    Room?: RoomOrderByWithRelationInput
-  }
+    id?: SortOrder;
+    message?: SortOrder;
+    userId?: SortOrder;
+    RoomId?: SortOrder;
+    User?: UserOrderByWithRelationInput;
+    Room?: RoomOrderByWithRelationInput;
+  };
 
-  export type ShapesWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: ShapesWhereInput | ShapesWhereInput[]
-    OR?: ShapesWhereInput[]
-    NOT?: ShapesWhereInput | ShapesWhereInput[]
-    message?: StringFilter<"Shapes"> | string
-    userId?: StringFilter<"Shapes"> | string
-    RoomId?: IntFilter<"Shapes"> | number
-    User?: XOR<UserScalarRelationFilter, UserWhereInput>
-    Room?: XOR<RoomScalarRelationFilter, RoomWhereInput>
-  }, "id">
+  export type ShapesWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: number;
+      AND?: ShapesWhereInput | ShapesWhereInput[];
+      OR?: ShapesWhereInput[];
+      NOT?: ShapesWhereInput | ShapesWhereInput[];
+      message?: StringFilter<"Shapes"> | string;
+      userId?: StringFilter<"Shapes"> | string;
+      RoomId?: IntFilter<"Shapes"> | number;
+      User?: XOR<UserScalarRelationFilter, UserWhereInput>;
+      Room?: XOR<RoomScalarRelationFilter, RoomWhereInput>;
+    },
+    "id"
+  >;
 
   export type ShapesOrderByWithAggregationInput = {
-    id?: SortOrder
-    message?: SortOrder
-    userId?: SortOrder
-    RoomId?: SortOrder
-    _count?: ShapesCountOrderByAggregateInput
-    _avg?: ShapesAvgOrderByAggregateInput
-    _max?: ShapesMaxOrderByAggregateInput
-    _min?: ShapesMinOrderByAggregateInput
-    _sum?: ShapesSumOrderByAggregateInput
-  }
+    id?: SortOrder;
+    message?: SortOrder;
+    userId?: SortOrder;
+    RoomId?: SortOrder;
+    _count?: ShapesCountOrderByAggregateInput;
+    _avg?: ShapesAvgOrderByAggregateInput;
+    _max?: ShapesMaxOrderByAggregateInput;
+    _min?: ShapesMinOrderByAggregateInput;
+    _sum?: ShapesSumOrderByAggregateInput;
+  };
 
   export type ShapesScalarWhereWithAggregatesInput = {
-    AND?: ShapesScalarWhereWithAggregatesInput | ShapesScalarWhereWithAggregatesInput[]
-    OR?: ShapesScalarWhereWithAggregatesInput[]
-    NOT?: ShapesScalarWhereWithAggregatesInput | ShapesScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Shapes"> | number
-    message?: StringWithAggregatesFilter<"Shapes"> | string
-    userId?: StringWithAggregatesFilter<"Shapes"> | string
-    RoomId?: IntWithAggregatesFilter<"Shapes"> | number
-  }
+    AND?:
+      | ShapesScalarWhereWithAggregatesInput
+      | ShapesScalarWhereWithAggregatesInput[];
+    OR?: ShapesScalarWhereWithAggregatesInput[];
+    NOT?:
+      | ShapesScalarWhereWithAggregatesInput
+      | ShapesScalarWhereWithAggregatesInput[];
+    id?: IntWithAggregatesFilter<"Shapes"> | number;
+    message?: StringWithAggregatesFilter<"Shapes"> | string;
+    userId?: StringWithAggregatesFilter<"Shapes"> | string;
+    RoomId?: IntWithAggregatesFilter<"Shapes"> | number;
+  };
 
   export type UserCreateInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-    Room?: RoomCreateNestedManyWithoutAdminInput
-    Chats?: ShapesCreateNestedManyWithoutUserInput
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+    Room?: RoomCreateNestedManyWithoutAdminInput;
+    Chats?: ShapesCreateNestedManyWithoutUserInput;
+  };
 
   export type UserUncheckedCreateInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-    Room?: RoomUncheckedCreateNestedManyWithoutAdminInput
-    Chats?: ShapesUncheckedCreateNestedManyWithoutUserInput
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+    Room?: RoomUncheckedCreateNestedManyWithoutAdminInput;
+    Chats?: ShapesUncheckedCreateNestedManyWithoutUserInput;
+  };
 
   export type UserUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    Room?: RoomUpdateManyWithoutAdminNestedInput
-    Chats?: ShapesUpdateManyWithoutUserNestedInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    Room?: RoomUpdateManyWithoutAdminNestedInput;
+    Chats?: ShapesUpdateManyWithoutUserNestedInput;
+  };
 
   export type UserUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    Room?: RoomUncheckedUpdateManyWithoutAdminNestedInput
-    Chats?: ShapesUncheckedUpdateManyWithoutUserNestedInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    Room?: RoomUncheckedUpdateManyWithoutAdminNestedInput;
+    Chats?: ShapesUncheckedUpdateManyWithoutUserNestedInput;
+  };
 
   export type UserCreateManyInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+  };
 
   export type UserUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type UserUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type RoomCreateInput = {
-    slug: string
-    Admin: UserCreateNestedOneWithoutRoomInput
-    Chats?: ShapesCreateNestedManyWithoutRoomInput
-  }
+    slug: string;
+    Admin: UserCreateNestedOneWithoutRoomInput;
+    Chats?: ShapesCreateNestedManyWithoutRoomInput;
+  };
 
   export type RoomUncheckedCreateInput = {
-    id?: number
-    slug: string
-    userId: string
-    Chats?: ShapesUncheckedCreateNestedManyWithoutRoomInput
-  }
+    id?: number;
+    slug: string;
+    userId: string;
+    Chats?: ShapesUncheckedCreateNestedManyWithoutRoomInput;
+  };
 
   export type RoomUpdateInput = {
-    slug?: StringFieldUpdateOperationsInput | string
-    Admin?: UserUpdateOneRequiredWithoutRoomNestedInput
-    Chats?: ShapesUpdateManyWithoutRoomNestedInput
-  }
+    slug?: StringFieldUpdateOperationsInput | string;
+    Admin?: UserUpdateOneRequiredWithoutRoomNestedInput;
+    Chats?: ShapesUpdateManyWithoutRoomNestedInput;
+  };
 
   export type RoomUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    slug?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    Chats?: ShapesUncheckedUpdateManyWithoutRoomNestedInput
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    slug?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    Chats?: ShapesUncheckedUpdateManyWithoutRoomNestedInput;
+  };
 
   export type RoomCreateManyInput = {
-    id?: number
-    slug: string
-    userId: string
-  }
+    id?: number;
+    slug: string;
+    userId: string;
+  };
 
   export type RoomUpdateManyMutationInput = {
-    slug?: StringFieldUpdateOperationsInput | string
-  }
+    slug?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type RoomUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    slug?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    slug?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type ShapesCreateInput = {
-    message: string
-    User: UserCreateNestedOneWithoutChatsInput
-    Room: RoomCreateNestedOneWithoutChatsInput
-  }
+    message: string;
+    User: UserCreateNestedOneWithoutChatsInput;
+    Room: RoomCreateNestedOneWithoutChatsInput;
+  };
 
   export type ShapesUncheckedCreateInput = {
-    id?: number
-    message: string
-    userId: string
-    RoomId: number
-  }
+    id?: number;
+    message: string;
+    userId: string;
+    RoomId: number;
+  };
 
   export type ShapesUpdateInput = {
-    message?: StringFieldUpdateOperationsInput | string
-    User?: UserUpdateOneRequiredWithoutChatsNestedInput
-    Room?: RoomUpdateOneRequiredWithoutChatsNestedInput
-  }
+    message?: StringFieldUpdateOperationsInput | string;
+    User?: UserUpdateOneRequiredWithoutChatsNestedInput;
+    Room?: RoomUpdateOneRequiredWithoutChatsNestedInput;
+  };
 
   export type ShapesUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    RoomId?: IntFieldUpdateOperationsInput | number
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    message?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    RoomId?: IntFieldUpdateOperationsInput | number;
+  };
 
   export type ShapesCreateManyInput = {
-    id?: number
-    message: string
-    userId: string
-    RoomId: number
-  }
+    id?: number;
+    message: string;
+    userId: string;
+    RoomId: number;
+  };
 
   export type ShapesUpdateManyMutationInput = {
-    message?: StringFieldUpdateOperationsInput | string
-  }
+    message?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type ShapesUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    RoomId?: IntFieldUpdateOperationsInput | number
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    message?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+    RoomId?: IntFieldUpdateOperationsInput | number;
+  };
 
   export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
+    equals?: string | StringFieldRefInput<$PrismaModel>;
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    lt?: string | StringFieldRefInput<$PrismaModel>;
+    lte?: string | StringFieldRefInput<$PrismaModel>;
+    gt?: string | StringFieldRefInput<$PrismaModel>;
+    gte?: string | StringFieldRefInput<$PrismaModel>;
+    contains?: string | StringFieldRefInput<$PrismaModel>;
+    startsWith?: string | StringFieldRefInput<$PrismaModel>;
+    endsWith?: string | StringFieldRefInput<$PrismaModel>;
+    mode?: QueryMode;
+    not?: NestedStringFilter<$PrismaModel> | string;
+  };
 
   export type RoomListRelationFilter = {
-    every?: RoomWhereInput
-    some?: RoomWhereInput
-    none?: RoomWhereInput
-  }
+    every?: RoomWhereInput;
+    some?: RoomWhereInput;
+    none?: RoomWhereInput;
+  };
 
   export type ShapesListRelationFilter = {
-    every?: ShapesWhereInput
-    some?: ShapesWhereInput
-    none?: ShapesWhereInput
-  }
+    every?: ShapesWhereInput;
+    some?: ShapesWhereInput;
+    none?: ShapesWhereInput;
+  };
 
   export type RoomOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
+    _count?: SortOrder;
+  };
 
   export type ShapesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
+    _count?: SortOrder;
+  };
 
   export type UserCountOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
-  }
+    id?: SortOrder;
+    email?: SortOrder;
+    username?: SortOrder;
+    password?: SortOrder;
+  };
 
   export type UserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
-  }
+    id?: SortOrder;
+    email?: SortOrder;
+    username?: SortOrder;
+    password?: SortOrder;
+  };
 
   export type UserMinOrderByAggregateInput = {
-    id?: SortOrder
-    email?: SortOrder
-    username?: SortOrder
-    password?: SortOrder
-  }
+    id?: SortOrder;
+    email?: SortOrder;
+    username?: SortOrder;
+    password?: SortOrder;
+  };
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
+    equals?: string | StringFieldRefInput<$PrismaModel>;
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    lt?: string | StringFieldRefInput<$PrismaModel>;
+    lte?: string | StringFieldRefInput<$PrismaModel>;
+    gt?: string | StringFieldRefInput<$PrismaModel>;
+    gte?: string | StringFieldRefInput<$PrismaModel>;
+    contains?: string | StringFieldRefInput<$PrismaModel>;
+    startsWith?: string | StringFieldRefInput<$PrismaModel>;
+    endsWith?: string | StringFieldRefInput<$PrismaModel>;
+    mode?: QueryMode;
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedStringFilter<$PrismaModel>;
+    _max?: NestedStringFilter<$PrismaModel>;
+  };
 
   export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntFilter<$PrismaModel> | number;
+  };
 
   export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
+    is?: UserWhereInput;
+    isNot?: UserWhereInput;
+  };
 
   export type RoomCountOrderByAggregateInput = {
-    id?: SortOrder
-    slug?: SortOrder
-    userId?: SortOrder
-  }
+    id?: SortOrder;
+    slug?: SortOrder;
+    userId?: SortOrder;
+  };
 
   export type RoomAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
+    id?: SortOrder;
+  };
 
   export type RoomMaxOrderByAggregateInput = {
-    id?: SortOrder
-    slug?: SortOrder
-    userId?: SortOrder
-  }
+    id?: SortOrder;
+    slug?: SortOrder;
+    userId?: SortOrder;
+  };
 
   export type RoomMinOrderByAggregateInput = {
-    id?: SortOrder
-    slug?: SortOrder
-    userId?: SortOrder
-  }
+    id?: SortOrder;
+    slug?: SortOrder;
+    userId?: SortOrder;
+  };
 
   export type RoomSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
+    id?: SortOrder;
+  };
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
+  };
 
   export type RoomScalarRelationFilter = {
-    is?: RoomWhereInput
-    isNot?: RoomWhereInput
-  }
+    is?: RoomWhereInput;
+    isNot?: RoomWhereInput;
+  };
 
   export type ShapesCountOrderByAggregateInput = {
-    id?: SortOrder
-    message?: SortOrder
-    userId?: SortOrder
-    RoomId?: SortOrder
-  }
+    id?: SortOrder;
+    message?: SortOrder;
+    userId?: SortOrder;
+    RoomId?: SortOrder;
+  };
 
   export type ShapesAvgOrderByAggregateInput = {
-    id?: SortOrder
-    RoomId?: SortOrder
-  }
+    id?: SortOrder;
+    RoomId?: SortOrder;
+  };
 
   export type ShapesMaxOrderByAggregateInput = {
-    id?: SortOrder
-    message?: SortOrder
-    userId?: SortOrder
-    RoomId?: SortOrder
-  }
+    id?: SortOrder;
+    message?: SortOrder;
+    userId?: SortOrder;
+    RoomId?: SortOrder;
+  };
 
   export type ShapesMinOrderByAggregateInput = {
-    id?: SortOrder
-    message?: SortOrder
-    userId?: SortOrder
-    RoomId?: SortOrder
-  }
+    id?: SortOrder;
+    message?: SortOrder;
+    userId?: SortOrder;
+    RoomId?: SortOrder;
+  };
 
   export type ShapesSumOrderByAggregateInput = {
-    id?: SortOrder
-    RoomId?: SortOrder
-  }
+    id?: SortOrder;
+    RoomId?: SortOrder;
+  };
 
   export type RoomCreateNestedManyWithoutAdminInput = {
-    create?: XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput> | RoomCreateWithoutAdminInput[] | RoomUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutAdminInput | RoomCreateOrConnectWithoutAdminInput[]
-    createMany?: RoomCreateManyAdminInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-  }
+    create?:
+      | XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput>
+      | RoomCreateWithoutAdminInput[]
+      | RoomUncheckedCreateWithoutAdminInput[];
+    connectOrCreate?:
+      | RoomCreateOrConnectWithoutAdminInput
+      | RoomCreateOrConnectWithoutAdminInput[];
+    createMany?: RoomCreateManyAdminInputEnvelope;
+    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+  };
 
   export type ShapesCreateNestedManyWithoutUserInput = {
-    create?: XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput> | ShapesCreateWithoutUserInput[] | ShapesUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutUserInput | ShapesCreateOrConnectWithoutUserInput[]
-    createMany?: ShapesCreateManyUserInputEnvelope
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput>
+      | ShapesCreateWithoutUserInput[]
+      | ShapesUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutUserInput
+      | ShapesCreateOrConnectWithoutUserInput[];
+    createMany?: ShapesCreateManyUserInputEnvelope;
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+  };
 
   export type RoomUncheckedCreateNestedManyWithoutAdminInput = {
-    create?: XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput> | RoomCreateWithoutAdminInput[] | RoomUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutAdminInput | RoomCreateOrConnectWithoutAdminInput[]
-    createMany?: RoomCreateManyAdminInputEnvelope
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-  }
+    create?:
+      | XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput>
+      | RoomCreateWithoutAdminInput[]
+      | RoomUncheckedCreateWithoutAdminInput[];
+    connectOrCreate?:
+      | RoomCreateOrConnectWithoutAdminInput
+      | RoomCreateOrConnectWithoutAdminInput[];
+    createMany?: RoomCreateManyAdminInputEnvelope;
+    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+  };
 
   export type ShapesUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput> | ShapesCreateWithoutUserInput[] | ShapesUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutUserInput | ShapesCreateOrConnectWithoutUserInput[]
-    createMany?: ShapesCreateManyUserInputEnvelope
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput>
+      | ShapesCreateWithoutUserInput[]
+      | ShapesUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutUserInput
+      | ShapesCreateOrConnectWithoutUserInput[];
+    createMany?: ShapesCreateManyUserInputEnvelope;
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+  };
 
   export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
+    set?: string;
+  };
 
   export type RoomUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput> | RoomCreateWithoutAdminInput[] | RoomUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutAdminInput | RoomCreateOrConnectWithoutAdminInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutAdminInput | RoomUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: RoomCreateManyAdminInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutAdminInput | RoomUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutAdminInput | RoomUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
-  }
+    create?:
+      | XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput>
+      | RoomCreateWithoutAdminInput[]
+      | RoomUncheckedCreateWithoutAdminInput[];
+    connectOrCreate?:
+      | RoomCreateOrConnectWithoutAdminInput
+      | RoomCreateOrConnectWithoutAdminInput[];
+    upsert?:
+      | RoomUpsertWithWhereUniqueWithoutAdminInput
+      | RoomUpsertWithWhereUniqueWithoutAdminInput[];
+    createMany?: RoomCreateManyAdminInputEnvelope;
+    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    update?:
+      | RoomUpdateWithWhereUniqueWithoutAdminInput
+      | RoomUpdateWithWhereUniqueWithoutAdminInput[];
+    updateMany?:
+      | RoomUpdateManyWithWhereWithoutAdminInput
+      | RoomUpdateManyWithWhereWithoutAdminInput[];
+    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[];
+  };
 
   export type ShapesUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput> | ShapesCreateWithoutUserInput[] | ShapesUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutUserInput | ShapesCreateOrConnectWithoutUserInput[]
-    upsert?: ShapesUpsertWithWhereUniqueWithoutUserInput | ShapesUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ShapesCreateManyUserInputEnvelope
-    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    update?: ShapesUpdateWithWhereUniqueWithoutUserInput | ShapesUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ShapesUpdateManyWithWhereWithoutUserInput | ShapesUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput>
+      | ShapesCreateWithoutUserInput[]
+      | ShapesUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutUserInput
+      | ShapesCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | ShapesUpsertWithWhereUniqueWithoutUserInput
+      | ShapesUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: ShapesCreateManyUserInputEnvelope;
+    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    update?:
+      | ShapesUpdateWithWhereUniqueWithoutUserInput
+      | ShapesUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | ShapesUpdateManyWithWhereWithoutUserInput
+      | ShapesUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[];
+  };
 
   export type RoomUncheckedUpdateManyWithoutAdminNestedInput = {
-    create?: XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput> | RoomCreateWithoutAdminInput[] | RoomUncheckedCreateWithoutAdminInput[]
-    connectOrCreate?: RoomCreateOrConnectWithoutAdminInput | RoomCreateOrConnectWithoutAdminInput[]
-    upsert?: RoomUpsertWithWhereUniqueWithoutAdminInput | RoomUpsertWithWhereUniqueWithoutAdminInput[]
-    createMany?: RoomCreateManyAdminInputEnvelope
-    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[]
-    update?: RoomUpdateWithWhereUniqueWithoutAdminInput | RoomUpdateWithWhereUniqueWithoutAdminInput[]
-    updateMany?: RoomUpdateManyWithWhereWithoutAdminInput | RoomUpdateManyWithWhereWithoutAdminInput[]
-    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[]
-  }
+    create?:
+      | XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput>
+      | RoomCreateWithoutAdminInput[]
+      | RoomUncheckedCreateWithoutAdminInput[];
+    connectOrCreate?:
+      | RoomCreateOrConnectWithoutAdminInput
+      | RoomCreateOrConnectWithoutAdminInput[];
+    upsert?:
+      | RoomUpsertWithWhereUniqueWithoutAdminInput
+      | RoomUpsertWithWhereUniqueWithoutAdminInput[];
+    createMany?: RoomCreateManyAdminInputEnvelope;
+    set?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    disconnect?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    delete?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    connect?: RoomWhereUniqueInput | RoomWhereUniqueInput[];
+    update?:
+      | RoomUpdateWithWhereUniqueWithoutAdminInput
+      | RoomUpdateWithWhereUniqueWithoutAdminInput[];
+    updateMany?:
+      | RoomUpdateManyWithWhereWithoutAdminInput
+      | RoomUpdateManyWithWhereWithoutAdminInput[];
+    deleteMany?: RoomScalarWhereInput | RoomScalarWhereInput[];
+  };
 
   export type ShapesUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput> | ShapesCreateWithoutUserInput[] | ShapesUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutUserInput | ShapesCreateOrConnectWithoutUserInput[]
-    upsert?: ShapesUpsertWithWhereUniqueWithoutUserInput | ShapesUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ShapesCreateManyUserInputEnvelope
-    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    update?: ShapesUpdateWithWhereUniqueWithoutUserInput | ShapesUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ShapesUpdateManyWithWhereWithoutUserInput | ShapesUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput>
+      | ShapesCreateWithoutUserInput[]
+      | ShapesUncheckedCreateWithoutUserInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutUserInput
+      | ShapesCreateOrConnectWithoutUserInput[];
+    upsert?:
+      | ShapesUpsertWithWhereUniqueWithoutUserInput
+      | ShapesUpsertWithWhereUniqueWithoutUserInput[];
+    createMany?: ShapesCreateManyUserInputEnvelope;
+    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    update?:
+      | ShapesUpdateWithWhereUniqueWithoutUserInput
+      | ShapesUpdateWithWhereUniqueWithoutUserInput[];
+    updateMany?:
+      | ShapesUpdateManyWithWhereWithoutUserInput
+      | ShapesUpdateManyWithWhereWithoutUserInput[];
+    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[];
+  };
 
   export type UserCreateNestedOneWithoutRoomInput = {
-    create?: XOR<UserCreateWithoutRoomInput, UserUncheckedCreateWithoutRoomInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRoomInput
-    connect?: UserWhereUniqueInput
-  }
+    create?: XOR<
+      UserCreateWithoutRoomInput,
+      UserUncheckedCreateWithoutRoomInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutRoomInput;
+    connect?: UserWhereUniqueInput;
+  };
 
   export type ShapesCreateNestedManyWithoutRoomInput = {
-    create?: XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput> | ShapesCreateWithoutRoomInput[] | ShapesUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutRoomInput | ShapesCreateOrConnectWithoutRoomInput[]
-    createMany?: ShapesCreateManyRoomInputEnvelope
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput>
+      | ShapesCreateWithoutRoomInput[]
+      | ShapesUncheckedCreateWithoutRoomInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutRoomInput
+      | ShapesCreateOrConnectWithoutRoomInput[];
+    createMany?: ShapesCreateManyRoomInputEnvelope;
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+  };
 
   export type ShapesUncheckedCreateNestedManyWithoutRoomInput = {
-    create?: XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput> | ShapesCreateWithoutRoomInput[] | ShapesUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutRoomInput | ShapesCreateOrConnectWithoutRoomInput[]
-    createMany?: ShapesCreateManyRoomInputEnvelope
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput>
+      | ShapesCreateWithoutRoomInput[]
+      | ShapesUncheckedCreateWithoutRoomInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutRoomInput
+      | ShapesCreateOrConnectWithoutRoomInput[];
+    createMany?: ShapesCreateManyRoomInputEnvelope;
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+  };
 
   export type UserUpdateOneRequiredWithoutRoomNestedInput = {
-    create?: XOR<UserCreateWithoutRoomInput, UserUncheckedCreateWithoutRoomInput>
-    connectOrCreate?: UserCreateOrConnectWithoutRoomInput
-    upsert?: UserUpsertWithoutRoomInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRoomInput, UserUpdateWithoutRoomInput>, UserUncheckedUpdateWithoutRoomInput>
-  }
+    create?: XOR<
+      UserCreateWithoutRoomInput,
+      UserUncheckedCreateWithoutRoomInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutRoomInput;
+    upsert?: UserUpsertWithoutRoomInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<UserUpdateToOneWithWhereWithoutRoomInput, UserUpdateWithoutRoomInput>,
+      UserUncheckedUpdateWithoutRoomInput
+    >;
+  };
 
   export type ShapesUpdateManyWithoutRoomNestedInput = {
-    create?: XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput> | ShapesCreateWithoutRoomInput[] | ShapesUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutRoomInput | ShapesCreateOrConnectWithoutRoomInput[]
-    upsert?: ShapesUpsertWithWhereUniqueWithoutRoomInput | ShapesUpsertWithWhereUniqueWithoutRoomInput[]
-    createMany?: ShapesCreateManyRoomInputEnvelope
-    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    update?: ShapesUpdateWithWhereUniqueWithoutRoomInput | ShapesUpdateWithWhereUniqueWithoutRoomInput[]
-    updateMany?: ShapesUpdateManyWithWhereWithoutRoomInput | ShapesUpdateManyWithWhereWithoutRoomInput[]
-    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput>
+      | ShapesCreateWithoutRoomInput[]
+      | ShapesUncheckedCreateWithoutRoomInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutRoomInput
+      | ShapesCreateOrConnectWithoutRoomInput[];
+    upsert?:
+      | ShapesUpsertWithWhereUniqueWithoutRoomInput
+      | ShapesUpsertWithWhereUniqueWithoutRoomInput[];
+    createMany?: ShapesCreateManyRoomInputEnvelope;
+    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    update?:
+      | ShapesUpdateWithWhereUniqueWithoutRoomInput
+      | ShapesUpdateWithWhereUniqueWithoutRoomInput[];
+    updateMany?:
+      | ShapesUpdateManyWithWhereWithoutRoomInput
+      | ShapesUpdateManyWithWhereWithoutRoomInput[];
+    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[];
+  };
 
   export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
+    set?: number;
+    increment?: number;
+    decrement?: number;
+    multiply?: number;
+    divide?: number;
+  };
 
   export type ShapesUncheckedUpdateManyWithoutRoomNestedInput = {
-    create?: XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput> | ShapesCreateWithoutRoomInput[] | ShapesUncheckedCreateWithoutRoomInput[]
-    connectOrCreate?: ShapesCreateOrConnectWithoutRoomInput | ShapesCreateOrConnectWithoutRoomInput[]
-    upsert?: ShapesUpsertWithWhereUniqueWithoutRoomInput | ShapesUpsertWithWhereUniqueWithoutRoomInput[]
-    createMany?: ShapesCreateManyRoomInputEnvelope
-    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[]
-    update?: ShapesUpdateWithWhereUniqueWithoutRoomInput | ShapesUpdateWithWhereUniqueWithoutRoomInput[]
-    updateMany?: ShapesUpdateManyWithWhereWithoutRoomInput | ShapesUpdateManyWithWhereWithoutRoomInput[]
-    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[]
-  }
+    create?:
+      | XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput>
+      | ShapesCreateWithoutRoomInput[]
+      | ShapesUncheckedCreateWithoutRoomInput[];
+    connectOrCreate?:
+      | ShapesCreateOrConnectWithoutRoomInput
+      | ShapesCreateOrConnectWithoutRoomInput[];
+    upsert?:
+      | ShapesUpsertWithWhereUniqueWithoutRoomInput
+      | ShapesUpsertWithWhereUniqueWithoutRoomInput[];
+    createMany?: ShapesCreateManyRoomInputEnvelope;
+    set?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    disconnect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    delete?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    connect?: ShapesWhereUniqueInput | ShapesWhereUniqueInput[];
+    update?:
+      | ShapesUpdateWithWhereUniqueWithoutRoomInput
+      | ShapesUpdateWithWhereUniqueWithoutRoomInput[];
+    updateMany?:
+      | ShapesUpdateManyWithWhereWithoutRoomInput
+      | ShapesUpdateManyWithWhereWithoutRoomInput[];
+    deleteMany?: ShapesScalarWhereInput | ShapesScalarWhereInput[];
+  };
 
   export type UserCreateNestedOneWithoutChatsInput = {
-    create?: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutChatsInput
-    connect?: UserWhereUniqueInput
-  }
+    create?: XOR<
+      UserCreateWithoutChatsInput,
+      UserUncheckedCreateWithoutChatsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutChatsInput;
+    connect?: UserWhereUniqueInput;
+  };
 
   export type RoomCreateNestedOneWithoutChatsInput = {
-    create?: XOR<RoomCreateWithoutChatsInput, RoomUncheckedCreateWithoutChatsInput>
-    connectOrCreate?: RoomCreateOrConnectWithoutChatsInput
-    connect?: RoomWhereUniqueInput
-  }
+    create?: XOR<
+      RoomCreateWithoutChatsInput,
+      RoomUncheckedCreateWithoutChatsInput
+    >;
+    connectOrCreate?: RoomCreateOrConnectWithoutChatsInput;
+    connect?: RoomWhereUniqueInput;
+  };
 
   export type UserUpdateOneRequiredWithoutChatsNestedInput = {
-    create?: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutChatsInput
-    upsert?: UserUpsertWithoutChatsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatsInput, UserUpdateWithoutChatsInput>, UserUncheckedUpdateWithoutChatsInput>
-  }
+    create?: XOR<
+      UserCreateWithoutChatsInput,
+      UserUncheckedCreateWithoutChatsInput
+    >;
+    connectOrCreate?: UserCreateOrConnectWithoutChatsInput;
+    upsert?: UserUpsertWithoutChatsInput;
+    connect?: UserWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        UserUpdateToOneWithWhereWithoutChatsInput,
+        UserUpdateWithoutChatsInput
+      >,
+      UserUncheckedUpdateWithoutChatsInput
+    >;
+  };
 
   export type RoomUpdateOneRequiredWithoutChatsNestedInput = {
-    create?: XOR<RoomCreateWithoutChatsInput, RoomUncheckedCreateWithoutChatsInput>
-    connectOrCreate?: RoomCreateOrConnectWithoutChatsInput
-    upsert?: RoomUpsertWithoutChatsInput
-    connect?: RoomWhereUniqueInput
-    update?: XOR<XOR<RoomUpdateToOneWithWhereWithoutChatsInput, RoomUpdateWithoutChatsInput>, RoomUncheckedUpdateWithoutChatsInput>
-  }
+    create?: XOR<
+      RoomCreateWithoutChatsInput,
+      RoomUncheckedCreateWithoutChatsInput
+    >;
+    connectOrCreate?: RoomCreateOrConnectWithoutChatsInput;
+    upsert?: RoomUpsertWithoutChatsInput;
+    connect?: RoomWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        RoomUpdateToOneWithWhereWithoutChatsInput,
+        RoomUpdateWithoutChatsInput
+      >,
+      RoomUncheckedUpdateWithoutChatsInput
+    >;
+  };
 
   export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
-  }
+    equals?: string | StringFieldRefInput<$PrismaModel>;
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    lt?: string | StringFieldRefInput<$PrismaModel>;
+    lte?: string | StringFieldRefInput<$PrismaModel>;
+    gt?: string | StringFieldRefInput<$PrismaModel>;
+    gte?: string | StringFieldRefInput<$PrismaModel>;
+    contains?: string | StringFieldRefInput<$PrismaModel>;
+    startsWith?: string | StringFieldRefInput<$PrismaModel>;
+    endsWith?: string | StringFieldRefInput<$PrismaModel>;
+    not?: NestedStringFilter<$PrismaModel> | string;
+  };
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
+    equals?: string | StringFieldRefInput<$PrismaModel>;
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>;
+    lt?: string | StringFieldRefInput<$PrismaModel>;
+    lte?: string | StringFieldRefInput<$PrismaModel>;
+    gt?: string | StringFieldRefInput<$PrismaModel>;
+    gte?: string | StringFieldRefInput<$PrismaModel>;
+    contains?: string | StringFieldRefInput<$PrismaModel>;
+    startsWith?: string | StringFieldRefInput<$PrismaModel>;
+    endsWith?: string | StringFieldRefInput<$PrismaModel>;
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedStringFilter<$PrismaModel>;
+    _max?: NestedStringFilter<$PrismaModel>;
+  };
 
   export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntFilter<$PrismaModel> | number;
+  };
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
+    equals?: number | IntFieldRefInput<$PrismaModel>;
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>;
+    lt?: number | IntFieldRefInput<$PrismaModel>;
+    lte?: number | IntFieldRefInput<$PrismaModel>;
+    gt?: number | IntFieldRefInput<$PrismaModel>;
+    gte?: number | IntFieldRefInput<$PrismaModel>;
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number;
+    _count?: NestedIntFilter<$PrismaModel>;
+    _avg?: NestedFloatFilter<$PrismaModel>;
+    _sum?: NestedIntFilter<$PrismaModel>;
+    _min?: NestedIntFilter<$PrismaModel>;
+    _max?: NestedIntFilter<$PrismaModel>;
+  };
 
   export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
+    equals?: number | FloatFieldRefInput<$PrismaModel>;
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>;
+    lt?: number | FloatFieldRefInput<$PrismaModel>;
+    lte?: number | FloatFieldRefInput<$PrismaModel>;
+    gt?: number | FloatFieldRefInput<$PrismaModel>;
+    gte?: number | FloatFieldRefInput<$PrismaModel>;
+    not?: NestedFloatFilter<$PrismaModel> | number;
+  };
 
   export type RoomCreateWithoutAdminInput = {
-    slug: string
-    Chats?: ShapesCreateNestedManyWithoutRoomInput
-  }
+    slug: string;
+    Chats?: ShapesCreateNestedManyWithoutRoomInput;
+  };
 
   export type RoomUncheckedCreateWithoutAdminInput = {
-    id?: number
-    slug: string
-    Chats?: ShapesUncheckedCreateNestedManyWithoutRoomInput
-  }
+    id?: number;
+    slug: string;
+    Chats?: ShapesUncheckedCreateNestedManyWithoutRoomInput;
+  };
 
   export type RoomCreateOrConnectWithoutAdminInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput>
-  }
+    where: RoomWhereUniqueInput;
+    create: XOR<
+      RoomCreateWithoutAdminInput,
+      RoomUncheckedCreateWithoutAdminInput
+    >;
+  };
 
   export type RoomCreateManyAdminInputEnvelope = {
-    data: RoomCreateManyAdminInput | RoomCreateManyAdminInput[]
-    skipDuplicates?: boolean
-  }
+    data: RoomCreateManyAdminInput | RoomCreateManyAdminInput[];
+    skipDuplicates?: boolean;
+  };
 
   export type ShapesCreateWithoutUserInput = {
-    message: string
-    Room: RoomCreateNestedOneWithoutChatsInput
-  }
+    message: string;
+    Room: RoomCreateNestedOneWithoutChatsInput;
+  };
 
   export type ShapesUncheckedCreateWithoutUserInput = {
-    id?: number
-    message: string
-    RoomId: number
-  }
+    id?: number;
+    message: string;
+    RoomId: number;
+  };
 
   export type ShapesCreateOrConnectWithoutUserInput = {
-    where: ShapesWhereUniqueInput
-    create: XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput>
-  }
+    where: ShapesWhereUniqueInput;
+    create: XOR<
+      ShapesCreateWithoutUserInput,
+      ShapesUncheckedCreateWithoutUserInput
+    >;
+  };
 
   export type ShapesCreateManyUserInputEnvelope = {
-    data: ShapesCreateManyUserInput | ShapesCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
+    data: ShapesCreateManyUserInput | ShapesCreateManyUserInput[];
+    skipDuplicates?: boolean;
+  };
 
   export type RoomUpsertWithWhereUniqueWithoutAdminInput = {
-    where: RoomWhereUniqueInput
-    update: XOR<RoomUpdateWithoutAdminInput, RoomUncheckedUpdateWithoutAdminInput>
-    create: XOR<RoomCreateWithoutAdminInput, RoomUncheckedCreateWithoutAdminInput>
-  }
+    where: RoomWhereUniqueInput;
+    update: XOR<
+      RoomUpdateWithoutAdminInput,
+      RoomUncheckedUpdateWithoutAdminInput
+    >;
+    create: XOR<
+      RoomCreateWithoutAdminInput,
+      RoomUncheckedCreateWithoutAdminInput
+    >;
+  };
 
   export type RoomUpdateWithWhereUniqueWithoutAdminInput = {
-    where: RoomWhereUniqueInput
-    data: XOR<RoomUpdateWithoutAdminInput, RoomUncheckedUpdateWithoutAdminInput>
-  }
+    where: RoomWhereUniqueInput;
+    data: XOR<
+      RoomUpdateWithoutAdminInput,
+      RoomUncheckedUpdateWithoutAdminInput
+    >;
+  };
 
   export type RoomUpdateManyWithWhereWithoutAdminInput = {
-    where: RoomScalarWhereInput
-    data: XOR<RoomUpdateManyMutationInput, RoomUncheckedUpdateManyWithoutAdminInput>
-  }
+    where: RoomScalarWhereInput;
+    data: XOR<
+      RoomUpdateManyMutationInput,
+      RoomUncheckedUpdateManyWithoutAdminInput
+    >;
+  };
 
   export type RoomScalarWhereInput = {
-    AND?: RoomScalarWhereInput | RoomScalarWhereInput[]
-    OR?: RoomScalarWhereInput[]
-    NOT?: RoomScalarWhereInput | RoomScalarWhereInput[]
-    id?: IntFilter<"Room"> | number
-    slug?: StringFilter<"Room"> | string
-    userId?: StringFilter<"Room"> | string
-  }
+    AND?: RoomScalarWhereInput | RoomScalarWhereInput[];
+    OR?: RoomScalarWhereInput[];
+    NOT?: RoomScalarWhereInput | RoomScalarWhereInput[];
+    id?: IntFilter<"Room"> | number;
+    slug?: StringFilter<"Room"> | string;
+    userId?: StringFilter<"Room"> | string;
+  };
 
   export type ShapesUpsertWithWhereUniqueWithoutUserInput = {
-    where: ShapesWhereUniqueInput
-    update: XOR<ShapesUpdateWithoutUserInput, ShapesUncheckedUpdateWithoutUserInput>
-    create: XOR<ShapesCreateWithoutUserInput, ShapesUncheckedCreateWithoutUserInput>
-  }
+    where: ShapesWhereUniqueInput;
+    update: XOR<
+      ShapesUpdateWithoutUserInput,
+      ShapesUncheckedUpdateWithoutUserInput
+    >;
+    create: XOR<
+      ShapesCreateWithoutUserInput,
+      ShapesUncheckedCreateWithoutUserInput
+    >;
+  };
 
   export type ShapesUpdateWithWhereUniqueWithoutUserInput = {
-    where: ShapesWhereUniqueInput
-    data: XOR<ShapesUpdateWithoutUserInput, ShapesUncheckedUpdateWithoutUserInput>
-  }
+    where: ShapesWhereUniqueInput;
+    data: XOR<
+      ShapesUpdateWithoutUserInput,
+      ShapesUncheckedUpdateWithoutUserInput
+    >;
+  };
 
   export type ShapesUpdateManyWithWhereWithoutUserInput = {
-    where: ShapesScalarWhereInput
-    data: XOR<ShapesUpdateManyMutationInput, ShapesUncheckedUpdateManyWithoutUserInput>
-  }
+    where: ShapesScalarWhereInput;
+    data: XOR<
+      ShapesUpdateManyMutationInput,
+      ShapesUncheckedUpdateManyWithoutUserInput
+    >;
+  };
 
   export type ShapesScalarWhereInput = {
-    AND?: ShapesScalarWhereInput | ShapesScalarWhereInput[]
-    OR?: ShapesScalarWhereInput[]
-    NOT?: ShapesScalarWhereInput | ShapesScalarWhereInput[]
-    id?: IntFilter<"Shapes"> | number
-    message?: StringFilter<"Shapes"> | string
-    userId?: StringFilter<"Shapes"> | string
-    RoomId?: IntFilter<"Shapes"> | number
-  }
+    AND?: ShapesScalarWhereInput | ShapesScalarWhereInput[];
+    OR?: ShapesScalarWhereInput[];
+    NOT?: ShapesScalarWhereInput | ShapesScalarWhereInput[];
+    id?: IntFilter<"Shapes"> | number;
+    message?: StringFilter<"Shapes"> | string;
+    userId?: StringFilter<"Shapes"> | string;
+    RoomId?: IntFilter<"Shapes"> | number;
+  };
 
   export type UserCreateWithoutRoomInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-    Chats?: ShapesCreateNestedManyWithoutUserInput
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+    Chats?: ShapesCreateNestedManyWithoutUserInput;
+  };
 
   export type UserUncheckedCreateWithoutRoomInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-    Chats?: ShapesUncheckedCreateNestedManyWithoutUserInput
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+    Chats?: ShapesUncheckedCreateNestedManyWithoutUserInput;
+  };
 
   export type UserCreateOrConnectWithoutRoomInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutRoomInput, UserUncheckedCreateWithoutRoomInput>
-  }
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutRoomInput,
+      UserUncheckedCreateWithoutRoomInput
+    >;
+  };
 
   export type ShapesCreateWithoutRoomInput = {
-    message: string
-    User: UserCreateNestedOneWithoutChatsInput
-  }
+    message: string;
+    User: UserCreateNestedOneWithoutChatsInput;
+  };
 
   export type ShapesUncheckedCreateWithoutRoomInput = {
-    id?: number
-    message: string
-    userId: string
-  }
+    id?: number;
+    message: string;
+    userId: string;
+  };
 
   export type ShapesCreateOrConnectWithoutRoomInput = {
-    where: ShapesWhereUniqueInput
-    create: XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput>
-  }
+    where: ShapesWhereUniqueInput;
+    create: XOR<
+      ShapesCreateWithoutRoomInput,
+      ShapesUncheckedCreateWithoutRoomInput
+    >;
+  };
 
   export type ShapesCreateManyRoomInputEnvelope = {
-    data: ShapesCreateManyRoomInput | ShapesCreateManyRoomInput[]
-    skipDuplicates?: boolean
-  }
+    data: ShapesCreateManyRoomInput | ShapesCreateManyRoomInput[];
+    skipDuplicates?: boolean;
+  };
 
   export type UserUpsertWithoutRoomInput = {
-    update: XOR<UserUpdateWithoutRoomInput, UserUncheckedUpdateWithoutRoomInput>
-    create: XOR<UserCreateWithoutRoomInput, UserUncheckedCreateWithoutRoomInput>
-    where?: UserWhereInput
-  }
+    update: XOR<
+      UserUpdateWithoutRoomInput,
+      UserUncheckedUpdateWithoutRoomInput
+    >;
+    create: XOR<
+      UserCreateWithoutRoomInput,
+      UserUncheckedCreateWithoutRoomInput
+    >;
+    where?: UserWhereInput;
+  };
 
   export type UserUpdateToOneWithWhereWithoutRoomInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutRoomInput, UserUncheckedUpdateWithoutRoomInput>
-  }
+    where?: UserWhereInput;
+    data: XOR<UserUpdateWithoutRoomInput, UserUncheckedUpdateWithoutRoomInput>;
+  };
 
   export type UserUpdateWithoutRoomInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    Chats?: ShapesUpdateManyWithoutUserNestedInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    Chats?: ShapesUpdateManyWithoutUserNestedInput;
+  };
 
   export type UserUncheckedUpdateWithoutRoomInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    Chats?: ShapesUncheckedUpdateManyWithoutUserNestedInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    Chats?: ShapesUncheckedUpdateManyWithoutUserNestedInput;
+  };
 
   export type ShapesUpsertWithWhereUniqueWithoutRoomInput = {
-    where: ShapesWhereUniqueInput
-    update: XOR<ShapesUpdateWithoutRoomInput, ShapesUncheckedUpdateWithoutRoomInput>
-    create: XOR<ShapesCreateWithoutRoomInput, ShapesUncheckedCreateWithoutRoomInput>
-  }
+    where: ShapesWhereUniqueInput;
+    update: XOR<
+      ShapesUpdateWithoutRoomInput,
+      ShapesUncheckedUpdateWithoutRoomInput
+    >;
+    create: XOR<
+      ShapesCreateWithoutRoomInput,
+      ShapesUncheckedCreateWithoutRoomInput
+    >;
+  };
 
   export type ShapesUpdateWithWhereUniqueWithoutRoomInput = {
-    where: ShapesWhereUniqueInput
-    data: XOR<ShapesUpdateWithoutRoomInput, ShapesUncheckedUpdateWithoutRoomInput>
-  }
+    where: ShapesWhereUniqueInput;
+    data: XOR<
+      ShapesUpdateWithoutRoomInput,
+      ShapesUncheckedUpdateWithoutRoomInput
+    >;
+  };
 
   export type ShapesUpdateManyWithWhereWithoutRoomInput = {
-    where: ShapesScalarWhereInput
-    data: XOR<ShapesUpdateManyMutationInput, ShapesUncheckedUpdateManyWithoutRoomInput>
-  }
+    where: ShapesScalarWhereInput;
+    data: XOR<
+      ShapesUpdateManyMutationInput,
+      ShapesUncheckedUpdateManyWithoutRoomInput
+    >;
+  };
 
   export type UserCreateWithoutChatsInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-    Room?: RoomCreateNestedManyWithoutAdminInput
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+    Room?: RoomCreateNestedManyWithoutAdminInput;
+  };
 
   export type UserUncheckedCreateWithoutChatsInput = {
-    id?: string
-    email: string
-    username: string
-    password: string
-    Room?: RoomUncheckedCreateNestedManyWithoutAdminInput
-  }
+    id?: string;
+    email: string;
+    username: string;
+    password: string;
+    Room?: RoomUncheckedCreateNestedManyWithoutAdminInput;
+  };
 
   export type UserCreateOrConnectWithoutChatsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
-  }
+    where: UserWhereUniqueInput;
+    create: XOR<
+      UserCreateWithoutChatsInput,
+      UserUncheckedCreateWithoutChatsInput
+    >;
+  };
 
   export type RoomCreateWithoutChatsInput = {
-    slug: string
-    Admin: UserCreateNestedOneWithoutRoomInput
-  }
+    slug: string;
+    Admin: UserCreateNestedOneWithoutRoomInput;
+  };
 
   export type RoomUncheckedCreateWithoutChatsInput = {
-    id?: number
-    slug: string
-    userId: string
-  }
+    id?: number;
+    slug: string;
+    userId: string;
+  };
 
   export type RoomCreateOrConnectWithoutChatsInput = {
-    where: RoomWhereUniqueInput
-    create: XOR<RoomCreateWithoutChatsInput, RoomUncheckedCreateWithoutChatsInput>
-  }
+    where: RoomWhereUniqueInput;
+    create: XOR<
+      RoomCreateWithoutChatsInput,
+      RoomUncheckedCreateWithoutChatsInput
+    >;
+  };
 
   export type UserUpsertWithoutChatsInput = {
-    update: XOR<UserUpdateWithoutChatsInput, UserUncheckedUpdateWithoutChatsInput>
-    create: XOR<UserCreateWithoutChatsInput, UserUncheckedCreateWithoutChatsInput>
-    where?: UserWhereInput
-  }
+    update: XOR<
+      UserUpdateWithoutChatsInput,
+      UserUncheckedUpdateWithoutChatsInput
+    >;
+    create: XOR<
+      UserCreateWithoutChatsInput,
+      UserUncheckedCreateWithoutChatsInput
+    >;
+    where?: UserWhereInput;
+  };
 
   export type UserUpdateToOneWithWhereWithoutChatsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutChatsInput, UserUncheckedUpdateWithoutChatsInput>
-  }
+    where?: UserWhereInput;
+    data: XOR<
+      UserUpdateWithoutChatsInput,
+      UserUncheckedUpdateWithoutChatsInput
+    >;
+  };
 
   export type UserUpdateWithoutChatsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    Room?: RoomUpdateManyWithoutAdminNestedInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    Room?: RoomUpdateManyWithoutAdminNestedInput;
+  };
 
   export type UserUncheckedUpdateWithoutChatsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    Room?: RoomUncheckedUpdateManyWithoutAdminNestedInput
-  }
+    id?: StringFieldUpdateOperationsInput | string;
+    email?: StringFieldUpdateOperationsInput | string;
+    username?: StringFieldUpdateOperationsInput | string;
+    password?: StringFieldUpdateOperationsInput | string;
+    Room?: RoomUncheckedUpdateManyWithoutAdminNestedInput;
+  };
 
   export type RoomUpsertWithoutChatsInput = {
-    update: XOR<RoomUpdateWithoutChatsInput, RoomUncheckedUpdateWithoutChatsInput>
-    create: XOR<RoomCreateWithoutChatsInput, RoomUncheckedCreateWithoutChatsInput>
-    where?: RoomWhereInput
-  }
+    update: XOR<
+      RoomUpdateWithoutChatsInput,
+      RoomUncheckedUpdateWithoutChatsInput
+    >;
+    create: XOR<
+      RoomCreateWithoutChatsInput,
+      RoomUncheckedCreateWithoutChatsInput
+    >;
+    where?: RoomWhereInput;
+  };
 
   export type RoomUpdateToOneWithWhereWithoutChatsInput = {
-    where?: RoomWhereInput
-    data: XOR<RoomUpdateWithoutChatsInput, RoomUncheckedUpdateWithoutChatsInput>
-  }
+    where?: RoomWhereInput;
+    data: XOR<
+      RoomUpdateWithoutChatsInput,
+      RoomUncheckedUpdateWithoutChatsInput
+    >;
+  };
 
   export type RoomUpdateWithoutChatsInput = {
-    slug?: StringFieldUpdateOperationsInput | string
-    Admin?: UserUpdateOneRequiredWithoutRoomNestedInput
-  }
+    slug?: StringFieldUpdateOperationsInput | string;
+    Admin?: UserUpdateOneRequiredWithoutRoomNestedInput;
+  };
 
   export type RoomUncheckedUpdateWithoutChatsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    slug?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    slug?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type RoomCreateManyAdminInput = {
-    id?: number
-    slug: string
-  }
+    id?: number;
+    slug: string;
+  };
 
   export type ShapesCreateManyUserInput = {
-    id?: number
-    message: string
-    RoomId: number
-  }
+    id?: number;
+    message: string;
+    RoomId: number;
+  };
 
   export type RoomUpdateWithoutAdminInput = {
-    slug?: StringFieldUpdateOperationsInput | string
-    Chats?: ShapesUpdateManyWithoutRoomNestedInput
-  }
+    slug?: StringFieldUpdateOperationsInput | string;
+    Chats?: ShapesUpdateManyWithoutRoomNestedInput;
+  };
 
   export type RoomUncheckedUpdateWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    slug?: StringFieldUpdateOperationsInput | string
-    Chats?: ShapesUncheckedUpdateManyWithoutRoomNestedInput
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    slug?: StringFieldUpdateOperationsInput | string;
+    Chats?: ShapesUncheckedUpdateManyWithoutRoomNestedInput;
+  };
 
   export type RoomUncheckedUpdateManyWithoutAdminInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    slug?: StringFieldUpdateOperationsInput | string
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    slug?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type ShapesUpdateWithoutUserInput = {
-    message?: StringFieldUpdateOperationsInput | string
-    Room?: RoomUpdateOneRequiredWithoutChatsNestedInput
-  }
+    message?: StringFieldUpdateOperationsInput | string;
+    Room?: RoomUpdateOneRequiredWithoutChatsNestedInput;
+  };
 
   export type ShapesUncheckedUpdateWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message?: StringFieldUpdateOperationsInput | string
-    RoomId?: IntFieldUpdateOperationsInput | number
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    message?: StringFieldUpdateOperationsInput | string;
+    RoomId?: IntFieldUpdateOperationsInput | number;
+  };
 
   export type ShapesUncheckedUpdateManyWithoutUserInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message?: StringFieldUpdateOperationsInput | string
-    RoomId?: IntFieldUpdateOperationsInput | number
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    message?: StringFieldUpdateOperationsInput | string;
+    RoomId?: IntFieldUpdateOperationsInput | number;
+  };
 
   export type ShapesCreateManyRoomInput = {
-    id?: number
-    message: string
-    userId: string
-  }
+    id?: number;
+    message: string;
+    userId: string;
+  };
 
   export type ShapesUpdateWithoutRoomInput = {
-    message?: StringFieldUpdateOperationsInput | string
-    User?: UserUpdateOneRequiredWithoutChatsNestedInput
-  }
+    message?: StringFieldUpdateOperationsInput | string;
+    User?: UserUpdateOneRequiredWithoutChatsNestedInput;
+  };
 
   export type ShapesUncheckedUpdateWithoutRoomInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-  }
+    id?: IntFieldUpdateOperationsInput | number;
+    message?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
 
   export type ShapesUncheckedUpdateManyWithoutRoomInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    message?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-  }
-
-
+    id?: IntFieldUpdateOperationsInput | number;
+    message?: StringFieldUpdateOperationsInput | string;
+    userId?: StringFieldUpdateOperationsInput | string;
+  };
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
    */
 
   export type BatchPayload = {
-    count: number
-  }
+    count: number;
+  };
 
   /**
    * DMMF
    */
-  export const dmmf: runtime.BaseDMMF
+  export const dmmf: runtime.BaseDMMF;
 }
