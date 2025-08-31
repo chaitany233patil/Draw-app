@@ -170,6 +170,7 @@ export class CanvasManager {
   };
 
   private handleMouseDown = async (e: MouseEvent) => {
+    this.ctx.beginPath();
     const rect = this.canvas.getBoundingClientRect();
 
     const canvasX = (e.clientX - rect.left - this.translateX) / this.scale;
@@ -252,13 +253,20 @@ export class CanvasManager {
     if (!this.isDrawing) return;
 
     if (this.selectedTool == "pen") {
+      const zoom = this.canvas.getBoundingClientRect();
+
+      const canvasX = (e.clientX - zoom.left - this.translateX) / this.scale;
+      const canvasY = (e.clientY - zoom.top - this.translateY) / this.scale;
+
       this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.setLineDash(this.currentStrokeStyle);
       this.ctx.lineCap = "round";
       this.ctx.strokeStyle = this.currentColor;
-      this.ctx.lineTo(e.clientX, e.clientY);
-      this.currentStrokePoints.push({ x: e.clientX, y: e.clientY });
+
+      this.ctx.lineTo(canvasX, canvasY);
       this.ctx.stroke();
+
+      this.currentStrokePoints.push({ x: canvasX, y: canvasY });
     }
 
     if (this.selectedTool == "rect") {
