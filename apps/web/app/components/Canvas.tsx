@@ -74,7 +74,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
             JSON.stringify({
               type: "join_room",
               roomId,
-            }),
+            })
           );
 
           if (canvasRef.current) {
@@ -84,10 +84,10 @@ export function Canvas({ canvasRef, roomId }: Props) {
                 ctx,
                 canvasRef.current,
                 ws,
-                roomId,
+                roomId
               );
               Game.setOnScaleChange((newScalePercent) =>
-                setScale(newScalePercent),
+                setScale(newScalePercent)
               );
               Game.changeTool(isSelected);
               Game.changeColor(strokeColor);
@@ -128,8 +128,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
       />
 
       {/* Drawing Tools */}
-      <div className="absolute top-0 flex w-full ">
-        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl mt-3 p-1">
+      <div className="absolute top-4 flex w-full ">
+        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl p-1 shadow-xl border border-black">
           {DrawTools.map((tool) => (
             <Tool
               key={tool.selctedTool}
@@ -146,17 +146,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
       </div>
 
       {/* zoom in and zoom out */}
-      <div className="absolute bottom-5 left-10 text-white flex items-center gap-1 bg-[#232329] rounded-lg py-1">
-        <button
-          className="h-8 w-8 cursor-pointer"
-          onClick={() => {
-            setScale(game.current?.scallingNumber as number);
-            game.current?.zoomIn();
-          }}
-        >
-          +
-        </button>
-        <div className="text-sm w-14 text-center">{scale}%</div>
+      <div className="absolute bottom-5 left-10 text-white flex items-center gap-1 bg-[#232329] rounded-lg p-1">
         <button
           className="h-8 w-8 cursor-pointer"
           onClick={() => {
@@ -166,10 +156,20 @@ export function Canvas({ canvasRef, roomId }: Props) {
         >
           -
         </button>
+        <div className="text-xs w-14 text-center">{scale}%</div>
+        <button
+          className="h-8 w-8 cursor-pointer"
+          onClick={() => {
+            setScale(game.current?.scallingNumber as number);
+            game.current?.zoomIn();
+          }}
+        >
+          +
+        </button>
       </div>
 
       {/* setting pannel menu icon */}
-      <div className="absolute top-4 left-3 bg-[#232329] p-2 rounded-lg cursor-pointer">
+      <div className="absolute top-4 left-3 bg-[#232329] p-2 rounded-lg cursor-pointer shadow-2xl">
         <Menu strokeWidth={1} className="h-5 w-5" />
       </div>
 
