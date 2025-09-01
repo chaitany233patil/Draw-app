@@ -1,4 +1,3 @@
-// /components/Canvas.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +13,7 @@ import {
   Pencil,
 } from "lucide-react";
 import { Tool } from "./Tool";
-import { WS_BAKCEND } from "../config";
+import { WS_BACKEND } from "../config";
 import Image from "next/image";
 
 interface Props {
@@ -22,37 +21,37 @@ interface Props {
   roomId: string;
 }
 
+const DRAW_TOOLS = [
+  { selctedTool: "cursor", icon: MousePointer },
+  { selctedTool: "pan", icon: Hand },
+  { selctedTool: "circle", icon: Circle },
+  { selctedTool: "rect", icon: RectangleHorizontal },
+  { selctedTool: "line", icon: Minus },
+  { selctedTool: "pen", icon: Pencil },
+  { selctedTool: "text", icon: LetterText },
+];
+
+const STROKE_COLORS = [
+  { id: "1", color: "bg-[#FFFFFF]", stroke: "#FFFFFF" },
+  { id: "2", color: "bg-[#F26666]", stroke: "#F26666" },
+  { id: "3", color: "bg-[#17AD3A]", stroke: "#17AD3A" },
+  { id: "4", color: "bg-[#398EE3]", stroke: "#398EE3" },
+  { id: "5", color: "bg-[#BD9204]", stroke: "#BD9204" },
+];
+
+const STROKE_WIDTHS = [
+  { id: 1, strokeWidth: 1 },
+  { id: 2, strokeWidth: 3 },
+  { id: 3, strokeWidth: 5 },
+];
+
+const STROKE_STYLES = [
+  { id: 1, strokeStyle: [0, 0], iconHref: "/line.svg" },
+  { id: 2, strokeStyle: [3, 3], iconHref: "/dash_line.svg" },
+  { id: 3, strokeStyle: [10, 5], iconHref: "/dash_line.svg" },
+];
+
 export function Canvas({ canvasRef, roomId }: Props) {
-  const DrawTools = [
-    { selctedTool: "cursor", icon: MousePointer },
-    { selctedTool: "pan", icon: Hand },
-    { selctedTool: "circle", icon: Circle },
-    { selctedTool: "rect", icon: RectangleHorizontal },
-    { selctedTool: "line", icon: Minus },
-    { selctedTool: "pen", icon: Pencil },
-    { selctedTool: "text", icon: LetterText },
-  ];
-
-  const StrokColors = [
-    { id: "1", color: "bg-[#FFFFFF]", stroke: "#FFFFFF" },
-    { id: "2", color: "bg-[#F26666]", stroke: "#F26666" },
-    { id: "3", color: "bg-[#17AD3A]", stroke: "#17AD3A" },
-    { id: "4", color: "bg-[#398EE3]", stroke: "#398EE3" },
-    { id: "5", color: "bg-[#BD9204]", stroke: "#BD9204" },
-  ];
-
-  const StrokeWidths = [
-    { id: 1, strokeWidth: 1 },
-    { id: 2, strokeWidth: 3 },
-    { id: 3, strokeWidth: 5 },
-  ];
-
-  const StrokeStyles = [
-    { id: 1, strokeStyle: [0, 0], iconHref: "/line.svg" },
-    { id: 2, strokeStyle: [3, 3], iconHref: "/dash_line.svg" },
-    { id: 3, strokeStyle: [10, 5], iconHref: "/dash_line.svg" },
-  ];
-
   const [scale, setScale] = useState<number>(100);
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -66,7 +65,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
   useEffect(() => {
     const roomExist = async () => {
       try {
-        const ws = new WebSocket(WS_BAKCEND);
+        const ws = new WebSocket(WS_BACKEND);
         ws.onopen = () => {
           socketRef.current = ws;
           setIsConnected(true);
@@ -115,7 +114,12 @@ export function Canvas({ canvasRef, roomId }: Props) {
     game.current.changeStrokeStyle(strokeStyle);
   }
 
-  if (!isConnected) return <div>Connecting to WebSocket...</div>;
+  if (!isConnected)
+    return (
+      <div className="flex items-center justify-center h-screen text-white">
+        Connecting to WebSocket...
+      </div>
+    );
 
   return (
     <div>
@@ -130,7 +134,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
       {/* Drawing Tools */}
       <div className="absolute top-4 flex w-full ">
         <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl p-1 shadow-xl border border-black">
-          {DrawTools.map((tool) => (
+          {DRAW_TOOLS.map((tool) => (
             <Tool
               key={tool.selctedTool}
               selected={isSelected == tool.selctedTool}
@@ -181,7 +185,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
             <div className="text-[12px] text-neutral-300">Stroke</div>
             <div className="flex gap-3">
               <div className="flex gap-1 border-r-3 border-slate-600 pr-3">
-                {StrokColors.map((stroke) => (
+                {STROKE_COLORS.map((stroke) => (
                   <div
                     key={stroke.id}
                     className={`${stroke.color} h-5.5 w-5.5 rounded-sm ring-offset-1 ring-slate-600 hover:ring-1 hover:ring-blue-400 ${strokeColor == stroke.stroke ? "ring-1 ring-blue-400" : ""}`}
@@ -198,7 +202,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
             <div className="flex flex-col mt-3">
               <div className="text-[12px] text-neutral-300">Stroke Width</div>
               <div className="flex mt-2 gap-2">
-                {StrokeWidths.map((stroke) => (
+                {STROKE_WIDTHS.map((stroke) => (
                   <div
                     key={stroke.id}
                     className={`p-3 rounded-lg hover:bg-gray-500/30 
@@ -218,7 +222,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
             <div className="flex flex-col mt-2">
               <div className="text-[12px] text-neutral-300">Stroke Style</div>
               <div className="flex mt-2 gap-2">
-                {StrokeStyles.map((stroke) => (
+                {STROKE_STYLES.map((stroke) => (
                   <div
                     key={stroke.id}
                     className={`rounded-lg hover:bg-gray-500/30 
