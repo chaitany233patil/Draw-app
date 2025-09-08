@@ -12,6 +12,8 @@ import {
   Menu,
   Pencil,
   PlayIcon,
+  CopyIcon,
+  Square,
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BACKEND } from "../config";
@@ -63,6 +65,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const [strokeWidth, setStrokWidth] = useState(1);
   const [strokeStyle, setStrokeStyle] = useState([0, 0]);
   const [shareModel, setShareModel] = useState(false);
+  const [startSharing, setStartSharing] = useState(false);
 
   useEffect(() => {
     const roomExist = async () => {
@@ -260,48 +263,108 @@ export function Canvas({ canvasRef, roomId }: Props) {
       {/* share model */}
       {shareModel && (
         <div
-          onClick={() => setShareModel(false)}
-          className="absolute top-0 left-0 w-full h-full bg-black/20 flex items-center justify-center"
+          onClick={() => {
+            setShareModel(false);
+            setStartSharing(false);
+          }}
+          className="absolute top-0 left-0 w-full h-full p-2 md:p-0 bg-black/20 flex items-center justify-center"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#232329] p-10 rounded-lg max-w-xl"
+            className="bg-[#232329] p-10 rounded-lg max-w-xl w-full"
           >
-            <h3 className="text-xl font-semibold mb-6 text-[#A8A5FF] text-center">
-              Live Collaboration
-            </h3>
-            <p className="text-xs text-[#E3E3E8] mb-6 text-center">
-              Invite people to collaborate on your drawing.
-            </p>
-            <p className="text-xs text-[#E3E3E8] mb-6 text-center max-w-lg leading-5">
-              Don&apos;t worry, the session is end-to-end encrypted, and fully
-              private. Not even our server can see what you draw.
-            </p>
-            <div className="flex w-full items-center justify-center">
-              <button className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2">
-                <PlayIcon size={18} />
-                Start session
-              </button>
-            </div>
+            {!startSharing ? (
+              <>
+                <h3 className="text-xl font-semibold mb-6 text-[#A8A5FF] text-center">
+                  Live Collaboration
+                </h3>
+                <p className="text-xs text-[#E3E3E8] mb-6 text-center">
+                  Invite people to collaborate on your drawing.
+                </p>
+                <p className="text-xs text-[#E3E3E8] mb-6 text-center max-w-lg leading-5">
+                  Don&apos;t worry, the session is end-to-end encrypted, and
+                  fully private. Not even our server can see what you draw.
+                </p>
+                <div className="flex w-full items-center justify-center">
+                  <button
+                    onClick={() => setStartSharing(true)}
+                    className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <PlayIcon size={18} />
+                    Start session
+                  </button>
+                </div>
 
-            <div className="relative border-t border-gray-600 mt-10 flex items-center justify-center">
-              <div className="absolute px-7 text-sm text-gray-400 bg-[#232329]">
-                Or
-              </div>
-            </div>
+                <div className="relative border-t border-gray-600 mt-10 flex items-center justify-center">
+                  <div className="absolute px-7 text-sm text-gray-400 bg-[#232329]">
+                    Or
+                  </div>
+                </div>
 
-            <h3 className="text-xl font-semibold mt-7 mb-5 text-[#A8A5FF] text-center">
-              Shareable link
-            </h3>
-            <p className="text-xs text-[#E3E3E8]  text-center">
-              Export as a read-only link.
-            </p>
-            <div className="flex w-full items-center justify-center mt-6">
-              <button className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2">
-                <PlayIcon size={18} />
-                Export to link
-              </button>
-            </div>
+                <h3 className="text-xl font-semibold mt-7 mb-5 text-[#A8A5FF] text-center">
+                  Shareable link
+                </h3>
+                <p className="text-xs text-[#E3E3E8]  text-center">
+                  Export as a read-only link.
+                </p>
+                <div className="flex w-full items-center justify-center mt-6">
+                  <button className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2">
+                    <PlayIcon size={18} />
+                    Export to link
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3 className="text-lg font-semibold mb-6 text-[#E3E3E8]">
+                  Live Collaboration
+                </h3>
+                <label
+                  htmlFor="name"
+                  className="text-sm font-semibold text-[#E3E3E8] mb-2 block"
+                >
+                  Your name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Your Name"
+                  className="border border-[#E3E3E8]/50 bg-[#232329] text-[#E3E3E8] rounded-lg p-3 w-full text-sm"
+                />
+
+                <div className="flex flex-col mt-2">
+                  <label
+                    htmlFor="link"
+                    className="text-sm font-semibold text-[#E3E3E8] mb-2 mt-4"
+                  >
+                    link
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <div className="border border-[#E3E3E8]/50 bg-[#A8A5FF]/10 text-[#E3E3E8] rounded-lg p-3 w-full text-sm">
+                      {window.location.href}
+                    </div>
+                    <button
+                      onClick={async () => (
+                        await navigator.clipboard.writeText(
+                          window.location.href
+                        ),
+                        alert("Link Copied")
+                      )}
+                      className="w-full text-sm flex items-center justify-center gap-2 bg-[#A8A5FF] text-[#121212] rounded-lg p-3 font-semibold cursor-pointer"
+                    >
+                      <CopyIcon size={18} />
+                      Copy link
+                    </button>
+                  </div>
+                  <div className="relative border-t border-gray-500 mt-10 flex items-center justify-center"></div>
+
+                  <button className="border-1 border-[#ffa8a5] max-w-[170px] text-[#ffa8a5] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2 mx-auto mt-7">
+                    <Square size={18} fill="#ffa8a5" />
+                    Stop session
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
