@@ -11,6 +11,7 @@ import {
   Hand,
   Menu,
   Pencil,
+  PlayIcon,
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BACKEND } from "../config";
@@ -22,13 +23,13 @@ interface Props {
 }
 
 const DRAW_TOOLS = [
-  { selctedTool: "cursor", icon: MousePointer },
-  { selctedTool: "pan", icon: Hand },
-  { selctedTool: "circle", icon: Circle },
-  { selctedTool: "rect", icon: RectangleHorizontal },
-  { selctedTool: "line", icon: Minus },
-  { selctedTool: "pen", icon: Pencil },
-  { selctedTool: "text", icon: LetterText },
+  { selctedTool: "pan", icon: Hand, count: null },
+  { selctedTool: "cursor", icon: MousePointer, count: 1 },
+  { selctedTool: "circle", icon: Circle, count: 2 },
+  { selctedTool: "rect", icon: RectangleHorizontal, count: 3 },
+  { selctedTool: "line", icon: Minus, count: 4 },
+  { selctedTool: "pen", icon: Pencil, count: 5 },
+  { selctedTool: "text", icon: LetterText, count: 6 },
 ];
 
 const STROKE_COLORS = [
@@ -61,6 +62,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
   const [settingModel, setSettingModel] = useState(false);
   const [strokeWidth, setStrokWidth] = useState(1);
   const [strokeStyle, setStrokeStyle] = useState([0, 0]);
+  const [shareModel, setShareModel] = useState(false);
 
   useEffect(() => {
     const roomExist = async () => {
@@ -133,7 +135,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
       {/* Drawing Tools */}
       <div className="absolute top-4 flex w-full ">
-        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl p-1 shadow-xl border border-black">
+        <div className="mx-auto flex gap-2 bg-[#232329] rounded-xl p-1 shadow-xl">
           {DRAW_TOOLS.map((tool) => (
             <Tool
               key={tool.selctedTool}
@@ -142,6 +144,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
                 setSettingModel(true);
                 setIsSelected(tool.selctedTool);
               }}
+              count={tool.count!}
             >
               <tool.icon height={18} width={14} className="h-3.5 w-3.5" />
             </Tool>
@@ -241,6 +244,63 @@ export function Canvas({ canvasRef, roomId }: Props) {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Share Button */}
+      <button
+        onClick={() => setShareModel(true)}
+        className="absolute top-4 right-3 bg-[#A8A5FF] text-[#121212] text-xs p-2.5 rounded-lg cursor-pointer"
+      >
+        Share
+      </button>
+
+      {/* share model */}
+      {shareModel && (
+        <div
+          onClick={() => setShareModel(false)}
+          className="absolute top-0 left-0 w-full h-full bg-black/20 flex items-center justify-center"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-[#232329] p-10 rounded-lg max-w-xl"
+          >
+            <h3 className="text-xl font-semibold mb-6 text-[#A8A5FF] text-center">
+              Live Collaboration
+            </h3>
+            <p className="text-xs text-[#E3E3E8] mb-6 text-center">
+              Invite people to collaborate on your drawing.
+            </p>
+            <p className="text-xs text-[#E3E3E8] mb-6 text-center max-w-lg leading-5">
+              Don&apos;t worry, the session is end-to-end encrypted, and fully
+              private. Not even our server can see what you draw.
+            </p>
+            <div className="flex w-full items-center justify-center">
+              <button className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2">
+                <PlayIcon size={18} />
+                Start session
+              </button>
+            </div>
+
+            <div className="relative border-t border-gray-600 mt-10 flex items-center justify-center">
+              <div className="absolute px-7 text-sm text-gray-400 bg-[#232329]">
+                Or
+              </div>
+            </div>
+
+            <h3 className="text-xl font-semibold mt-7 mb-5 text-[#A8A5FF] text-center">
+              Shareable link
+            </h3>
+            <p className="text-xs text-[#E3E3E8]  text-center">
+              Export as a read-only link.
+            </p>
+            <div className="flex w-full items-center justify-center mt-6">
+              <button className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2">
+                <PlayIcon size={18} />
+                Export to link
+              </button>
             </div>
           </div>
         </div>
