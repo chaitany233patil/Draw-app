@@ -14,6 +14,8 @@ import {
   PlayIcon,
   CopyIcon,
   Square,
+  Undo2,
+  Redo2,
 } from "lucide-react";
 import { Tool } from "./Tool";
 import { WS_BACKEND } from "../config";
@@ -368,6 +370,16 @@ export function Canvas({ canvasRef, roomId }: Props) {
           </div>
         </div>
       )}
+
+      {/* Undo & Redo */}
+      <div className="absolute bottom-5 right-10 text-white flex items-center gap-6 rounded-lg">
+        <button className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full">
+          <Undo2 size={18} />
+        </button>
+        <button className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full">
+          <Redo2 size={18} />
+        </button>
+      </div>
     </div>
   );
 }
