@@ -158,7 +158,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
       </div>
 
       {/* zoom in and zoom out */}
-      <div className="absolute bottom-5 left-10 text-white flex items-center gap-1 bg-[#232329] rounded-lg p-1">
+      <div className="absolute bottom-5 left-10 text-white hidden sm:flex items-center gap-1 bg-[#232329] rounded-lg p-1">
         <button
           className="h-8 w-8 cursor-pointer"
           onClick={() => {
@@ -181,7 +181,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
       </div>
 
       {/* setting pannel menu icon */}
-      <div className="absolute top-4 left-3 bg-[#232329] p-2 rounded-lg cursor-pointer shadow-2xl">
+      <div className="absolute top-4 left-3 bg-[#232329] p-2 rounded-lg cursor-pointer shadow-2xl hidden sm:block">
         <Menu strokeWidth={1} className="h-5 w-5" />
       </div>
 
@@ -257,7 +257,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
       {/* Share Button */}
       <button
         onClick={() => setShareModel(true)}
-        className="absolute top-4 right-3 bg-[#A8A5FF] text-[#121212] text-xs p-2.5 rounded-lg cursor-pointer"
+        className="absolute top-4 right-3 bg-[#A8A5FF] text-[#121212] text-xs p-2.5 rounded-lg cursor-pointer hidden sm:block"
       >
         Share
       </button>
@@ -372,7 +372,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
       )}
 
       {/* Undo & Redo */}
-      <div className="absolute bottom-5 right-10 text-white flex items-center gap-6 rounded-lg">
+      <div className="absolute bottom-5 right-10 text-white flex items-center gap-4 rounded-lg">
         <button className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full">
           <Undo2 size={18} />
         </button>
