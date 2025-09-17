@@ -373,10 +373,16 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
       {/* Undo & Redo */}
       <div className="absolute bottom-5 right-10 text-white flex items-center gap-4 rounded-lg">
-        <button className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full">
+        <button
+          onClick={() => game.current?.Undo()}
+          className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full"
+        >
           <Undo2 size={18} />
         </button>
-        <button className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full">
+        <button
+          onClick={() => game.current?.Redo()}
+          className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full"
+        >
           <Redo2 size={18} />
         </button>
       </div>
