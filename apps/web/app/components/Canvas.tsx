@@ -18,7 +18,6 @@ import {
   Redo2,
 } from "lucide-react";
 import { Tool } from "./Tool";
-import { WS_BACKEND } from "../config";
 import Image from "next/image";
 
 interface Props {
@@ -56,85 +55,100 @@ const STROKE_STYLES = [
   { id: 3, strokeStyle: [10, 5], iconHref: "/dash_line.svg" },
 ];
 
-export function Canvas({ canvasRef, roomId }: Props) {
+const DEFAULT_USERNAME = "User" + Math.floor(Math.random() * 1000);
+
+export function Canvas({ canvasRef }: Props) {
   const [scale, setScale] = useState<number>(100);
-  const socketRef = useRef<WebSocket | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
   const [isSelected, setIsSelected] = useState("cursor");
   const [strokeColor, setStrokeColor] = useState("#FFFFFF");
-  const game = useRef<CanvasManager | null>(null);
+  const canvas = useRef<CanvasManager | null>(null);
   const [settingModel, setSettingModel] = useState(false);
   const [strokeWidth, setStrokWidth] = useState(1);
   const [strokeStyle, setStrokeStyle] = useState([0, 0]);
   const [shareModel, setShareModel] = useState(false);
   const [startSharing, setStartSharing] = useState(false);
+  const [username, setUsername] = useState(DEFAULT_USERNAME);
+
+  // useEffect(() => {
+  //   const roomExist = async () => {
+  //     try {
+  //       const ws = new WebSocket(WS_BACKEND);
+  //       ws.onopen = () => {
+  //         socketRef.current = ws;
+  //         setIsConnected(true);
+  //         ws.send(
+  //           JSON.stringify({
+  //             type: "join_room",
+  //             roomId,
+  //           })
+  //         );
+
+  //         if (canvasRef.current) {
+  //           const ctx = canvasRef.current.getContext("2d");
+  //           if (ctx) {
+  //             const Game = new CanvasManager(
+  //               ctx,
+  //               canvasRef.current,
+  //               ws,
+  //               roomId
+  //             );
+  //             Game.setOnScaleChange((newScalePercent) =>
+  //               setScale(newScalePercent)
+  //             );
+  //             Game.changeTool(isSelected);
+  //             Game.changeColor(strokeColor);
+  //             Game.changeStrokeWidth(strokeWidth);
+  //             game.current = Game;
+  //           }
+  //         }
+  //       };
+  //       return () => {
+  //         ws.close();
+  //         console.log("WebSocket closed");
+  //       };
+  //     } catch (err) {
+  //       console.log("Error Occured", err);
+  //     }
+  //   };
+  //   roomExist();
+  // }, [canvasRef, roomId, isConnected]);
 
   useEffect(() => {
-    const roomExist = async () => {
-      try {
-        const ws = new WebSocket(WS_BACKEND);
-        ws.onopen = () => {
-          socketRef.current = ws;
-          setIsConnected(true);
-          ws.send(
-            JSON.stringify({
-              type: "join_room",
-              roomId,
-            })
-          );
-
-          if (canvasRef.current) {
-            const ctx = canvasRef.current.getContext("2d");
-            if (ctx) {
-              const Game = new CanvasManager(
-                ctx,
-                canvasRef.current,
-                ws,
-                roomId
-              );
-              Game.setOnScaleChange((newScalePercent) =>
-                setScale(newScalePercent)
-              );
-              Game.changeTool(isSelected);
-              Game.changeColor(strokeColor);
-              Game.changeStrokeWidth(strokeWidth);
-              game.current = Game;
-            }
-          }
-        };
-        return () => {
-          ws.close();
-          console.log("WebSocket closed");
-        };
-      } catch (err) {
-        console.log("Error Occured", err);
+    if (canvasRef.current) {
+      canvasRef.current.width = window.innerWidth * 2;
+      canvasRef.current.height = window.innerHeight;
+      const ctx = canvasRef.current.getContext("2d");
+      if (ctx) {
+        const Canvas = new CanvasManager(ctx, canvasRef.current);
+        Canvas.setOnScaleChange((newScalePercent) => setScale(newScalePercent));
+        Canvas.changeTool(isSelected);
+        Canvas.changeColor(strokeColor);
+        Canvas.changeStrokeWidth(strokeWidth);
+        canvas.current = Canvas;
       }
-    };
-    roomExist();
-  }, [canvasRef, roomId, isConnected]);
+    }
+  }, [canvasRef]);
 
   //reset selcted tool
-  if (game.current) {
-    game.current.changeTool(isSelected);
-    game.current.changeColor(strokeColor);
-    game.current.changeStrokeWidth(strokeWidth);
-    game.current.changeStrokeStyle(strokeStyle);
+  if (canvas.current) {
+    canvas.current.changeTool(isSelected);
+    canvas.current.changeColor(strokeColor);
+    canvas.current.changeStrokeWidth(strokeWidth);
+    canvas.current.changeStrokeStyle(strokeStyle);
   }
 
-  if (!isConnected)
-    return (
-      <div className="flex items-center justify-center h-screen text-white">
-        Connecting to WebSocket...
-      </div>
-    );
+  function handleStartSession() {
+    canvas.current?.startSession();
+    setShareModel(true);
+  }
 
   return (
     <div>
       <canvas
         className="bg-neutral-900"
         ref={canvasRef}
-        height={window.innerHeight}
-        width={window.innerWidth}
+        height={1800}
+        width={2400}
         onClick={() => setSettingModel(false)}
       />
 
@@ -162,8 +176,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
         <button
           className="h-8 w-8 cursor-pointer"
           onClick={() => {
-            setScale(game.current?.scallingNumber as number);
-            game.current?.zoomOut();
+            setScale(canvas.current?.scallingNumber as number);
+            canvas.current?.zoomOut();
           }}
         >
           -
@@ -172,8 +186,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
         <button
           className="h-8 w-8 cursor-pointer"
           onClick={() => {
-            setScale(game.current?.scallingNumber as number);
-            game.current?.zoomIn();
+            setScale(canvas.current?.scallingNumber as number);
+            canvas.current?.zoomIn();
           }}
         >
           +
@@ -256,7 +270,7 @@ export function Canvas({ canvasRef, roomId }: Props) {
 
       {/* Share Button */}
       <button
-        onClick={() => setShareModel(true)}
+        onClick={handleStartSession}
         className="absolute top-4 right-3 bg-[#A8A5FF] text-[#121212] text-xs p-2.5 rounded-lg cursor-pointer hidden sm:block"
       >
         Share
@@ -331,6 +345,8 @@ export function Canvas({ canvasRef, roomId }: Props) {
                   type="text"
                   id="name"
                   placeholder="Your Name"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   className="border border-[#E3E3E8]/50 bg-[#232329] text-[#E3E3E8] rounded-lg p-3 w-full text-sm"
                 />
 
@@ -374,13 +390,13 @@ export function Canvas({ canvasRef, roomId }: Props) {
       {/* Undo & Redo */}
       <div className="absolute bottom-5 right-10 text-white flex items-center gap-4 rounded-lg">
         <button
-          onClick={() => game.current?.Undo()}
+          onClick={() => canvas.current?.Undo()}
           className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full"
         >
           <Undo2 size={18} />
         </button>
         <button
-          onClick={() => game.current?.Redo()}
+          onClick={() => canvas.current?.Redo()}
           className="bg-[#232329] cursor-pointer shadow-2xl p-2.5 rounded-full"
         >
           <Redo2 size={18} />

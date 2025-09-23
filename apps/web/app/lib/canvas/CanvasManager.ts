@@ -1,12 +1,11 @@
-// import axios from "axios";
-// import { HTTP_BACKEND } from "../../config";
+import { WS_BACKEND } from "@/app/config";
 import { Shape, strokePoints } from "./Types";
 
 export class CanvasManager {
   private ctx: CanvasRenderingContext2D;
   private canvas: HTMLCanvasElement;
   private ws: WebSocket;
-  private roomId: string;
+  private isSharingOn: boolean;
   private shapes: Shape[] = [];
   private selectedTool: string = "cursor";
   private currentColor: string = "white";
@@ -40,6 +39,18 @@ export class CanvasManager {
   private panStartX: number = 0;
   private panStartY: number = 0;
 
+  //Contructor
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    isSharingOn: boolean = false
+  ) {
+    this.ctx = ctx;
+    this.canvas = canvas;
+    this.isSharingOn = isSharingOn;
+    this.init();
+  }
+
   // Undo & Redo
   public UndoShapes: Shape[] = [];
 
@@ -56,20 +67,6 @@ export class CanvasManager {
       this.shapes.push(this.UndoShapes.pop()!);
       this.redraw();
     }
-  }
-
-  //Contructor
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    canvas: HTMLCanvasElement,
-    ws: WebSocket,
-    roomId: string
-  ) {
-    this.ctx = ctx;
-    this.canvas = canvas;
-    this.ws = ws;
-    this.roomId = roomId;
-    this.init();
   }
 
   //Scalling
@@ -118,9 +115,7 @@ export class CanvasManager {
     this.shapes = await this.fetchShapes();
     this.clearCanvas();
     this.drawAllShapes();
-
     this.addEventListeners();
-    this.ws.onmessage = this.handleSocketMessage;
   }
 
   //all Mouse Events
@@ -218,6 +213,7 @@ export class CanvasManager {
       };
       this.currentStrokePoints = [];
       this.shapes.push(shape);
+      console.log("Shape drawn:", this.isSharingOn);
       this.sendShape(shape);
     }
 
@@ -345,16 +341,6 @@ export class CanvasManager {
     }
   };
 
-  private handleSocketMessage = (msg: MessageEvent) => {
-    const data = JSON.parse(msg.data);
-    if (data.type === "chat") {
-      const shape: Shape = JSON.parse(data.message);
-      this.shapes.push(shape);
-      this.clearCanvas();
-      this.drawAllShapes();
-    }
-  };
-
   private clearCanvas() {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -433,16 +419,6 @@ export class CanvasManager {
     return [];
   }
 
-  private sendShape(shape: Shape) {
-    this.ws.send(
-      JSON.stringify({
-        type: "chat",
-        roomId: this.roomId,
-        message: JSON.stringify(shape),
-      })
-    );
-  }
-
   zoomIn() {
     this.scale *= 1.1;
     this.scallingNumber = Math.round(this.scale * 100);
@@ -497,4 +473,42 @@ export class CanvasManager {
   changeStrokeStyle(strokeStyle: number[]) {
     this.currentStrokeStyle = strokeStyle;
   }
+
+  // webSocket Handling
+
+  startSession() {
+    const ws = new WebSocket(WS_BACKEND);
+    this.isSharingOn = true;
+    ws.onopen = () => {
+      this.ws = ws;
+      ws.send(
+        JSON.stringify({
+          type: "join_room",
+          roomId: this.roomId,
+        })
+      );
+      this.ws.onmessage = this.handleSocketMessage;
+    };
+  }
+
+  private sendShape(shape: Shape) {
+    if (!this.isSharingOn || !this.ws) return;
+    this.ws.send(
+      JSON.stringify({
+        type: "chat",
+        roomId: this.roomId,
+        message: JSON.stringify(shape),
+      })
+    );
+  }
+
+  private handleSocketMessage = (msg: MessageEvent) => {
+    const data = JSON.parse(msg.data);
+    if (data.type === "chat") {
+      const shape: Shape = JSON.parse(data.message);
+      this.shapes.push(shape);
+      this.clearCanvas();
+      this.drawAllShapes();
+    }
+  };
 }
