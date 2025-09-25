@@ -369,7 +369,7 @@ export function Canvas({ canvasRef }: Props) {
                     link
                   </label>
                   <div className="flex items-center gap-2">
-                    <div className="border border-[#E3E3E8]/50 bg-[#A8A5FF]/10 text-[#E3E3E8] rounded-lg p-3 w-full text-sm">
+                    <div className="flex-1 border border-[#E3E3E8]/50 bg-[#A8A5FF]/10 text-[#E3E3E8] rounded-lg p-3 w-full text-sm">
                       {window.location.href}
                     </div>
                     <button
@@ -379,7 +379,7 @@ export function Canvas({ canvasRef }: Props) {
                         ),
                         alert("Link Copied")
                       )}
-                      className="w-full text-sm flex items-center justify-center gap-2 bg-[#A8A5FF] text-[#121212] rounded-lg p-3 font-semibold cursor-pointer"
+                      className="text-sm flex items-center justify-center gap-2 bg-[#A8A5FF] text-[#121212] rounded-lg p-3 font-semibold cursor-pointer"
                     >
                       <CopyIcon size={18} />
                       Copy link
