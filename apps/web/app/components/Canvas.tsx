@@ -22,7 +22,7 @@ import Image from "next/image";
 
 interface Props {
   canvasRef: React.RefObject<HTMLCanvasElement>;
-  roomId: string;
+  roomId?: string;
 }
 
 const DRAW_TOOLS = [
@@ -125,6 +125,13 @@ export function Canvas({ canvasRef }: Props) {
         Canvas.changeColor(strokeColor);
         Canvas.changeStrokeWidth(strokeWidth);
         canvas.current = Canvas;
+        console.log("Canvas initialized");
+        const roomId = new URLSearchParams(window.location.search).get(
+          "roomId"
+        );
+        if (roomId) {
+          canvas.current?.startSession(roomId);
+        }
       }
     }
   }, [canvasRef]);
@@ -138,8 +145,12 @@ export function Canvas({ canvasRef }: Props) {
   }
 
   function handleStartSession() {
-    canvas.current?.startSession();
-    setShareModel(true);
+    setStartSharing(true);
+    const currentURI: string = window.location.pathname;
+    const roomID = "room_" + Date.now().toString(36);
+    const newURI = `${currentURI}?roomId=${roomID}`;
+    window.history.replaceState(null, "", newURI);
+    canvas.current?.startSession(roomID);
   }
 
   return (
@@ -270,7 +281,7 @@ export function Canvas({ canvasRef }: Props) {
 
       {/* Share Button */}
       <button
-        onClick={handleStartSession}
+        onClick={() => setShareModel(true)}
         className="absolute top-4 right-3 bg-[#A8A5FF] text-[#121212] text-xs p-2.5 rounded-lg cursor-pointer hidden sm:block"
       >
         Share
@@ -303,7 +314,7 @@ export function Canvas({ canvasRef }: Props) {
                 </p>
                 <div className="flex w-full items-center justify-center">
                   <button
-                    onClick={() => setStartSharing(true)}
+                    onClick={handleStartSession}
                     className="bg-[#A8A5FF] text-[#121212] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <PlayIcon size={18} />

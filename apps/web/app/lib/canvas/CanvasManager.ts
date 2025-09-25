@@ -4,12 +4,13 @@ import { Shape, strokePoints } from "./Types";
 export class CanvasManager {
   private ctx: CanvasRenderingContext2D;
   private canvas: HTMLCanvasElement;
-  private ws: WebSocket;
+  private ws: WebSocket | null = null;
   private isSharingOn: boolean;
   private shapes: Shape[] = [];
   private selectedTool: string = "cursor";
   private currentColor: string = "white";
   private isDrawing = false;
+  private roomId: string = "room_123";
   private startX = 0;
   private startY = 0;
   private width = 0;
@@ -476,7 +477,8 @@ export class CanvasManager {
 
   // webSocket Handling
 
-  startSession() {
+  startSession(roomID: string) {
+    this.roomId = roomID;
     const ws = new WebSocket(WS_BACKEND);
     this.isSharingOn = true;
     ws.onopen = () => {
