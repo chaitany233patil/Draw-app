@@ -16,8 +16,9 @@ import {
   Square,
   Undo2,
   Redo2,
+  Check,
 } from "lucide-react";
-import { Tool } from "./Tool";
+import { Tool } from "./ui/Tool";
 import Image from "next/image";
 
 interface Props {
@@ -68,6 +69,7 @@ export function Canvas({ canvasRef }: Props) {
   const [shareModel, setShareModel] = useState(false);
   const [startSharing, setStartSharing] = useState(false);
   const [username, setUsername] = useState(DEFAULT_USERNAME);
+  const [isCopy, setIsCopy] = useState(false);
 
   // useEffect(() => {
   //   const roomExist = async () => {
@@ -161,7 +163,7 @@ export function Canvas({ canvasRef }: Props) {
         height={1800}
         width={2400}
         onClick={() => setSettingModel(false)}
-      />
+      ></canvas>
 
       {/* Drawing Tools */}
       <div className="absolute top-4 flex w-full ">
@@ -377,17 +379,17 @@ export function Canvas({ canvasRef }: Props) {
                         await navigator.clipboard.writeText(
                           window.location.href
                         ),
-                        alert("Link Copied")
+                        setIsCopy(true)
                       )}
-                      className="text-sm flex items-center justify-center gap-2 bg-[#A8A5FF] text-[#121212] rounded-lg p-3 font-semibold cursor-pointer"
+                      className={`${isCopy ? "bg-[#c0fecb] ring-2 ring-green-900" : "bg-[#A8A5FF]"} text-sm flex items-center justify-center gap-2 text-[#121212] rounded-lg p-3 font-semibold cursor-pointer transition-all duration-300`}
                     >
-                      <CopyIcon size={18} />
+                      {isCopy ? <Check size={18} /> : <CopyIcon size={18} />}
                       Copy link
                     </button>
                   </div>
                   <div className="relative border-t border-gray-500 mt-10 flex items-center justify-center"></div>
 
-                  <button className="border-1 border-[#ffa8a5] max-w-[170px] text-[#ffa8a5] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2 mx-auto mt-7">
+                  <button className="border-1 border-[#ffa8a5] hover:border-red-500 hover:text-red-500 max-w-[170px] text-[#ffa8a5] py-4 px-6 rounded-lg text-sm flex items-center justify-center gap-2 mx-auto mt-7 cursor-pointer">
                     <Square size={18} fill="#ffa8a5" />
                     Stop session
                   </button>

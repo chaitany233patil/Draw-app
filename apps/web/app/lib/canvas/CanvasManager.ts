@@ -40,6 +40,12 @@ export class CanvasManager {
   private panStartX: number = 0;
   private panStartY: number = 0;
 
+  //live cursors
+  private remoteCursors: Map<
+    string,
+    { x: number; y: number; username: string }
+  > = new Map();
+
   //Contructor
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -153,6 +159,18 @@ export class CanvasManager {
       input.style.left = `${this.startX}px`;
       input.style.top = `${this.startY - 12}px`;
 
+      input.addEventListener("input", () => {
+        const shape: Shape = {
+          type: "text",
+          startX: this.textStartX,
+          startY: this.textStartY,
+          color: this.currentColor,
+          text: input.value,
+        };
+
+        this.sendShape(shape);
+      });
+
       document.body.appendChild(input);
       setTimeout(() => {
         input.focus();
@@ -214,7 +232,6 @@ export class CanvasManager {
       };
       this.currentStrokePoints = [];
       this.shapes.push(shape);
-      console.log("Shape drawn:", this.isSharingOn);
       this.sendShape(shape);
     }
 
@@ -282,6 +299,15 @@ export class CanvasManager {
       this.ctx.stroke();
 
       this.currentStrokePoints.push({ x: canvasX, y: canvasY });
+      const shape: Shape = {
+        type: "pen",
+        points: this.currentStrokePoints,
+        linewidth: 1,
+        color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
+      };
+      this.Drawing(shape);
     }
 
     if (this.selectedTool == "rect") {
@@ -298,6 +324,17 @@ export class CanvasManager {
       this.ctx.lineWidth = this.currentStrokeWidth;
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.strokeRect(this.startX, this.startY, this.width, this.height);
+      const shape: Shape = {
+        type: "rect",
+        startX: this.startX,
+        startY: this.startY,
+        width: this.width,
+        height: this.height,
+        color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
+      };
+      this.Drawing(shape);
     }
 
     if (this.selectedTool == "line") {
@@ -312,6 +349,17 @@ export class CanvasManager {
       this.ctx.moveTo(this.startX, this.startY);
       this.ctx.lineTo(this.width, this.height);
       this.ctx.stroke();
+      const shape: Shape = {
+        type: "line",
+        startX: this.startX,
+        startY: this.startY,
+        width: this.width,
+        height: this.height,
+        color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
+      };
+      this.Drawing(shape);
     }
 
     if (this.selectedTool == "circle") {
@@ -339,6 +387,16 @@ export class CanvasManager {
       this.ctx.strokeStyle = this.currentColor;
       this.ctx.arc(this.centerX, this.centerY, this.radius, 0, 2 * Math.PI);
       this.ctx.stroke();
+      const shape: Shape = {
+        type: "circle",
+        centerX: this.centerX,
+        centerY: this.centerY,
+        radius: this.radius,
+        color: this.currentColor,
+        lineWidth: this.currentStrokeWidth,
+        lineStyle: this.currentStrokeStyle,
+      };
+      this.Drawing(shape);
     }
   };
 
@@ -512,5 +570,99 @@ export class CanvasManager {
       this.clearCanvas();
       this.drawAllShapes();
     }
+
+    if (data.type === "drawing") {
+      const shape: Shape = JSON.parse(data.message);
+      this.clearCanvas();
+      this.drawAllShapes();
+      this.liveDraw(shape);
+      // if (shape.type == "rect") {
+      //   this.ctx.setLineDash(shape.lineStyle);
+      //   this.ctx.strokeStyle = shape.color;
+      //   this.ctx.lineWidth = shape.lineWidth;
+      //   this.ctx.strokeRect(
+      //     shape.startX,
+      //     shape.startY,
+      //     shape.width,
+      //     shape.height
+      //   );
+      // }
+    }
   };
+
+  // Remote Cursors
+  private drawRemoteCursors() {
+    // for (const [username, pos] of this.remoteCursors) {
+    this.ctx.fillStyle = "yellow";
+    this.ctx.beginPath();
+    this.ctx.arc(180, 180, 4, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    // Username label
+    this.ctx.font = "12px sans-serif";
+    this.ctx.fillStyle = "white";
+    this.ctx.fillText("username", 180 + 8, 180 - 8);
+    // }
+  }
+
+  private Drawing(shape: Shape) {
+    if (!this.isSharingOn || !this.ws) return;
+    this.ws.send(
+      JSON.stringify({
+        type: "drawing",
+        roomId: this.roomId,
+        message: JSON.stringify(shape),
+      })
+    );
+  }
+
+  private liveDraw(shape: Shape) {
+    if (shape.type == "pen") {
+      this.ctx.strokeStyle = shape.color;
+      this.ctx.lineWidth = shape.lineWidth;
+      this.ctx.setLineDash(shape.lineStyle);
+      this.ctx.lineCap = "round";
+      this.ctx.beginPath();
+      const points = shape.points;
+      points.forEach((point) => this.ctx.lineTo(point.x, point.y));
+      this.ctx.stroke();
+    }
+
+    if (shape.type == "rect") {
+      this.ctx.setLineDash(shape.lineStyle);
+      this.ctx.strokeStyle = shape.color;
+      this.ctx.lineWidth = shape.lineWidth;
+      this.ctx.strokeRect(
+        shape.startX,
+        shape.startY,
+        shape.width,
+        shape.height
+      );
+    }
+
+    if (shape.type == "text") {
+      this.ctx.fillStyle = shape.color;
+      this.ctx.font = "22px Arial";
+      this.ctx.fillText(shape.text, shape.startX, shape.startY);
+    }
+
+    if (shape.type == "line") {
+      this.ctx.beginPath();
+      this.ctx.setLineDash(shape.lineStyle);
+      this.ctx.strokeStyle = shape.color;
+      this.ctx.lineWidth = shape.lineWidth;
+      this.ctx.moveTo(shape.startX, shape.startY);
+      this.ctx.lineTo(shape.width, shape.height);
+      this.ctx.stroke();
+    }
+
+    if (shape.type == "circle") {
+      this.ctx.beginPath();
+      this.ctx.setLineDash(shape.lineStyle);
+      this.ctx.lineWidth = shape.lineWidth;
+      this.ctx.strokeStyle = shape.color;
+      this.ctx.arc(shape.centerX, shape.centerY, shape.radius, 0, 2 * Math.PI);
+      this.ctx.stroke();
+    }
+  }
 }

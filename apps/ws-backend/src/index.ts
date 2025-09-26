@@ -36,8 +36,21 @@ wss.on("connection", (socket, req) => {
           socket.send(
             JSON.stringify({
               message: "room Join",
-            }),
+            })
           );
+        }
+
+        if (parseData.type == "drawing") {
+          users.forEach((x) => {
+            if (x.roomId.includes(parseData.roomId) && x.ws != socket) {
+              x.ws.send(
+                JSON.stringify({
+                  type: "drawing",
+                  message: parseData.message,
+                })
+              );
+            }
+          });
         }
 
         if (parseData.type == "chat") {
@@ -47,7 +60,7 @@ wss.on("connection", (socket, req) => {
                 JSON.stringify({
                   type: "chat",
                   message: parseData.message,
-                }),
+                })
               );
             }
           });
@@ -62,7 +75,7 @@ wss.on("connection", (socket, req) => {
 
         if (parseData.type == "leave_room") {
           const user = users.find(
-            (x) => x.userId == (decoded as JwtPayload).userid,
+            (x) => x.userId == (decoded as JwtPayload).userid
           );
           if (user) {
             user.roomId = user.roomId.filter((x) => x != parseData.roomId);
